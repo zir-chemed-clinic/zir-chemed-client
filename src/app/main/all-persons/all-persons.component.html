@@ -1,0 +1,314 @@
+<div style="padding-top: 90px">
+<form [formGroup]="personsform" >
+<div class="input" style="direction: rtl;">
+    <h1 style=" text-align: center;">זוגות</h1>
+  
+<button mat-fab style="background-color:rgb(0, 0, 0);color: white " value="להוספת זוג" aria-label="להוספת זוג" (click)="newPerson()">
+    <mat-icon>playlist_add</mat-icon>
+  </button>
+</div>
+  <!-- <div className="table-responsive" id="sailorTableArea">
+      <table id="sailorTable" class="table table-striped table-bordered" >
+    <thead>
+      <tr >
+        <th class="td" >שם הבעל  </th>
+        <th class="td" >שם האשה</th>
+        <th class="td" >שם משפחה</th>
+        <th  class="td">תעודת זהות הבעל</th>
+        <th  class="td">תעודת זהות האשה</th> -->
+
+
+        <!-- <th  class="td">תאריך לידה בעל    </th>
+        <th  class="td">תאריך לידה אשה </th> -->
+        <!-- <th  class="td">דוא"ל בעל </th>
+        <th  class="td">דוא"ל אשה </th>
+        <th  class="td">פאלפון האשה </th>
+        <th class="td">פאלפון בעל </th> -->
+
+
+        <!-- <th class="td">עיר </th> -->
+
+
+        <!-- <th class="td"> כתובת </th> -->
+        <!-- <th class="td"> תאריך נישואין</th> -->
+
+        <!-- <th class="td"> מספר ילדים </th>
+        <th  class="td"> מעונינים להצטרף למאגר </th>
+        <th class="td"></th>
+      </tr>
+         
+    <tr>
+      
+      <th>
+        <mat-form-field  >
+          <mat-label>הקלד שם הבעל</mat-label>
+          <input matInput  #input  formControlName="manName"(input)="searchBymanName()">
+        </mat-form-field>
+      </th>
+            <th>
+              <mat-form-field  >
+                <mat-label>הקלד שם האישה</mat-label>
+                <input matInput  #input   formControlName="womanName" (input)="searchBywomanName()">
+              </mat-form-field>
+            </th>
+            <th>
+              <mat-form-field  >
+                  <mat-label>הקלד שם משפחה</mat-label>
+                  <input matInput  #input   formControlName="familyName" (input)="searchByfamilyName()">
+                </mat-form-field>
+              </th>
+  
+    
+        <th>
+            <mat-form-field  >
+                <mat-label>הקלד מספר זהות של הבעל</mat-label>
+                <input matInput  #input   formControlName="manId" (input)="searchBymanId()">
+              </mat-form-field>
+        </th>
+        <th>
+            <mat-form-field  >
+                <mat-label>הקלד מספר זהות של האשה</mat-label>
+                <input matInput  #input   formControlName="womanId"(input)="searchBywomanId()">
+              </mat-form-field>
+        </th>
+        <th></th> -->
+        <!-- <th></th>
+        <th></th>
+        <th></th>
+        <th></th> -->
+
+
+        <!-- <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+
+   
+   </tr>
+    </thead>
+<tbody> -->
+
+
+
+<!-- 
+    <tr  style="cursor: pointer;" *ngFor="let element of allPersonsToDisplay" >
+      <th class="td" >
+       {{element.manName}}
+      </th>
+      <th class="td" >
+       {{element.womanName}} 
+      </th>
+      <th class="td" > 
+          
+       {{element.familyName}}
+      </th>
+      <th class="td" > 
+        {{element.manId}}
+       </th>
+       <th class="td" > 
+        {{element.womanId}}
+       </th>
+       <th class="td" > 
+        {{element.manDateBirth}}
+       </th>
+       <th class="td" > 
+        {{element.womanDateBirth}}
+       </th> -->
+
+
+       <!-- <th class="td" > 
+            {{element.manEmail}}
+        </th>
+         <th class="td" > 
+            {{element.womanEmail}}
+         </th>
+      <th class="td" > 
+        {{element.manPhone}}
+       </th>
+       <th class="td" > 
+        {{element.womanPhone}}
+       </th> -->
+
+
+       <!-- <th class="td" > 
+        {{element.city}}
+       </th>
+       <th class="td" > 
+        {{element.addres}}
+       </th>
+       <th class="td" > 
+        {{element.dateMarriage}}
+       </th>
+       <th class="td" > 
+        {{element.numberChildren}}
+       </th>
+      
+       <th *ngIf="element.register">
+          V
+
+       </th>
+       <th class="td" > 
+            <button mat-raised-button color="primary"  (click)="edit(element)">ערוך</button>
+       </th>
+     </tr>
+    </tbody>
+  </table> -->
+
+
+
+
+  <div className="table-responsive" id="sailorTableArea">
+    <table id="sailorTable" class="table table-striped table-bordered" >
+      <thead>
+        <tr >
+          <!-- <th  > מאגר חברתי</th>
+          <th  > מאגר אחים לתפילה</th>
+          <th  >עיר </th>
+          <th  > מספר ילדים </th> -->
+          <th  > תעודת זהות האשה</th>
+          <th  >תעודת זהות הבעל </th>
+          <th  >מספר טלפון האשה</th>
+          <th  >מספר טלפון הבעל </th>
+          <th  >שם האשה</th>
+          <th  >שם הבעל </th>
+          <th  >שם משפחה </th>
+          <th  > </th>
+        </tr>
+        <tr>
+         
+      
+             
+       
+      
+            <!-- <th>
+            
+               
+          </th>
+          <th>
+            
+          </th>
+          <th>
+           
+          </th>
+          <th>
+             
+          </th>
+                -->
+          <th>
+            <mat-form-field  floatLabel="never">
+              <mat-label> מספר זהות של האשה</mat-label>
+              <input matInput  #input   formControlName="womanId"(input)="searchByAll()">
+            </mat-form-field>
+  </th>
+          <th>
+            <mat-form-field  floatLabel="never">
+              <mat-label> מספר זהות של הבעל</mat-label>
+              <input matInput  #input   formControlName="manId" (input)="searchByAll()">
+            </mat-form-field>
+            </th>
+            <th>
+              <mat-form-field    [floatLabel]="'never'">
+                <mat-label> מספר טלפון האשה</mat-label>
+                <input matInput  #input   formControlName="womanPhone" (input)="searchByAll()">
+              </mat-form-field>
+            </th>
+            <th>
+              <mat-form-field    [floatLabel]="'never'">
+                <mat-label> מספר טלפון הבעל</mat-label>
+                <input matInput  #input   formControlName="manPhone" (input)="searchByAll()">
+              </mat-form-field>
+            </th>
+          <th>
+            <mat-form-field    [floatLabel]="'never'">
+              <mat-label> שם האישה</mat-label>
+              <input matInput  #input   formControlName="womanName" (input)="searchByAll()">
+            </mat-form-field>
+          </th>
+          <th>
+            <mat-form-field   floatPlaceholder="never" >
+              <mat-label> שם הבעל</mat-label>
+              <input matInput  #input  formControlName="manName"(input)="searchByAll()">
+            </mat-form-field>
+        </th>
+          <th>
+            <mat-form-field  floatLabel="never" >
+              <mat-label> שם משפחה</mat-label>
+              <input matInput  #input   formControlName="familyName" (input)="searchByAll()">
+            </mat-form-field>
+          </th>
+          <th></th>
+        </tr>
+       
+      </thead>
+      <tbody>
+    
+    
+      <tr  style="cursor: pointer;"  *ngFor="let element of allPersonsToDisplay" >
+       
+      
+     
+      
+          
+   
+       
+      
+       
+         <!-- <th class="td" *ngIf="element.register"> 
+          <b > √</b>
+           </th>
+           <th class="td" *ngIf="!element.register"> 
+           
+            </th>
+            <th class="td" *ngIf="element.brothersToTfila"> 
+             <b> √</b>
+              </th>
+              <th class="td" *ngIf="!element.brothersToTfila"> 
+              
+               </th>
+               <th class="td" > 
+                {{element.city}}
+               </th>
+               <th class="td" > 
+                {{element.numberChildren}}
+               </th> -->
+               <th class="td" > 
+                {{element.womanId}}
+              </th>
+               <th class="td"  > 
+                {{element.manId}}
+               </th>
+               <th class="td"  > 
+                {{element.womanPhone}}
+               </th>
+               <th class="td"  > 
+                {{element.manPhone}}
+               </th>
+              
+               <th class="td" >
+                {{element.womanName}} 
+              </th>
+               <th class="td" >
+                {{element.manName}}
+              </th>
+               <th class="td" > 
+                {{element.familyName}}
+                 </th>
+         <th class="td" > 
+          <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="edit(element)">ערוך</button>
+     </th>
+       </tr>
+      </tbody>
+    </table>
+    
+    </div>
+
+
+
+</form>
+<div *ngIf="director" style="text-align: center;margin-top: 5px" >
+<button  mat-raised-button style="background-color:rgb(0, 0, 0);color: white;" (click)="createExelFile()">הורדה לקובץ</button>
+</div>
+<!-- <button style="background-color:rgb(0, 0, 0);color: white " (click)="createExelFile()"></button> -->
+</div>

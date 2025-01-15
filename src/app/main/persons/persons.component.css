@@ -1,0 +1,87 @@
+ .input{
+    padding: 15px; 
+}
+.nav{
+    padding: 20px; 
+}
+.div{
+    align-content: center;
+    width:80%;
+    margin: auto;
+  }
+  .disable-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    opacity: 0.8;
+    z-index: 998;
+    height: 100%;
+    width: 100%;
+  }
+  .center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+   */
+   #sailorTableArea{
+    max-height: 500px;
+   
+    /* overflow-y: auto; */
+  }
+  #sailorTable{
+    white-space: normal;
+    overflow-x: auto;
+  }
+  tbody {
+    display:block;
+    height:200px;
+    overflow:auto;
+  }
+  thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+    border: 3px
+  }
+  #sailorTable{
+    margin-top: 5%;
+    border: 3px
+  }
+  .disable-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    opacity: 0.8;
+    z-index: 998;
+    height: 100%;
+    width: 100%;
+  }
+  .center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+  
+  .cen{
+    align-content: center;
+    width:80%;
+    margin: auto;
+   }
+   .div{
+    align-content: center;
+    width:80%;
+    margin: auto;
+    direction: rtl;
+
+  }
+  button {
+    background-color:rgb(75, 3, 6);
+    color: white 
+  }
+  button:disabled{
+    background-color: #cccccc;
+    color: #000000;
+  }

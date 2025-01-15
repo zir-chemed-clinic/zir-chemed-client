@@ -1,0 +1,43 @@
+<div style="padding-top: 103px">
+<div  class="disable-background" *ngIf="toggleLayer">
+    <mat-spinner class="center"></mat-spinner>
+</div>
+<div class="cen">
+    <mat-toolbar class="nav" style="background: rgba(0, 0, 0);  height:50px ; direction: rtl; " >
+        <div style="text-align: center;  color: white;font-size: 18px ">
+         <h1 style=" text-align: center;" >משתמש</h1>
+       </div>
+       </mat-toolbar>
+<form [formGroup]="userform" >
+    <div class="div">
+        <div class="container">
+            <div class="row">
+              <div class="col-4"> <mat-form-field  class="input">
+                  <mat-label>שם משתמש</mat-label>
+                  <input matInput #input formControlName="userName">
+           </mat-form-field></div>
+              <div class="col-4"> <mat-form-field  class="input">
+                  <mat-label>סיסמה</mat-label>
+                  <input matInput #input  formControlName="userPassword">
+          </mat-form-field></div>
+            
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="director"  class="input">הרשאת מנהל</mat-checkbox>
+                </div>
+                <div class="col-3">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="user"  class="input">הרשאת עובד</mat-checkbox>
+                  </div>
+               </div>
+              
+          </div>
+     
+      
+           <div style="padding: 20px;">
+          <button mat-raised-button  (click)="saveUaer()" [disabled]="!userform.valid"> שמירה</button>
+        </div>
+            </div>
+        </form>
+      </div>
+    </div>

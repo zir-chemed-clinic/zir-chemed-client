@@ -1,0 +1,150 @@
+<div *ngIf="!flagInDialog" style="padding-top: 103px">
+</div>
+<div  class="disable-background" *ngIf="toggleLayer">
+    <mat-spinner class="center"></mat-spinner>
+</div>
+<div class="cen">
+<mat-toolbar class="nav" style="background: rgba(0, 0, 0);  height:50px ; direction: rtl; " >
+ <div style="text-align: center;  color: white;font-size: 18px ">
+  <h1 >זוג</h1>
+</div>
+</mat-toolbar>
+<form [formGroup]="personsform" (ngSubmit)="savePersons()" >
+<div class="div">
+ 
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <mat-form-field class="input" >
+        <mat-label>* שם הבעל</mat-label>
+        <input matInput  formControlName="manName">
+      </mat-form-field>
+    </div>
+    <div class="col-4">  <mat-form-field  class="input">
+      <mat-label>* שם האשה</mat-label>
+      <input matInput  formControlName="womanName">
+    </mat-form-field>
+  </div>
+    <div class="col-4">  <mat-form-field class="input">
+      <mat-label>* שם משפחה</mat-label>
+      <input matInput formControlName="familyName">
+    </mat-form-field></div>
+  </div>
+
+  <div class="row">
+    <div class="col-3"> <mat-form-field class="input">
+      <mat-label>* תעודת זהות בעל</mat-label>
+      <input matInput  formControlName="manId">
+    </mat-form-field></div>
+    <div class="col-3">  <mat-form-field class="input">
+      <mat-label>* תעודת זהות אשה</mat-label>
+      <input matInput formControlName="womanId">
+    </mat-form-field></div>
+    <div class="col-3" > <mat-form-field >
+      <mat-label>תאריך לידה בעל</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="manDateBirth">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 color="primary"></mat-datepicker>
+    </mat-form-field></div>
+    <div class="col-3"><mat-form-field>
+      <mat-label>תאריך לידה אישה</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="womanDateBirth">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field></div>
+  </div>
+<!-- <div>
+  <mat-form-field>
+    <mat-label>Inherited calendar color</mat-label>
+    <input matInput [matDatepicker]="picker1" formControlName="dateMarriage">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+  </div> -->
+  <!-- <div>
+  <mat-form-field >
+    <mat-label>Custom calendar color</mat-label>
+    <input matInput [matDatepicker]="picker2" formControlName="manDateBirth">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2 color="primary"></mat-datepicker>
+  </mat-form-field>
+</div> -->
+  <div class="row">
+    <div class="col-3"> <mat-form-field class="input">
+      <mat-label>* פאלפון בעל</mat-label>
+      <input matInput  formControlName="manPhone">
+    </mat-form-field></div>
+    <div class="col-3"> <mat-form-field  class="input">
+      <mat-label>פאלפון אשה</mat-label>
+      <input matInput  formControlName="womanPhone">
+    </mat-form-field></div>
+    <div class="col-3"><mat-form-field class="input">
+      <mat-label>דוא"ל בעל</mat-label>
+      <input matInput placeholder="pat@example.com" formControlName="manEmail" >
+      <!-- <mat-error *ngIf="email.invalid">{{getErrorMessageMan()}}</mat-error> -->
+    </mat-form-field></div>
+    <div class="col-3"> <mat-form-field class="input">
+      <mat-label>דוא"ל אשה</mat-label>
+      <input matInput placeholder="pat@example.com" formControlName="womanEmail" >
+      <!-- <mat-error *ngIf="email.invalid">{{getErrorMessagewoman()}}</mat-error> -->
+    </mat-form-field></div>
+  </div>
+
+  <div class="row">
+    <div class="col-3"> <mat-form-field  class="input">
+      <mat-label>עיר</mat-label>
+      <input matInput  formControlName="city">
+    </mat-form-field></div>
+    <div class="col-3"> <mat-form-field  class="input">
+      <mat-label>כתובת</mat-label>
+      <input matInput  formControlName="addres">
+    </mat-form-field></div>
+    <div class="col-3"> <mat-form-field>
+      <mat-label>תאריך חתונה</mat-label>
+      <input matInput [matDatepicker]="picker3" formControlName="dateMarriage">
+      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+      <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field></div>
+    <div class="col-3">  <mat-form-field class="input">
+      <mat-label>מספר ילדים</mat-label>
+      <input matInput #input  formControlName="numberChildren">
+    </mat-form-field></div>
+  </div>
+
+  <div class="row">
+    <div class="col-3"> <mat-form-field  class="input">
+      <mat-label>שם אב הבעל</mat-label>
+      <input matInput  formControlName="manFathersName">
+    </mat-form-field></div>
+    <div class="col-3"><mat-form-field  class="input">
+      <mat-label>שם אב האשה</mat-label>
+      <input matInput  formControlName="womanFathersName">
+    </mat-form-field></div>
+    <div class="col-3">  <mat-checkbox class="example-margin input" color="primary" formControlName="register"  >מעוניין להצטרף למאגר החברתי</mat-checkbox></div>
+    <div class="col-3">  <mat-checkbox class="example-margin input" color="primary" formControlName="brothersToTfila"  >מעוניין להצטרף למאגר אחים לתפילה</mat-checkbox>
+    </div>
+  </div>
+</div>
+   
+       
+      <button mat-raised-button  type="submit" [disabled]="!personsform.valid"  > שמירה</button>
+  
+  
+  
+    </div>
+</form>
+</div>
+<p-dialog  [(visible)]="displayDeleteDialog" [modal]="true" [style]="{width: '40vw',height:'50hw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <div  style="text-align: center;">
+      <h1 *ngIf="displayDeleteDialog">{{textToDialog}} </h1>
+
+        </div>
+     
+        <p-footer >
+            <button  type="button" pButton icon="pi pi-check" style="background-color:rgb(75, 3, 6);color: white" (click)="displayDeleteDialog=false" label="ביטול" class="ui-button-secondary"></button>
+            <button  type="button" pButton icon="pi pi-times"  style="background-color:rgb(75, 3, 6);color: white " (click)="finishSavePerson()" label="צור זוג"></button>
+            
+        </p-footer>
+    
+</p-dialog>

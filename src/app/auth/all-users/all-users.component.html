@@ -1,0 +1,49 @@
+<div style="padding-top: 90px">
+<div class="input" style="direction: rtl">
+<button mat-fab style="background-color:rgb(0, 0, 0);color: white "  value="להוספת משתמש" aria-label="להוספת משתמש" (click)="newUser()">
+  <mat-icon>playlist_add</mat-icon>
+</button>
+</div>
+<div class="input">
+    <!-- <button  mat-fab color="primary" value="להוספת טפול" aria-label="להוספת טיפול" (click)="newTreatment()">
+        <mat-icon>playlist_add</mat-icon>
+      </button> -->
+    </div>
+      <div class="div">
+      <table class="m-table" >
+        <thead>
+          <tr >
+            <th class="td" >שם משתמש</th>
+            <th class="td" >סיסמה </th>
+            <th class="td" >הרשאה </th>
+            <th></th>
+            <th></th>
+          </tr>
+             
+        </thead>
+    
+        <tr  style="cursor: pointer;" *ngFor="let element of allUsers" >
+          
+           <th class="td" > 
+            {{element.userName}}
+           </th>
+           <th class="td" > 
+            {{element.userPassword}}
+           </th>
+           <th class="td" *ngIf="element.userPermission==1"> 
+           מנהל
+           </th>
+           <th class="td" *ngIf="element.userPermission==2"> 
+           עובד
+            </th>
+           <th class="td" > 
+                <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="edit(element)">ערוך</button>
+           </th>
+           <th class="td" *ngIf="element.userPermission!=1" > 
+            <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="delete(element)">מחק</button>
+       </th>
+           
+         </tr>
+      </table>
+    </div>
+</div>

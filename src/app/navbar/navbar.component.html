@@ -1,0 +1,37 @@
+
+<mat-toolbar class="nav" >
+
+    <!-- <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="bold" (click)="toClinicVisits()">תורים</mat-button-toggle>
+        <mat-button-toggle value="italic" (click)="toPrsonse()">זוגות</mat-button-toggle>
+        <mat-button-toggle value="underline"(click)="toEmploees()">עובדים</mat-button-toggle>
+        <mat-button-toggle value="underline"(click)="toTreatments()">הגדרות טיפולים</mat-button-toggle>
+      </mat-button-toggle-group> -->
+     
+     <img src="../../assets/zirchemed_logo.png" style="widows: 50px;height:55px;align-content: center "/>
+     
+      <div class="center" style="direction: rtl; ">
+          <a (click)="toClinicVisits()" class="navbar text" *ngIf="employee"> תורים פתוחים</a>
+          <a (click)="toHistoryClinicVisits()" class="navbar text" *ngIf="employee" >הסטורית תורים</a>
+          <a (click)="toPrsonse()" class="navbar text" *ngIf="employee">זוגות</a>
+          <a (click)="toEmploees()" class="navbar text" *ngIf="director">עובדים</a>
+          <a (click)="toTreatments()" class="navbar text" *ngIf="director">הגדרות טיפולים</a>
+          <a (click)="toUsers()" class="navbar text" *ngIf="director">ניהול משתמשים</a>
+          <a (click)="toSummary()" class="navbar text" *ngIf="director">מסך סיכום</a>
+          <a (click)="toDirector()" class="navbar text" style="color:rgb(0, 0, 0)" >כניסת מנהל</a>
+          <a (click)="toEmployee()" class="navbar text" style="color:rgb(0, 0, 0)" >כניסת עובד</a>
+<!-- <a (click)="signOut()" > יציאה</a> -->
+<!-- <mat-icon  class="material-icons-outlined">יציאה</mat-icon> -->
+
+      </div>
+         
+      <div class="sign_out">
+        <img src="../../assets/exit.png" style="width: 30px;height:30px;align-content: center;direction: ltr " title="יציאה"  (click)="signOut()"/>
+        </div>
+      
+      <!-- <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="bold" (click)="toClinicVisits()">תורים</mat-button-toggle>
+        <mat-button-toggle value="italic" (click)="toClinicVisits()">תורים</mat-button-toggle>
+        <mat-button-toggle value="underline" (click)="toClinicVisits()">עובדים</mat-button-toggle>
+      </mat-button-toggle-group> -->
+  </mat-toolbar>

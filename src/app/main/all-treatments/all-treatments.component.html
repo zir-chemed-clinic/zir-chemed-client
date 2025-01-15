@@ -1,0 +1,33 @@
+<div style="padding-top: 110px">
+<!-- <div class="input"> -->
+<!-- <button  mat-fab color="primary" value="להוספת טפול" aria-label="להוספת טיפול" (click)="newTreatment()">
+    <mat-icon>playlist_add</mat-icon>
+  </button> -->
+<!-- </div> -->
+  <div class="div">
+  <table class="m-table" >
+    <thead>
+      <tr >
+        <th class="td" >  שם </th>
+        <th class="td" >עלות </th>
+    
+      </tr>
+         
+    </thead>
+
+    <tr  style="cursor: pointer;" *ngFor="let element of allTreatment" >
+      
+       <th class="td" > 
+        {{element.treatmentName}}
+       </th>
+       <th class="td" > 
+        {{element.treatmentCost}}
+       </th>
+       <th class="td" > 
+            <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "   (click)="edit(element)">ערוך</button>
+       </th>
+       
+     </tr>
+  </table>
+</div>
+</div>

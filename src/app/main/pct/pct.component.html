@@ -1,0 +1,171 @@
+<div>
+<div  class="disable-background" *ngIf="toggleLayer">
+    <mat-spinner class="center"></mat-spinner>
+</div>
+
+<h1 style=" text-align: center;">pct</h1>
+
+<div class="cdiv" *ngIf="!closed">
+<form [formGroup]="pctform" >
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                 פרטים אישיים
+              </mat-panel-title>
+              <mat-panel-description>
+                
+           
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+         
+        <mat-form-field class="input" >
+            <mat-label>שם הבעל</mat-label>
+            <input matInput #input formControlName="ManName">
+          </mat-form-field>
+          <mat-form-field class="input">
+              <mat-label>שם האשה</mat-label>
+              <input matInput #input formControlName="WomanName">
+            </mat-form-field>
+            <mat-form-field  class="input">
+              <mat-label>שם משפחה</mat-label>
+              <input matInput #input formControlName="FamilyName">
+            </mat-form-field>
+            <mat-form-field class="input">
+              <mat-label>תעודת זהות בעל</mat-label>
+              <input matInput #input formControlName="ManId">
+            </mat-form-field>
+            <mat-form-field  class="input">
+              <mat-label>תעודת זהות אשה</mat-label>
+              <input matInput #input formControlName="WomanId">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-label>פאלפון בעל</mat-label>
+                <input matInput #input formControlName="ManPhone">
+              </mat-form-field>
+              <mat-form-field class="input">
+                <mat-label>פאלפון אשה</mat-label>
+                <input matInput formControlName="WomanPhone">
+              </mat-form-field>
+             
+              <mat-form-field class="input">
+                <mat-label>גורם מפנה</mat-label>
+                <input matInput #input formControlName="DoctorTreatment">
+              </mat-form-field>
+            </mat-expansion-panel>
+              <!-- <mat-form-field appearance="fill">
+                <mat-label>לשלוח תוצאות ל</mat-label>
+                <input matInput placeholder="pat@example.com" formControlName="ManEmail" required> -->
+                <!-- <mat-error *ngIf="email.invalid">{{getErrorMessageMan()}}</mat-error> -->
+              <!-- </mat-form-field> -->
+              <!-- <mat-form-field appearance="fill">
+                <mat-label>תאריך</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="WomanDateBirth">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field> -->
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    תוצאות
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    
+               
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+              <mat-form-field class="input">
+                    <mat-label>MensesDay יום במחזור</mat-label>
+                    <input matInput #input formControlName="MensesDay">
+                  </mat-form-field>
+                  <mat-form-field  class="input">
+                        <mat-label>HoursPost</mat-label>
+                        <input matInput #input formControlName="HoursPost">
+                    </mat-form-field>
+                    <mat-form-field class="input">
+                            <mat-label>TotalSpermsHpf</mat-label>
+                            <input matInput #input formControlName="TotalSpermsHpf">
+                    </mat-form-field>
+                    <mat-form-field class="input">
+                            <mat-label>GoodMotileSperm</mat-label>
+                            <input matInput #input formControlName="GoodMotileSperm">
+                    </mat-form-field>
+                    <mat-form-field  class="input">
+                            <mat-label>אלסטיות</mat-label>
+                            <input matInput #input formControlName="Elasticity">
+                    </mat-form-field>
+                    <mat-form-field class="input">
+                            <mat-label>צלילות</mat-label>
+                            <input matInput #input  formControlName="Clarity">
+                    </mat-form-field>
+                    <mat-form-field class="input">
+                            <mat-label>כמות</mat-label>
+                            <input matInput #input formControlName="Amount">
+                    </mat-form-field>
+                    <mat-form-field  class="input">
+                            <mat-label>תאים</mat-label>
+                            <input matInput #input formControlName="Cellularity">
+                    </mat-form-field>
+                    <mat-form-field class="input">
+                            <mat-label>נוצתי</mat-label>
+                            <input matInput #input formControlName="Fernig">
+                    </mat-form-field>
+                    <mat-form-field class="input">
+                            <mat-label>הערות</mat-label>
+                            <input matInput #input formControlName="Comments">
+                    </mat-form-field>
+                  </mat-expansion-panel>
+                  </mat-accordion>
+                    <button [disabled]="!pctform.valid" mat-raised-button  (click)="savePct()" > שמירה</button>
+                    <button [disabled]="!pctform.valid" mat-raised-button  (click)="closeIUI('open')" > הנפק טופס - סיום</button>
+                  
+        </form>
+        
+    
+                  
+                </div>
+                <div class="cen" *ngIf='closed'>
+                    <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('open')" >צפה בטופס</button>
+                    <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('download')" >הורד טופס</button>
+                    <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('print')" >הדפס טופס</button>
+                    <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('send')" >שליחת הטופס במייל</button>
+                  </div>
+                  </div>
+
+                  <form [formGroup]="emailFrom" >
+
+                    <p-dialog  [(visible)]="displayResponsive"  [style]="{width: '40vw',height:'50hw'}" [baseZIndex]="10000" 
+                        [draggable]="false" [resizable]="false">
+                        <div *ngIf='sending' style="direction: rtl">
+                        <mat-form-field class="input" >
+                            <mat-label>כתובת הדוא"ל של הבעל</mat-label>
+                            <input matInput   formControlName="manEmail">
+                    </mat-form-field>
+                    <mat-form-field class="input" >
+                            <mat-label>כתובת הדוא"ל של האשה</mat-label>
+                            <input matInput   formControlName="womanEmail">
+                            
+                    </mat-form-field>
+                    <mat-form-field class="input" >
+                            <mat-label>כתובת דוא"ל נוספת</mat-label>
+                            <input matInput  formControlName="email">
+                    </mat-form-field>
+                    </div>
+                    <div  style="text-align: center;">
+                      <div *ngIf='waitingForSending' style="width:300px;height:300px">
+                        <mat-spinner ></mat-spinner>
+                        </div>
+                     <h1 *ngIf='sendSuccessfully'> נשלח בהצלחה</h1>
+                     <h3 *ngIf='sendFailed'>שליחת הטופס נכשלה וודא שהכתובת אליה בקשת לשלוח נכונה </h3>
+                
+                     
+                        </div>
+                          <div  *ngIf='sending'>
+                    
+                            <button  mat-raised-button  (click)="displayResponsive=false" > ביטול</button>
+                            <button [disabled]="!emailFrom.valid"   mat-raised-button   type="submit"  (click)="sendEmail()" > שלח</button>
+                            
+                    </div>
+                    
+                    </p-dialog>
+                    </form>

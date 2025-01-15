@@ -1,0 +1,49 @@
+#sailorTableArea{
+  max-height: 500px;
+ 
+  /* overflow-y: auto; */
+}
+#sailorTable{
+  white-space: normal;
+  overflow-x: auto;
+}
+tbody {
+  display:block;
+  height:200px;
+  overflow:auto;
+}
+thead, tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+  border: 3px;
+
+}
+#sailorTable{
+  margin-top: 2%;
+  border: 3px
+}
+.disable-background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  opacity: 0.8;
+  z-index: 998;
+  height: 100%;
+  width: 100%;
+}
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+.plus{
+  padding: 1px;  
+}
+
+
+
+
+
+  

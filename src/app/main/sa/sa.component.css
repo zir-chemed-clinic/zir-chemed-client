@@ -1,0 +1,35 @@
+.input{
+    padding: 5px; 
+}
+.cdiv{
+    align-content: center;
+    width:80%;
+    margin: auto;
+    direction: rtl
+  }
+  
+  .disable-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    opacity: 0.8;
+    z-index: 998;
+    height: 100%;
+    width: 100%;
+  }
+
+ .cen{
+  align-content: center;
+  width:80%;
+  margin: auto;
+  direction: rtl
+ }
+ button {
+  background-color:rgb(75, 3, 6);
+  color: white 
+}
+button:disabled{
+  background-color: #cccccc;
+  color: #000000;
+}

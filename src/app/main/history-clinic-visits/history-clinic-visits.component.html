@@ -1,0 +1,217 @@
+<!-- <div>
+    <mat-form-field  appearance="fill">
+        <mat-label>תעודת זהות אשה</mat-label>
+        <input matInput #input maxlength="10" placeholder="Ex. Nougat" [formGroup]="manId">
+        <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+      <button mat-button color="primary" onclick="SearchByMan()">חפש</button>
+      <mat-form-field  appearance="fill">
+        <mat-label>תעודת זהות בעל</mat-label>
+        <input matInput #input maxlength="10" placeholder="Ex. Nougat" [formGroup]="womanId">
+        <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+      <button mat-button color="primary" onclick="SearchByWoman()">חפש</button>
+</div> -->
+
+<div style="padding-top: 90px">
+    <form [formGroup]="summonsClinicVisitsform" >
+      <div  class="disable-background" *ngIf="toggleLayer">
+          <mat-spinner class="center"></mat-spinner>
+      </div>
+      <!-- <input type="time" id="appt" name="appt"  formControlName="time"> -->
+    <div>
+      <div class="plus" style="direction: rtl;">
+          <h1 style=" text-align: center;">הסטורית תורים</h1>
+        <button mat-fab style="background-color:rgb(0, 0, 0);color: white " aria-label="Example icon button with a delete icon" (click)="newSummonsClinicVisitsComponent()">
+            <mat-icon>playlist_add</mat-icon>
+          </button>
+        </div>
+      <!-- <mat-form-field appearance="fill">
+      <mat-label>מתאריך </mat-label>
+      <input matInput [matDatepicker]="pickerr"  formControlName="fromDate">
+      <mat-datepicker-toggle matSuffix [for]="pickerr"></mat-datepicker-toggle>
+      <mat-datepicker #pickerr></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>עד תאריך </mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="untilDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    
+      <button mat-raised-button style="background-color:rgb(0, 0, 0);color: white ">חפש</button>
+      <button mat-raised-button style="background-color:rgb(0, 0, 0);color: white ">נקה</button> -->
+    <!-- <table mat-table [dataSource]="clinicVisitsList" class="mat-elevation-z8">
+     
+      <ng-container matColumnDef="VisitsDate">
+        <th mat-header-cell *matHeaderCellDef> תאריך </th>
+        <td mat-cell *matCellDef="let element"> {{element.VisitsDate}} </td>
+      </ng-container>
+      <ng-container matColumnDef="TreatmentsId">
+        <th mat-header-cell *matHeaderCellDef> סוג טיפול  </th>
+        <td mat-cell *matCellDef="let element"> {{element.TreatmentsId}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="Preformed">
+        <th mat-header-cell *matHeaderCellDef> איש מעבדה </th>
+        <td mat-cell *matCellDef="let element"> {{element.Preformed}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="Doctor">
+        <th mat-header-cell *matHeaderCellDef> רופא </th>
+        <td mat-cell *matCellDef="let element"> {{element.Doctor}} </td>
+      </ng-container>
+      <ng-container matColumnDef="PaymentMethod">
+        <th mat-header-cell *matHeaderCellDef> אופן התשלום </th>
+        <td mat-cell *matCellDef="let element"> {{element.PaymentMethod}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Receipt">
+        <th mat-header-cell *matHeaderCellDef> מספר קבלה </th>
+        <td mat-cell *matCellDef="let element"> {{element.Receipt}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Amount">
+        <th mat-header-cell *matHeaderCellDef> סה"כ לתשלום </th>
+        <td mat-cell *matCellDef="let element"> {{element.Amount}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table> -->
+    <!-- <mat-form-field>
+      <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl"
+         [min]="minDate" [max]="maxDate" [disabled]="disabled">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+         [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
+         [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian" 
+         [disableMinute]="disableMinute" [hideTime]="hideTime">
+      </ngx-mat-datetime-picker>
+    </mat-form-field> -->
+    <div className="table-responsive" id="sailorTableArea">
+    <table id="sailorTable" class="table table-striped table-bordered" >
+      <thead>
+        <tr >
+          <th  >תאריך </th>
+          <th  >עובד מעבדה </th>
+          <th  >רופא </th>
+          <th  >סוג טיפול</th>
+          <th  > מספר טלפון האשה</th>
+          <th  >מספר טלפון הבעל</th>
+          <th  > שם האשה </th>
+          <th  >שם הבעל </th>
+          <th  > משפחה</th>
+          <th  > </th>
+        </tr>
+        <tr>
+          <th>
+            <!-- <mat-form-field>
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="ppp" (focus)="picker.open()" readonly>
+              </mat-form-field>
+              <mat-datepicker #ppp></mat-datepicker> -->
+        </th>
+     
+              <th>
+                <mat-form-field  >
+                  <mat-label>הקלד שם עובד מעבדה</mat-label>
+                  <input matInput  #input   formControlName="preformed" (input)="searchBypreformedName()">
+                </mat-form-field>
+              </th>
+              <th>
+                <mat-form-field  >
+                    <mat-label>הקלד שם רופא</mat-label>
+                    <input matInput  #input   formControlName="doctor" (input)="searchBydoctorName()">
+                  </mat-form-field>
+                </th>
+                <th>
+                
+                  <mat-form-field  >
+                    <mat-label>הקלד סוג טיפול</mat-label>
+                    <input matInput  #input  formControlName="treatments"(input)="searchByAll()">
+                  </mat-form-field>
+                </th>
+          <th>
+              <mat-form-field  >
+                  <mat-label>הקלד מספר טלפון האשה</mat-label>
+                  <input matInput  #input   formControlName="womanPhone"(input)="searchByAll()">
+                </mat-form-field>
+          </th>
+          <th>
+            <mat-form-field  >
+                <mat-label>הקלד מספר טלפון הבעל</mat-label>
+                <input matInput  #input   formControlName="manPhone" (input)="searchByAll()">
+              </mat-form-field>
+        </th>
+                
+          <th>
+            <mat-form-field  >
+                <mat-label>הקלד שם האשה</mat-label>
+                <input matInput  #input   formControlName="womanName"(input)="searchByAll()">
+              </mat-form-field>
+        </th>
+          <th>
+            <mat-form-field  >
+                <mat-label>הקלד שם הבעל</mat-label>
+                <input matInput  #input   formControlName="manName" (input)="searchByAll()">
+              </mat-form-field>
+             
+        </th>
+          <th>
+            <mat-form-field  >
+              <mat-label>הקלד שם משפחה</mat-label>
+              <input matInput  #input  formControlName="familyName" (input)="searchByAll()">
+            </mat-form-field>
+          </th>
+          <th></th>
+        </tr>
+       
+      </thead>
+      <tbody>
+    
+    
+      <tr  style="cursor: pointer;"  *ngFor="let element of clinicVisitsListToDisplay" >
+        <th class="td" >
+         {{element.visitsDate | date:  'dd/MM/yyyy'}}
+        </th> 
+        <th class="td" > 
+            {{element.preformedNavigation?.employeeName}}
+           </th>
+           <th class="td" *ngIf="element.doctorNavigation" > 
+            {{element.doctorNavigation?.employeeName}}
+           </th>
+           <th class="td" *ngIf="!element.doctorNavigation" > 
+           
+           </th>
+           <th class="td" *ngIf="!element.didNotArrive" > 
+              {{element.treatments?.treatmentName}} 
+            </th>
+           <th class="td" *ngIf="element.didNotArrive">
+             לא הגיעו - {{element.treatments?.treatmentName}} 
+           </th>
+           <th class="td" > 
+              {{element.persons?.womanPhone}}
+             </th>
+             <th class="td" > 
+              {{element.persons?.manPhone}}
+             </th>
+             <th class="td" > 
+              {{element.persons?.womanName}}
+             </th> 
+         <th class="td" > 
+          {{element.persons?.manName}}
+         </th>
+             <th class="td" > 
+              {{element.persons?.familyName}}
+             </th>
+         <th class="td" > 
+          <button mat-raised-button color="primary" style="background-color:rgb(75, 3, 6);color: white " (click)="edit(element)">צפה</button>
+     </th>
+       </tr>
+      </tbody>
+    </table>
+    
+    </div>
+    </div>
+    
+    </form>
+    </div>

@@ -1,0 +1,36 @@
+<div style="padding-top: 103px">
+<div  class="disable-background" *ngIf="toggleLayer">
+    <mat-spinner class="center"></mat-spinner>
+</div>
+<div class="cen">
+    <mat-toolbar class="nav" style="background: rgba(0, 0, 0);  height:50px ; direction: rtl; " >
+        <div style="text-align: center;  color: white;font-size: 18px ">
+         <h1 style=" text-align: center;" >טיפול</h1>
+       </div>
+       </mat-toolbar>
+<form [formGroup]="Treatmentform" >
+  <div class="div">
+    <h1 *ngIf="flagEdit" style=" text-align: center;">{{treatmentsToEdit.treatmentName}}</h1>
+    
+<div class="container">
+    <div class="row">
+    <mat-form-field  *ngIf="flagNew" class="input">
+            <mat-label>שם הטיפול</mat-label>
+            <input matInput  formControlName="TreatmentName">
+          </mat-form-field>
+        </div>
+        <div class="row">
+         <mat-form-field  class="input">
+            <mat-label>עלות</mat-label>
+            <input matInput  formControlName="TreatmentCost">
+          </mat-form-field>
+        </div>
+        <div class="row">
+            <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="saveTreatments()" > שמירה</button>
+          </div>
+        </div>
+      </div>
+      </form>
+      </div>
+      
+  </div>

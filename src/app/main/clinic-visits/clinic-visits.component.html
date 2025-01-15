@@ -1,0 +1,300 @@
+<div *ngIf="!flagInDialog" style="padding-top: 103px">
+</div>
+<div class="cen">
+<div  class="disable-background" *ngIf="toggleLayer">
+    <mat-spinner class="center"></mat-spinner>
+</div>
+<mat-toolbar class="nav" style="background: rgba(0, 0, 0);  height:50px ; direction: rtl;" >
+    <button class="but" mat-raised-button color="primary" (click)="toClinicVisits()" >פרטי ביקור</button>
+    <button class="but" mat-raised-button color="primary" (click)="toPayment()" *ngIf="flagForm">תשלום</button>
+    <button class="but" mat-raised-button color="primary" (click)="toEdit()" *ngIf="flagForm">טיפול</button>
+    <!-- <button class="but" mat-raised-button color="primary" (click)="toForm()" *ngIf="flagForm">הצגת טופס ושליחתו במייל</button> -->
+
+</mat-toolbar>
+
+<!-- disabled="flagEdit==true?true:false"  -->
+
+<form [formGroup]="clinicVisitsform" >
+
+     
+<div class="div" *ngIf="flagClinicVisits">
+   
+    <div style="padding: 30px" class="container">
+        <div style="padding: 15px" class="row">
+          <div class="col-3"  style="direction: rtl">
+          <div style="direction: ltr"> <mat-label>* תאריך ושעה</mat-label>
+            <p-calendar  dateFormat="dd.mm.yy"  inputId="time" formControlName="VisitsDate"></p-calendar></div>
+            <!-- <p-calendar   formControlName="VisitsDate"></p-calendar>-->
+            <!-- <p-calendar formControlName="visitTime" [timeOnly]="true" inputId="timeonly"></p-calendar>  -->
+            <mat-form-field class="input">
+              <mat-label>שעה</mat-label>
+              <input matInput #input placeholder="00:00"   formControlName="visitTime">
+            </mat-form-field>
+          </div>
+          <div class="col-3">  <mat-form-field class="input">
+              <mat-label>בחר עובד מעבדה</mat-label>
+              <mat-select formControlName="Preformed">
+                <mat-option *ngFor="let emplyees of allPreformed" [value]="emplyees">
+                  {{emplyees.employeeName}}
+
+                </mat-option>
+               
+              </mat-select>
+            </mat-form-field></div>
+          <div class="col-3"><mat-form-field class="input">
+              <mat-label>בחר רופא </mat-label>
+              <mat-select formControlName="Doctor">
+                <mat-option *ngFor="let doctor of allDoctor" [value]="doctor">
+                  {{doctor.employeeName}}
+
+                </mat-option>
+               
+              </mat-select>
+            </mat-form-field></div>
+            <div class="col-3"><mat-form-field class="input">
+              <mat-label>בחר מבצע מורפולוגיה </mat-label>
+              <mat-select formControlName="Morphology">
+                <mat-option *ngFor="let morphology of allEmployees" [value]="morphology">
+                  {{morphology.employeeName}}
+
+                </mat-option>
+               
+              </mat-select>
+            </mat-form-field></div>
+        </div>
+        <div  class="row">
+            <div class="col-4" style="padding-top:17px ;padding-right: 30px">       <label  >* בחר זוג לפי תעודת זהות הבעל</label>
+              <input   type="text"
+                     placeholder="בחר זוג לפי תעודת זהות הבעל"
+                     formControlName="manId"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete" id="person">
+                <mat-option *ngFor="let person of filteredPersons | async" [value]="person">
+                  {{person}}
+                </mat-option>
+              </mat-autocomplete> </div>
+            <div class="col-4"> <mat-form-field class="example-full-width input">
+                <!-- <mat-label>פרטי זוג</mat-label> -->
+                <a (click)="displayPerson()">לחץ להצגת פרטי הזוג</a>
+                <textarea matInput formControlName="person"></textarea>
+              </mat-form-field></div>
+            <div class="col-4"  style="padding-top:17px ">   <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="editPerson()" >ערוך פרטי הזוג </button></div>
+            <!-- <button mat-fab style="background-color:rgb(75, 3, 6);color: white "  value="להוספת זוג" aria-label="להוספת זוג" (click)="newPerson()">
+                <mat-icon>playlist_add</mat-icon>
+              </button> -->
+          </div>
+          <div style="padding: 15px"  class="row">
+              <div class="col-3">  <mat-form-field class="input">
+                  <mat-label>* בחר סוג טיפול</mat-label>
+                  <mat-select formControlName="TreatmentsId" >
+                    <mat-option ng-change="costCalculation()"   *ngFor="let oneTreatments of allTreatments" [value]="oneTreatments"  >
+                      {{oneTreatments.treatmentName}}
+  
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field></div>
+              <div class="col-3" style="padding-top: 20px">  <mat-checkbox class="example-margin"   formControlName="C"  class="input">C</mat-checkbox></div>
+              <!-- <div class="col-4">                <mat-checkbox class="example-margin" style="color: rgb(75, 3, 6) "  formControlName="Co" class="input">CO</mat-checkbox></div> -->
+              <div class="col-3" style="padding-top: 20px">  <mat-checkbox class="example-margin"   formControlName="apartmentHr"  class="input">דירת משפחת הרצברג </mat-checkbox></div>
+              <div class="col-3" style="padding-top: 20px">  <mat-checkbox class="example-margin"   formControlName="apartmentVy"  class="input">דירת משפחת וייס</mat-checkbox></div>
+            </div>
+            <!-- <div style="padding: 15px"  class="row"> 
+                <div class="col-3">      <mat-form-field class="input">
+                    <mat-label> אופן התשלום </mat-label>
+                    <mat-select formControlName="PaymentMethod">
+                      <mat-option *ngFor="let onePaymentMethod of PaymentMethod" [value]="onePaymentMethod">
+                        {{onePaymentMethod}}
+    
+                      </mat-option>
+                     
+                    </mat-select>
+                  </mat-form-field></div>
+                <div class="col-3"> <mat-form-field class="input" >
+                    <mat-label>מספר קבלה</mat-label>
+                    <input matInput #input  formControlName="Receipt">
+                
+                  </mat-form-field></div>
+                <div class="col-3" style="padding: 10px;direction: ltr">  <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="costCalculation()" >חשב עלות</button></div>
+                <div class="col-3"> <mat-form-field class="input">
+                    <mat-label>* עלות</mat-label>
+                    <input matInput #input  formControlName="Amount">
+                 
+                  </mat-form-field></div>
+              </div> -->
+              <div  class="row">
+                  
+                  <div class="col-3">
+                      <mat-checkbox class="example-margin" style="color: rgb(0, 0, 0) "  formControlName="done"  class="input">  בוצע עובד מעבדה</mat-checkbox>
+                  </div>
+                  <div class="col-3">
+                      <mat-checkbox class="example-margin" style="color: rgb(0, 0, 0) "  formControlName="doneDoctor"  class="input">בוצע רופא</mat-checkbox>
+                  </div>
+                  <div class="col-3">
+                    <mat-checkbox class="example-margin" style="color: rgb(0, 0, 0) "  formControlName="doneMorphology"  class="input">בוצע מורפולוגיה</mat-checkbox>
+                </div>
+                <div class="col-3">
+                    <!-- (change)="didNotArrive($event)" -->
+                  <mat-checkbox class="example-margin" style="color: rgb(0, 0, 0) "  formControlName="didNotArrive"  class="input"  >הזוג לא הגיע</mat-checkbox>
+              </div>
+
+                 </div>
+                 <div  class="row" style="margin-top: 30px">
+                  <div class="col-3">
+                    <button  mat-raised-button  [disabled]="!clinicVisitsform.valid" (click) ="saveClinicVisits()" >שמירת ביקור</button>
+                  </div>
+                 </div>
+      </div>
+            
+               
+                     
+                  
+</div>
+
+
+</form>
+<form [formGroup]="paymentform">
+  <div class="div" *ngIf="flagPayment">
+      <h1 style=" text-align: center;">תשלום</h1>
+    <div style="padding: 15px"  class="row"> 
+      <div class="col-4">      <mat-form-field class="input">
+          <mat-label> אופן התשלום </mat-label>
+          <mat-select formControlName="PaymentMethod">
+            <mat-option *ngFor="let onePaymentMethod of PaymentMethod" [value]="onePaymentMethod">
+              {{onePaymentMethod}}
+
+            </mat-option>
+           
+          </mat-select>
+        </mat-form-field></div>
+      <div class="col-4"> <mat-form-field class="input" >
+          <mat-label>מספר קבלה</mat-label>
+          <input matInput #input  formControlName="Receipt">
+      
+        </mat-form-field></div>
+      <!-- <div class="col-3" style="padding: 10px;direction: ltr">  <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="costCalculationPayment()" >חשב עלות</button></div> -->
+      <div class="col-4"> <mat-form-field class="input">
+          <mat-label>* עלות</mat-label>
+          <input matInput #input  formControlName="Amount">
+       
+        </mat-form-field></div>
+       
+        
+    </div>
+    <div class="row" *ngIf="director">
+      <div class="col-4"> <mat-checkbox class="example-margin" style="color: rgb(0, 0, 0) "  formControlName="Subsidization"  class="input"  >בקשו סבסוד</mat-checkbox></div>
+      <div class="col-4"> <mat-checkbox class="example-margin" style="color: rgb(0, 0, 0) "  formControlName="SubsidizationApprove"  class="input"  >סבסוד אושר</mat-checkbox></div>
+    </div>
+    <div class="row" *ngIf="director">
+      <div class="col-4"> <mat-form-field class="input">
+        <mat-label>סכום האישור</mat-label>
+        <input matInput #input  formControlName="SubsidizationAmount">
+      </mat-form-field></div>
+      <div class="col-4"> <mat-form-field class="input">
+        <mat-label>מספר שיק</mat-label>
+        <input matInput #input  formControlName="CheckNumber">
+      </mat-form-field></div>
+    </div>
+    <div>
+      <div >
+        <button  mat-raised-button   (click) ="savePayment()" >שמירה</button>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- <app-Sa></Sa>
+<app-pct></pct>
+<app-iui></iui> -->
+  <div *ngIf="flagDidNotArrive"> 
+      <h1 style=" text-align: center;">בני הזוג לא הגיעו</h1>
+  </div>
+<app-insemination *ngIf="flagInsemination" [ClinicVisitsId]="clinicVisitsId"></app-insemination>
+<!-- <app-iui *ngIf="flagIui" [ClinicVisitsId]="clinicVisitsId"></app-iui> -->
+<app-pct *ngIf="flagPct" [ClinicVisitsId]="clinicVisitsId"></app-pct>
+<app-sa *ngIf="flagSa" [ClinicVisitsId]="clinicVisitsId"></app-sa>
+<div class="acc">
+  <mat-accordion class="example-headers-align" multi *ngIf="flagIui">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          IUI
+        </mat-panel-title>
+        <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-iui *ngIf="flagIui" [ClinicVisitsId]="clinicVisitsId" ></app-iui>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Insemination
+        </mat-panel-title>
+        <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-insemination *ngIf="flagIui" [ClinicVisitsId]="clinicVisitsId" ></app-insemination>
+    </mat-expansion-panel>
+  </mat-accordion>
+  </div>
+<div class="acc">
+<mat-accordion class="example-headers-align" multi *ngIf="flagIUISA">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        IUI
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-iui *ngIf="flagIUISA" [ClinicVisitsId]="clinicVisitsId" ></app-iui>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Insemination
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-insemination *ngIf="flagIUISA" [ClinicVisitsId]="clinicVisitsId" ></app-insemination>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        SA
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-sa *ngIf="flagIUISA" [ClinicVisitsId]="clinicVisitsId"></app-sa>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>
+</div>
+
+      <p-dialog  [(visible)]="displayResponsive"  [style]="{width: '95vw',height:'85hw'}"  [baseZIndex]="10000" 
+      [draggable]="false" [resizable]="false">
+      <div style="width: 1300px;height:500px;">
+      <app-persons (savedSuccessfully)="closeDialogPerson()"  *ngIf="displayResponsive" [personsIdInput]="personsIdToEdit"></app-persons>
+      </div>
+      <!-- <button [disabled]="!emailFrom.valid"   mat-raised-button   type="submit"  (click)="close()" > שלח</button> -->
+      </p-dialog>
+
+      <p-dialog header="מספר זקיקים" [(visible)]="displayFolliclesNumber" [modal]="true" [style]="{width: '40vw',height:'50hw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <div  style="text-align: center;">
+      <h3>לא ניתן לשמור ללא מספר זקיקים</h3>
+      <form [formGroup]="folliclesFrom">
+      <mat-form-field class="input">
+        <mat-label>מספר זקיקים</mat-label>
+        <input matInput #input  formControlName="folliclesNumber">
+      </mat-form-field>
+    </form>
+    </div>
+    
+     
+        <p-footer >
+            <button type="button" pButton icon="pi pi-check" style="background-color:rgb(75, 3, 6);color: white " (click)="(closeDisplayFolliclesNumber())" label="שמירה"></button>
+            
+        </p-footer>
+    
+</p-dialog>

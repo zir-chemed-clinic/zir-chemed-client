@@ -1,0 +1,125 @@
+<div style="padding-top: 103px">
+<div class="cen">
+    <mat-toolbar class="nav" style="background: rgba(0, 0, 0);  height:50px ; direction: rtl; " >
+        <div style="text-align: center;  color: white;font-size: 18px ">
+         <h1 > פרטי שכר </h1>
+       </div>
+      </mat-toolbar>
+      <div class="div">
+<h1 style=" text-align: center;">{{employeeName}}</h1>
+<div class="container">
+  <div class="cen">
+   
+<form [formGroup]="employeeSalaryform" >
+    
+    <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="clear()" >נקה</button>
+<mat-form-field class="input"  >
+   
+    <mat-label>מתאריך </mat-label>
+    <input matInput [matDatepicker]="pickerr" formControlName="fromDate">
+    <mat-datepicker-toggle matSuffix [for]="pickerr"></mat-datepicker-toggle>
+    <mat-datepicker #pickerr></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="input" >
+      <mat-label>עד תאריך </mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="untilDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div class="cen" *ngIf='flagPDF'>
+      <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('open')" >צפה בטופס</button>
+      <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('download')" >הורד טופס</button>
+      <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('print')" >הדפס טופס</button>
+</div>
+    <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "(click)="getEmployeeClinicVisits()">חפש</button>
+</form>
+</div>
+<div class="row">
+<div class="col-6"> 
+    <div class="div">
+        <div className="table-responsive" id="sailorTableArea">
+        <table id="sailorTable" class="m-table" >
+          <thead>
+            <tr >
+              <th class="td" > תאריך </th>
+              <th class="td" >סוג הטיפול </th>
+              <th class="td" ></th>
+          
+            </tr>
+               
+          </thead>
+      
+          <tr  style="cursor: pointer;" *ngFor="let element of employeeClinicVisits" >
+            
+             <th class="td" > 
+              {{element.visitsDate}}
+             </th>
+             <th class="td" > 
+                {{element.treatments.treatmentName}} 
+             </th>
+             <th class="td" > 
+                  <a style="color:rgb(75, 3, 6);  text-decoration: underline;" (click)="toClinicVisits(element)" >לצפייה בפרטי הטיפול</a>
+             </th>
+             
+           </tr>
+        </table>
+      </div>
+      </div>
+    </div>
+    <div class="col-6"> 
+      <button mat-raised-button [disabled]="!flagSalary"  (click)="salary()" >חשב</button>
+      <!-- <div class="row"> -->
+      <div *ngIf="flag" style="direction: ltr">
+        <br/>
+          <!-- <div class="col-3">  -->
+          <b> SA  </b>
+          <p> {{SA}} * {{employee.paymentForSA }} = {{SA*employee.paymentForSA}} </p>
+
+          <b>   IUI  </b>
+          <p>   {{IUI}} * {{employee.paymentForIUI }} = {{IUI*employee.paymentForIUI}} </p>
+          <b> PCT </b>
+          <p> {{PCT}} * {{employee.paymentForPCT }} = {{PCT*employee.paymentForPCT}} </p>
+          <b> Insemination </b>
+          <p> {{Insemination}} * {{employee.paymentForInsemination }} = {{Insemination*employee.paymentForInsemination}} </p>
+        <!-- </div>  -->
+        <!-- <div class="col-3">  -->
+            <b> IUI + SA </b>
+          <p>  {{IUISA}} * {{employee.paymentForIUISA }} = {{IUISA*employee.paymentForIUISA}} </p>
+
+          <b> ייעוץ </b>
+          <p>{{Consulting}} * {{employee.paymentForConsulting }} = {{Consulting*employee.paymentForConsulting }} </p>
+          <b> Wash </b>
+          <p> {{Wash}} * {{employee.paymentForWash }} = {{Wash*employee.paymentForWash }} </p>
+          <b> לא ניתן לבצע השבחה  </b>
+          <p>  {{CanNotBeMadeIUI}} * {{employee.paymentForcanNotBeMadeIUI }} = {{CanNotBeMadeIUI*employee.paymentForcanNotBeMadeIUI }} </p>
+          <b> לא ניתן לבצע בדיקת זרע </b>
+          <p> {{CanNotBeMadeSA}} * {{employee.paymentForCanNotBeMadeSA }} = {{CanNotBeMadeSA*employee.paymentForCanNotBeMadeSA }} </p>
+          <b>  ביצוע מורפולוגיה בבדיקה</b>
+          <p>   {{SAMorphology}} * {{employee.paymentForMorphology }} = {{SAMorphology*employee.paymentForMorphology }} </p>
+          <b>  ביצוע מורפולוגיה בבדיקה + השבחה </b>
+          <p>  {{IUISAMorphology}} * {{employee.paymentForMorphology }} = {{IUISAMorphology*employee.paymentForMorphology }} </p>
+          <b>{{SA*employee.paymentForSA + IUI*employee.paymentForIUI + PCT*employee.paymentForPCT
+             + Insemination*employee.paymentForInsemination+ Consulting*employee.paymentForConsulting+Wash*employee.paymentForWash 
+             +CanNotBeMadeIUI*employee.paymentForcanNotBeMadeIUI+CanNotBeMadeSA*employee.paymentForCanNotBeMadeSA+SAMorphology*employee.paymentForMorphology+
+             IUISAMorphology*employee.paymentForMorphology +IUISA*employee.paymentForIUISA}}    סה"כ</b>
+            </div>
+            </div>
+      <!-- </div> -->
+      </div>
+      </div>
+        </div>  
+      </div>
+    </div>
+    
+<p-dialog  [(visible)]="displayResponsive"  [style]="{width: '95vw',height:'85hw'}"  [baseZIndex]="10000" 
+[draggable]="false" [resizable]="false">
+<div style="width: 1200px;height:400px;">
+<app-clinic-visits  *ngIf="displayResponsive" [clinicVisitsIdInput]="clinicVisitIdToDisplay"></app-clinic-visits>
+<!-- <h1>hhhhhhhhhhhhhhhhhhhh</h1> -->
+</div>
+<!-- <button [disabled]="!emailFrom.valid"   mat-raised-button   type="submit"  (click)="close()" > שלח</button> -->
+</p-dialog>
+
+<!-- <p-dialog header="Delete  reminder" [(visible)]="displayModalDReminder" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false"> -->
+

@@ -1,0 +1,442 @@
+<div >
+<div  class="disable-background" *ngIf="toggleLayer">
+                <mat-spinner class="center"></mat-spinner>
+            </div>
+<h1 style=" text-align: center;">IUI</h1>
+<div class="cdiv" *ngIf='!closed'>
+<form [formGroup]="iuiform" >
+        <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                             פרטים אישיים
+                          </mat-panel-title>
+                          <mat-panel-description>
+                            
+                       
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <!-- <div style="direction: ltr">
+                                        <label for="timeonly">שעת קבלה</label>
+                                        <p-calendar   formControlName="GivingTimeString"  [timeOnly]="true" inputId="timeonly"></p-calendar>
+                                    </div> -->
+<mat-form-field class="input"  >
+    <mat-label>שם הבעל</mat-label>
+    <input matInput #input formControlName="ManName">
+  </mat-form-field>
+  <mat-form-field class="input">
+      <mat-label>שם האשה</mat-label>
+      <input matInput #input  formControlName="WomanName">
+    </mat-form-field>
+    <mat-form-field  class="input">
+      <mat-label>שם משפחה</mat-label>
+      <input matInput #input formControlName="FamilyName">
+    </mat-form-field>
+    <mat-form-field class="input">
+      <mat-label>תעודת זהות בעל</mat-label>
+      <input matInput #input formControlName="ManId">
+    </mat-form-field>
+    <mat-form-field  class="input">
+      <mat-label>תעודת זהות אשה</mat-label>
+      <input matInput #input formControlName="WomanId">
+    </mat-form-field>
+    <mat-form-field class="input">
+        <mat-label>פאלפון בעל</mat-label>
+        <input matInput #input formControlName="ManPhone">
+      </mat-form-field>
+      <mat-form-field class="input">
+        <mat-label>פאלפון אשה</mat-label>
+        <input matInput #input formControlName="WomanPhone">
+      </mat-form-field>
+     
+      <!-- <mat-form-field  appearance="fill">
+        <mat-label>רופא מטפל</mat-label>
+        <input matInput #input formControlName="DoctorTreatment">
+      </mat-form-field> -->
+      <mat-form-field class="input" >
+        <mat-label>שעת קבלה</mat-label>
+      <input matInput placeholder="00:00"  formControlName="GivingTimeString">
+      <!-- <mat-hint align="end">00:00</mat-hint> -->
+    </mat-form-field>
+    <mat-form-field class="input" >         
+        <mat-label>* גורם מפנה</mat-label>
+        <input matInput formControlName="DoctorTreatment">
+      </mat-form-field>
+</mat-expansion-panel>
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>לשלוח תוצאות ל</mat-label>
+        <input matInput placeholder="pat@example.com" formControlName="ManEmail" required> -->
+        <!-- <mat-error *ngIf="email.invalid">{{getErrorMessageMan()}}</mat-error> -->
+      <!-- </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-labe
+        l>תאריך</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="WomanDateBirth">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+          אופן הנתינה
+          </mat-panel-title>
+          <mat-panel-description>
+       
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+      <mat-checkbox class="example-margin" color="primary" formControlName="Fresh" class="input" >Fresh</mat-checkbox>
+      <mat-checkbox class="example-margin" color="primary" formControlName="Condom"  class="input">Condom</mat-checkbox>
+      <mat-checkbox class="example-margin" color="primary" formControlName="Ejac"  class="input">Ejac</mat-checkbox>
+      <mat-checkbox class="example-margin" color="primary" formControlName="Cup"  class="input">Cup</mat-checkbox>
+      <!-- <mat-checkbox class="example-margin" color="primary" formControlName="Other" class="input" >אחר</mat-checkbox> -->
+      <mat-form-field class="input">
+        <mat-label>אחר</mat-label>
+        <input matInput #input  formControlName="Other">
+      </mat-form-field>
+      <!-- <mat-form-field >
+        <mat-label>שעת לקיחה?</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="GivingTime">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
+</mat-expansion-panel>
+<mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+                ממצאים
+          </mat-panel-title>
+          <mat-panel-description>
+       
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field  class="input">
+                <mat-label>מספר זקיקים</mat-label>
+                <input matInput #input formControlName="folliclesNumber">
+        </mat-form-field>
+       <mat-form-field  class="input">
+            <mat-label>VolumeCc (נפח)</mat-label>
+            <input matInput #input formControlName="VolumeCc">
+        </mat-form-field>
+       
+        <mat-form-field  class="input">
+                <mat-label>Appearance  (מראה)</mat-label>
+                <input matInput #input formControlName="Appearance">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input" >
+                <mat-label>Conc.10^6/cc (ריכוז)</mat-label>
+                <input matInput #input formControlName="Conc105cc">
+        </mat-form-field>
+        
+        <mat-form-field class="input">
+                <mat-label>Motility % (תנועה)</mat-label>
+                <input matInput #input formControlName="Motility">
+        </mat-form-field>
+     
+        <mat-form-field  class="input">
+                <mat-label>Grade (דרגה)</mat-label>
+                <input matInput #input formControlName="Grade">
+        </mat-form-field>
+        <mat-form-field  class="input">
+                <mat-label>PH</mat-label>
+                <input matInput #input formControlName="Ph">
+        </mat-form-field>
+        <br>
+        <!-- <mat-form-field  appearance="fill">
+                <mat-label>Ph</mat-label>
+                <input matInput #input maxlength="10" placeholder="Ex. Nougat" formControlName="Ph">
+                <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+        </mat-form-field> -->
+        <mat-form-field class="input">
+                <mat-label>הערות</mat-label>
+                <input matInput #input  formControlName="Comments">
+        </mat-form-field>
+</mat-expansion-panel>
+<mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+                Treatment - טיפול
+          </mat-panel-title>
+          <mat-panel-description>
+       
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-checkbox class="example-margin" color="primary" formControlName="WimUp" class="input" >Swim Up</mat-checkbox>
+      <mat-checkbox class="example-margin" color="primary" formControlName="Gradient" class="input" >Gradient</mat-checkbox>
+      <mat-checkbox class="example-margin" color="primary" formControlName="Wash"  class="input">Wash</mat-checkbox>
+      <mat-checkbox class="example-margin" color="primary" formControlName="OtherTreatment" class="input" >Other</mat-checkbox>
+      <br>
+      <mat-form-field class="input">
+            <mat-label>הערות</mat-label>
+            <input matInput #input formControlName="CommentsTreatment">
+    </mat-form-field>
+</mat-expansion-panel>
+<mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+                After Treatment  אחרי טיפול
+          </mat-panel-title>
+          <mat-panel-description>
+       
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+    <mat-form-field class="input">
+            <mat-label>VolumeCc (נפח)</mat-label>
+            <input matInput #input formControlName="VolumeCcAfterTreatment">
+        </mat-form-field>
+        <mat-form-field class="input" >
+                        <mat-label>Motility (תנועה)</mat-label>
+                        <input matInput #input  formControlName="MotilityAfterTreatment">
+                </mat-form-field>
+               
+        <mat-form-field class="input">
+                <mat-label>Conc.10^6/cc (ריכוז)</mat-label>
+                <input matInput #input formControlName="Conc105ccAfterTreatment">
+        </mat-form-field>
+       
+        <mat-form-field class="input">
+                <mat-label>Grade (דרגה)</mat-label>
+                <input matInput #input  formControlName="GradeAfterTreatment">
+        </mat-form-field>
+        <!-- <mat-form-field class="input">
+                <mat-label>pH</mat-label>
+                <input matInput #input  formControlName="pHAfterTreatment">
+        </mat-form-field> -->
+        
+      
+        <mat-form-field class="input" >
+                <mat-label>Total Motile Count X10^6</mat-label>
+                <input matInput #input  formControlName="TotalMotileCount">
+        </mat-form-field>
+</mat-expansion-panel>
+       
+
+
+</mat-accordion>
+<button [disabled]="!iuiform.valid"  mat-raised-button (click)="saveIUI()" > שמירה</button>
+<button [disabled]="!iuiform.valid"  mat-raised-button  (click)="closeIUI('open')" > הנפק טופס - סיום</button>
+</form>
+
+
+</div>
+<div class="cen" *ngIf='closed'>
+                <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('open')" >צפה בטופס</button>
+                <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('download')" >הורד טופס</button>
+                <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('print')" >הדפס טופס</button>
+                <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('send')" >שליחת הטופס במייל</button>
+        </div>
+<!-- <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+               פרטים אישיים
+            </mat-panel-title>
+            <mat-panel-description>
+              
+         
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field  >
+                <mat-label>שם הבעל</mat-label>
+                <input matInput #input formControlName="ManName">
+              </mat-form-field>
+              <mat-form-field>
+                  <mat-label>שם האשה</mat-label>
+                  <input matInput #input formControlName="WomanName">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>שם משפחה</mat-label>
+                  <input matInput #input formControlName="FamilyName">
+                </mat-form-field>
+                <mat-form-field >
+                  <mat-label>תעודת זהות בעל</mat-label>
+                  <input matInput #input formControlName="ManId">
+                </mat-form-field>
+                <mat-form-field >
+                  <mat-label>תעודת זהות אשה</mat-label>
+                  <input matInput #input  formControlName="WomanId">
+                </mat-form-field>
+                <mat-form-field >
+                    <mat-label>פאלפון בעל</mat-label>
+                    <input matInput #input formControlName="ManPhone">
+                  </mat-form-field>
+                  <mat-form-field >
+                    <mat-label>פאלפון אשה</mat-label>
+                  </mat-form-field>
+                 
+                  <mat-form-field>
+                    <mat-label>רופא מטפל</mat-label>
+                    <input matInput #input formControlName="DoctorTreatment">
+                  </mat-form-field>
+      
+        </mat-expansion-panel>
+     
+        <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                  אופן הנתינה
+                  </mat-panel-title>
+                  <mat-panel-description>
+               
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-checkbox class="example-margin" color="primary" formControlName="Fresh"  >Fresh</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" formControlName="Condom"  >Condom</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" formControlName="Ejac"  >Ejac</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" formControlName="Cup"  >Cup</mat-checkbox>
+                <mat-form-field >
+                  <mat-label>אחר</mat-label>
+                  <input matInput #input formControlName="Other">
+                </mat-form-field>
+                <mat-form-field >
+                  <mat-label>שעת לקיחה?</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="GivingTime">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                        ממצאים
+                  </mat-panel-title>
+                  <mat-panel-description>
+                   
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-form-field  >
+                        <mat-label>VolumeCc (נפח)</mat-label>
+                        <input matInput #input formControlName="VolumeCc">
+                    </mat-form-field>
+                    <mat-form-field  >
+                            <mat-label>Appearance  (מראה)</mat-label>
+                            <input matInput #input formControlName="Appearance">
+                    </mat-form-field>
+                   
+                    <mat-form-field  appearance="fill">
+                            <mat-label>Conc.10^6/cc (ריכוז)</mat-label>
+                            <input matInput #input formControlName="Conc105cc">
+                            <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field  appearance="fill">
+                            <mat-label>Motility (תנועה)</mat-label>
+                            <input matInput #input maxlength="10" placeholder="Ex. Nougat" formControlName="Motility">
+                            <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field  appearance="fill">
+                            <mat-label>Grade (דרגה)</mat-label>
+                            <input matInput #input maxlength="10" placeholder="Ex. Nougat" formControlName="Grade">
+                            <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field  appearance="fill">
+                            <mat-label>Ph</mat-label>
+                            <input matInput #input maxlength="10" placeholder="Ex. Nougat" formControlName="Ph">
+                            <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field  appearance="fill">
+                            <mat-label>הערות</mat-label>
+                            <input matInput #input maxlength="10" placeholder="Ex. Nougat" formControlName="Comments">
+                            <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+                    </mat-form-field>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                        מורפולוגיה
+                  </mat-panel-title>
+                  <mat-panel-description>
+                
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+
+        <mat-form-field >
+                <mat-label>NormalForms     % (Who strict)</mat-label>
+                <input matInput formControlName="NormalForms">
+        </mat-form-field>
+        <mat-form-field  >
+                <mat-label>LargeHeads</mat-label>
+                <input matInput  formControlName="LargeHeads">
+        </mat-form-field>
+        <mat-form-field  >
+                <mat-label>SmallHeads</mat-label>
+                <input matInput  formControlName="SmallHeads">
+        </mat-form-field>
+        <mat-form-field >
+                <mat-label>RoundHeads</mat-label>
+                <input matInput formControlName="RoundHeads">
+        </mat-form-field>
+        <mat-form-field >
+                <mat-label>TaperedHeads</mat-label>
+                <input matInput formControlName="TaperedHeads">
+        </mat-form-field>
+        <mat-form-field  >
+                <mat-label>PyramidalHeads</mat-label>
+                <input matInput  formControlName="PyramidalHeads">
+        </mat-form-field>
+        <mat-form-field  >
+                <mat-label>AmorphousHeads</mat-label>
+                <input matInput  formControlName="AmorphousHeads">
+        </mat-form-field>
+        <mat-form-field  >
+                <mat-label>PinHeads</mat-label>
+                <input matInput formControlName="PinHeads">
+        </mat-form-field>
+        <mat-form-field  >
+                <mat-label>NeckDefects</mat-label>
+                <input matInput formControlName="NeckDefects">
+        </mat-form-field>
+        <mat-form-field  >
+                <mat-label>CytoplasmicDroplets</mat-label>
+                <input matInput  formControlName="CytoplasmicDroplets">
+        </mat-form-field>
+        <mat-form-field  >
+                <mat-label>TailDefects</mat-label>
+                <input matInput formControlName="TailDefects">
+         </mat-form-field>
+            
+              </mat-expansion-panel>
+
+      </mat-accordion>
+      <button mat-raised-button color="primary" (click)="saveSa()" > שמירה</button> -->
+</div>
+<form [formGroup]="emailFrom" >
+
+<p-dialog  [(visible)]="displayResponsive"  [style]="{width: '40vw',height:'50hw'}" [baseZIndex]="10000" 
+    [draggable]="false" [resizable]="false">
+    <div *ngIf='sending' style="direction: rtl">
+    <mat-form-field class="input" >
+        <mat-label>כתובת הדוא"ל של הבעל</mat-label>
+        <input matInput   formControlName="manEmail">
+</mat-form-field>
+<mat-form-field class="input" >
+        <mat-label>כתובת הדוא"ל של האשה</mat-label>
+        <input matInput   formControlName="womanEmail">
+        
+</mat-form-field>
+<mat-form-field class="input" >
+        <mat-label>כתובת דוא"ל נוספת</mat-label>
+        <input matInput  formControlName="email">
+</mat-form-field>
+</div>
+<div  style="text-align: center;">
+        <div *ngIf='waitingForSending' style="width:300px;height:300px">
+<mat-spinner ></mat-spinner>
+</div>
+ <h1 *ngIf='sendSuccessfully'> נשלח בהצלחה</h1>
+ <h3 *ngIf='sendFailed'>שליחת הטופס נכשלה וודא שהכתובת אליה בקשת לשלוח נכונה </h3>
+ <h3 *ngIf='emailNotValid'>כתובת דוא"ל שגויה </h3>
+ 
+    </div>
+      <div  *ngIf='sending'>
+
+        <button  mat-raised-button  (click)="displayResponsive=false" > ביטול</button>
+        <button [disabled]="!emailFrom.valid"   mat-raised-button   type="submit"  (click)="sendEmail()" > שלח</button>
+        
+</div>
+
+</p-dialog>
+</form>

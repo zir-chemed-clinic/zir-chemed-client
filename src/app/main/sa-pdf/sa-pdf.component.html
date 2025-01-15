@@ -1,0 +1,206 @@
+
+<h1>sa</h1>
+<button (click)="generatePDF()">Generate PDF</button>
+<div class="cdiv" id="contentToConvert">
+<form [formGroup]="saform" >
+        <img src="../../../assets/logo/top.GIF">
+<mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+               פרטים אישיים
+            </mat-panel-title>
+            <mat-panel-description>
+              
+         
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="row">
+                <mat-label>שם משפחה</mat-label>
+                <mat-form-field class="input" >
+                       
+                        <input matInput  formControlName="FamilyName">
+                      </mat-form-field>
+          <mat-label>שם הבעל</mat-label>
+          <mat-form-field class="input">
+         
+          <input matInput  formControlName="ManName">
+        </mat-form-field>
+        <mat-label>תעודת זהות בעל</mat-label>
+        <mat-form-field  class="input">
+               
+                <input matInput formControlName="ManId">
+        </mat-form-field>
+        <mat-label>פאלפון בעל</mat-label>
+        <mat-form-field class="input" >
+                   
+                    <input matInput formControlName="ManPhone">
+        </mat-form-field>
+     
+        </div>
+        <div class="row">
+                <mat-label>שם האשה</mat-label>
+        <mat-form-field  class="input">
+             
+                <input matInput formControlName="WomanName">
+              </mat-form-field>
+         
+                
+          <mat-form-field  class="input">
+            <mat-label>תעודת זהות אשה</mat-label>
+            <input matInput formControlName="WomanId">
+          </mat-form-field>
+          <mat-form-field class="input" >
+                <mat-label>פאלפון אשה</mat-label>
+                <input matInput formControlName="WomanPhone">
+              </mat-form-field>
+         
+        </div>
+        
+           
+            <mat-form-field class="input" >
+              <mat-label>רופא מטפל</mat-label>
+              <input matInput formControlName="DoctorTreatment">
+            </mat-form-field>
+            <!-- <mat-form-field >
+              <mat-label>לשלוח תוצאות ל</mat-label>
+              <input matInput placeholder="pat@example.com" formControlName="ManEmail" >
+            </mat-form-field> -->
+<!-- 
+          <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input matInput>
+          </mat-form-field>
+      
+          <mat-form-field>
+            <mat-label>Age</mat-label>
+            <input matInput type="number" min="1">
+          </mat-form-field> -->
+      
+        </mat-expansion-panel>
+     
+        <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                  אופן הנתינה
+                  </mat-panel-title>
+                  <mat-panel-description>
+               
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+
+                <mat-checkbox class="example-margin" color="primary" formControlName="Fresh" class="input" >Fresh</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" formControlName="Condom" class="input" >Condom</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" formControlName="Ejac" class="input" >Ejac</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" formControlName="Cup"  class="input">Cup</mat-checkbox>
+                <mat-form-field class="input">
+                  <mat-label>אחר</mat-label>
+                  <input matInput  formControlName="Other">
+                </mat-form-field>
+                
+            
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                        ממצאים
+                  </mat-panel-title>
+                  <mat-panel-description>
+                   
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-form-field class="input">
+                     <mat-label>VolumeCc (נפח)</mat-label>
+                     <input matInput formControlName="VolumeCc">
+                 </mat-form-field>
+                 <mat-form-field class="input">
+                         <mat-label>Appearance  (מראה)</mat-label>
+                         <input matInput  formControlName="Appearance">
+                 </mat-form-field>
+                
+                 <mat-form-field class="input">
+                         <mat-label>Conc.10^6/cc (ריכוז)</mat-label>
+                         <input matInput  formControlName="Conc105cc">
+                 </mat-form-field>
+                 <mat-form-field  class="input">
+                         <mat-label>Motility (תנועה)</mat-label>
+                         <input matInput  formControlName="Motility">
+                 </mat-form-field>
+                 <mat-form-field  class="input">
+                         <mat-label>Grade (דרגה)</mat-label>
+                         <input matInput  formControlName="Grade">
+                 </mat-form-field>
+                 <mat-form-field  class="input">
+                         <mat-label>Ph</mat-label>
+                         <input matInput formControlName="Ph">
+                 </mat-form-field>
+                 <mat-form-field class="input" >
+                         <mat-label>הערות</mat-label>
+                         <input matInput  formControlName="Comments">
+                 </mat-form-field>
+            
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                        מורפולוגיה
+                  </mat-panel-title>
+                  <mat-panel-description>
+                
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+
+        <mat-form-field class="input">
+                <mat-label>NormalForms     % (Who strict)</mat-label>
+                <input matInput formControlName="NormalForms">
+        </mat-form-field>
+        <mat-form-field class="input" >
+                <mat-label>LargeHeads</mat-label>
+                <input matInput  formControlName="LargeHeads">
+        </mat-form-field>
+        <mat-form-field  class="input">
+                <mat-label>SmallHeads</mat-label>
+                <input matInput  formControlName="SmallHeads">
+        </mat-form-field>
+        <mat-form-field class="input">
+                <mat-label>RoundHeads</mat-label>
+                <input matInput formControlName="RoundHeads">
+        </mat-form-field>
+        <mat-form-field class="input">
+                <mat-label>TaperedHeads</mat-label>
+                <input matInput formControlName="TaperedHeads">
+        </mat-form-field>
+        <mat-form-field  class="input">
+                <mat-label>PyramidalHeads</mat-label>
+                <input matInput  formControlName="PyramidalHeads">
+        </mat-form-field>
+        <mat-form-field  class="input">
+                <mat-label>AmorphousHeads</mat-label>
+                <input matInput  formControlName="AmorphousHeads">
+        </mat-form-field>
+        <mat-form-field class="input" >
+                <mat-label>PinHeads</mat-label>
+                <input matInput formControlName="PinHeads">
+        </mat-form-field>
+        <mat-form-field class="input" >
+                <mat-label>NeckDefects</mat-label>
+                <input matInput formControlName="NeckDefects">
+        </mat-form-field>
+        <mat-form-field  class="input">
+                <mat-label>CytoplasmicDroplets</mat-label>
+                <input matInput  formControlName="CytoplasmicDroplets">
+        </mat-form-field>
+        <mat-form-field class="input" >
+                <mat-label>TailDefects</mat-label>
+                <input matInput formControlName="TailDefects">
+         </mat-form-field>
+            
+              </mat-expansion-panel>
+
+      </mat-accordion>
+      <button mat-raised-button color="primary" (click)="saveSa()" > שמירה</button>
+</form>
+</div>

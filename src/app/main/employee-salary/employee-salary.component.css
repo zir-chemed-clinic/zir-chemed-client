@@ -1,0 +1,42 @@
+.cen{
+    align-content: center;
+    width:80%;
+    margin: auto;
+   }
+   .input{
+    padding: 30px; 
+}
+.nav{
+    padding: 20px; 
+}
+.div{
+    align-content: center;
+    width:80%;
+    margin: auto;
+    direction: rtl;
+  
+  }
+  .input{
+    padding: 15px; 
+}
+#sailorTableArea{
+    max-height: 250px;
+   
+    overflow-y: auto; 
+  }
+  #sailorTable{
+    white-space: normal;
+    overflow-x: auto;
+  }  
+  button {
+    background-color:rgb(0, 0, 0);
+    color: white
+  }
+  button:disabled{
+    background-color: #cccccc;
+    color: #000000;
+  }
+  /* .ui-dialog {
+    width: 500px!important;
+     height:400px!important;
+} */

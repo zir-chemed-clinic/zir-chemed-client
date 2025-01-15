@@ -1,0 +1,103 @@
+<div style="padding-top: 103px">
+<div  class="disable-background" *ngIf="toggleLayer">
+    <mat-spinner class="center"></mat-spinner>
+</div>
+<div class="cen">
+    <mat-toolbar class="nav" style="background: rgba(0, 0, 0);  height:50px ; direction: rtl; " >
+        <div style="text-align: center;  color: white;font-size: 18px ">
+         <h1 >עובד</h1>
+       </div>
+      </mat-toolbar>
+<form [formGroup]="employeesform" (ngSubmit)="saveEmployees()" >
+  <div class="div">
+
+      <div class="container">
+          <div class="row">
+            <div class="col-3">  <mat-form-field class="input" >
+                <mat-label>* מספר זהות</mat-label>
+                <input matInput  formControlName="EmployeeIdNumber">
+              </mat-form-field></div>
+            <div class="col-3">  <mat-form-field class="input" >
+                <mat-label>* שם</mat-label>
+                <input matInput  formControlName="EmployeeName">
+              </mat-form-field></div>
+              <div class="col-3">  <mat-form-field  class="input">
+                  <mat-label>* מספר טלפון</mat-label>
+                  <input matInput  formControlName="EmployeePhone">
+                </mat-form-field></div>
+                <div class="col-3"> <mat-form-field class="input">
+                    <mat-label>* מייל</mat-label>
+                    <input matInput formControlName="EmployeEemail">
+                  </mat-form-field> </div>
+          </div>
+          <div class="row">
+            <div class="col-3">  <mat-checkbox class="example-margin"  formControlName="Doctor" class="input" >רופא</mat-checkbox></div>
+            <div class="col-3 "> <mat-checkbox class="example-margin"  formControlName="Preformed"  class="input">עובד מעבדה</mat-checkbox></div>
+            <div class="col-3 "> <mat-form-field class="input" *ngIf="this.employeesform.controls['Doctor'].value==true">
+                <mat-label> מספר רשיון </mat-label>
+                <input matInput  formControlName="LicenseNumber">
+            </mat-form-field></div>
+             <div class="col-3 ">  <mat-form-field class="input" *ngIf="this.employeesform.controls['Doctor'].value==true">
+                <mat-label>מספר רשיון מתמחה </mat-label>
+                <input matInput  formControlName="SpecializedLicenseNumber">
+            </mat-form-field>
+             </div>
+          </div>
+          <div class="row">
+              <div class="col-3"> <mat-form-field class="input" >
+                  <mat-label>SA - סכום לתשלום </mat-label>
+                  <input matInput formControlName="PaymentForSA"> 
+              </mat-form-field></div>
+              <div class="col-3"> <mat-form-field class="input" >
+                  <mat-label>IUI - סכום לתשלום </mat-label>
+                  <input matInput formControlName="PaymentForIUI">
+              </mat-form-field></div>
+              <div class="col-3"> <mat-form-field class="input" >
+                  <mat-label>PCT - סכום לתשלום </mat-label>
+                  <input matInput formControlName="PaymentForPCT">
+              </mat-form-field></div>
+              <div class="col-3">  <mat-form-field class="input" >
+                  <mat-label>Insemination - סכום לתשלום </mat-label>
+                  <input matInput formControlName="PaymentForInsemination">
+              </mat-form-field></div>
+            </div>
+            <div class="row">
+                <div class="col-3">   <mat-form-field class="input" >
+                    <mat-label>ייעוץ - סכום לתשלום </mat-label>
+                    <input matInput  formControlName="PaymentForConsulting">
+                </mat-form-field></div>
+                <div class="col-3">  <mat-form-field class="input" >
+                    <mat-label>Wash - סכום לתשלום </mat-label>
+                    <input matInput  formControlName="PaymentForWash">
+                </mat-form-field></div>
+                <div class="col-3">  <mat-form-field class="input" >
+                    <mat-label>IUI + SA - סכום לתשלום </mat-label>
+                    <input matInput  formControlName="PaymentForIUISA">
+                </mat-form-field></div>
+                <div class="col-3">  <mat-form-field class="input" >
+                    <mat-label> סכום לתשלום - מורפולוגיה </mat-label>
+                    <input matInput  formControlName="PaymentForMorphology">
+                </mat-form-field></div>
+              </div>
+              <div class="row">
+                <div class="col-4">   <mat-form-field class="input" >
+                    <mat-label>לא ניתן לבצע השבחה - סכום לתשלום </mat-label>
+                    <input matInput  formControlName="PaymentForcanNotBeMadeIUI">
+                </mat-form-field></div>
+                <div class="col-4">  <mat-form-field class="input" >
+                    <mat-label>לא ניתן לבצע בדיקת זרע - סכום לתשלום</mat-label>
+                    <input matInput  formControlName="PaymentForCanNotBeMadeSA">
+                </mat-form-field></div>
+             
+              </div>
+        </div>
+   
+            
+            <!-- (click)="saveEmployees()" -->
+           
+          <button mat-raised-button  type="submit" [disabled]="!employeesform.valid" > שמירה</button>
+        </div>
+    
+    </form>
+  </div>
+</div>

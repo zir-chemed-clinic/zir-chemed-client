@@ -1,0 +1,30 @@
+.disable-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    opacity: 0.8;
+    z-index: 998;
+    height: 100%;
+    width: 100%;
+  }
+  .center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+  .cdiv{
+    align-content: center;
+    width:80%;
+    margin: auto;
+    direction: rtl
+  }
+  .input{
+    padding: 5px; 
+}
+.cen{
+  align-content: center;
+  width:80%;
+  margin: auto;
+  direction: rtl
+ }

@@ -1,0 +1,315 @@
+<div >
+<div  class="disable-background" *ngIf="toggleLayer">
+    <mat-spinner class="center"></mat-spinner>
+</div>
+<h1 style=" text-align: center;">Insemination</h1>
+<div class="cdiv" id="contentToConvert">
+        <div *ngIf='!closed'>
+<form [formGroup]="inseminationform" >
+        <!-- <img src="../../../assets/logo/top.GIF"> -->
+<mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                        הזרעה מלאכותית
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    
+               
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+  <p>
+        הזרעה מלאכותית מזרע בן זוג
+        הזרעה מלאכותית מזרע בן הזוג לאשה ממולצת במצבים של ליקוי פוריות  הנובעים מאיכות או כמות ירודה של הזרע, תפקוד בלתי תקין של צוואר הרחם, כשהסיבה לאי פוריות איננה ידועה או מסיבות אחרות לפי המקרה,
+        לצורך ביצוע ההזרעה עוברת זרימת בן הזוג תהליך הכנה מעבדתי בתנאים סטריליים, תאי הזרע מבודדים (לתוך תמיסה סטרילית) תוך קבלת תרחיף זרעונים שטופים המוכנים להזרעה.
+        תרחיף הזרעונים מוזרק לרחם באמצעות קטטר סטרילי בדרך הנרתיקית, תוך צווארית או תוך רחמית, הסיכויים הידועים להצלחת הטיפול תלויים בגורמים לליקויי הפוריות והם כ 15% למחזור טיפולי אחד
+        
+  </p>
+
+                        <mat-panel-title>
+                           האישה
+                        </mat-panel-title>
+                      
+                      <mat-form-field class="input" >
+                            <mat-label>שם משפחה</mat-label>
+                            <input matInput  formControlName="FamilyName">
+                          </mat-form-field>
+                    <mat-form-field  class="input">
+                        <mat-label>שם האשה</mat-label>
+                        <input matInput formControlName="WomanName">
+                      </mat-form-field>
+                      <mat-form-field class="input" >
+                        <mat-label>שם האב</mat-label>
+                        <input matInput  formControlName="WomanFathersName">
+                      </mat-form-field>
+                   
+                      <mat-form-field  class="input">
+                        <mat-label>תעודת זהות אשה</mat-label>
+                        <input matInput formControlName="WomanId">
+                      </mat-form-field>
+                      <mat-panel-title>
+                        הבעל
+                     </mat-panel-title>
+                      <mat-form-field class="input" >
+                        <mat-label>שם משפחה</mat-label>
+                        <input matInput  formControlName="FamilyName">
+                      </mat-form-field>
+                <mat-form-field  class="input">
+                    <mat-label>שם הבעל</mat-label>
+                    <input matInput formControlName="ManName">
+                  </mat-form-field>
+                  <mat-form-field class="input" >
+                    <mat-label>שם האב</mat-label>
+                    <input matInput  formControlName="ManFathersName">
+                  </mat-form-field>
+               
+                  <mat-form-field  class="input">
+                    <mat-label>תעודת זהות הבעל</mat-label>
+                    <input matInput formControlName="ManId">
+                  </mat-form-field>
+                  <mat-panel-title>
+                    הצהרה
+                 </mat-panel-title>
+                  <p>אנו מצהירים ומאשרים בזאת כי אנו נשואים וחיים כבני זוג נשואים:</p>
+                  <!-- <mat-checkbox class="example-margin" color="primary" formControlName="Signature1" class="input" >חתימת הבעל והאישה</mat-checkbox> -->
+                  <p>הבעל _______________ </p>
+                  <p>האישה _______________ </p>
+                  <p>אנו מצהירים כי מספר הזקיקים של האישה עומד על: __ זקיקים למחזור הנוכחי</p>
+                   <mat-form-field  class="input">
+                  <mat-label>מספר זקיקים</mat-label>
+                    <input matInput formControlName="folliclesNumber">
+                  </mat-form-field>
+                  <!-- <mat-checkbox class="example-margin" color="primary" formControlName="Signature2" class="input" >חתימת הבעל והאישה</mat-checkbox> -->
+                  <p>הבעל _______________ </p>
+                  <p>האישה _______________ </p>
+                  <mat-panel-title>
+                    חתימת הזוג
+                 </mat-panel-title>
+                  <p>
+                    אנו מצהירים ומאשרים בזאת שקיבלתי הסבר מפורט בעל פה מד"ר אורית ברנהולץ או מד"ר ברוך ברוקס על הזרעה מזרע בן הזוג הבדיקות והטיפולים הכרוכים בכך ואופן ביצועו וסיכויי הצלחתו (להלן "הטיפול)
+                    הוסברו לנו תופעות הלוואי האפשריות, לרבות: כאבי בטן קלים ודימום קל שהולכים ופוחתים בדרך כלל תוך מספר שעות לאחר ההזרעה. כמו כן הוסבר לנו הסיבוך האפשרי של זיהום באברי המין הפנימיים שלעיתים ילווה בכאב ו/או חום גבוה ויצריך אשפוז ומקרים נדירים יגרום לסתימת החצוצרות.
+                    הוסבר לנו כי אין כל ביטחון שכתוצאה מההזרעה האשה תהרה , או שכתוצאה מההזרעה היא תלד, כמו כן קיימת אפשרות של סיבוכים בעת ההריון והלידה וכן תיתכן לידה של ילד/ה במצב בריאות פיזי או נפשי לא תקין, או בעל/י מום, או בלתי נורמלי/ים וכן בעלי/י נטיות תורשתיות או כל סטייה אחרת מהרגיל כפי שהדבר עלול לקרות בהריון טבעי,
+                    אנו נותנים בזאת את הסכמנו לביצוע הטיפול אנו יודעים ומסכימים לכך שהטיפול יעשה בידי מי שהדבר יוטל עליו, בהתאם לנהלים והוראות וכי לא הובטח לנו שיעשו, כולם או חלקם, בידי אדם מסוים, ובלבד שיעשו באחריות המקובלת בכפוף לחוק
+                    
+            </p>
+            <p> תאריך : {{date}}</p>
+            <!-- <mat-checkbox class="example-margin" color="primary" formControlName="Signature3" class="input" >חתימת הבעל והאישה</mat-checkbox> -->
+            <p>הבעל _______________ </p>
+            <p>האישה _______________ </p>
+            <br>
+            <mat-panel-title>
+              חתימת הרופא/ה
+           </mat-panel-title>
+            <p>אני מאשר/ת כי הסברתי בעל פה לפני הזוג את כל האמור לעיל בפירוט הדרוש וכי 
+              הם חתמו על הסכמה בפני לאחר ששוכנעתי כי הבינו את הסברי המלאים,</p>
+        
+          <mat-form-field  class="input">
+                <mat-label>שם הרופא/ה</mat-label>
+                <input matInput formControlName="employeeName">
+              </mat-form-field>
+              <!-- <mat-checkbox class="example-margin" color="primary" formControlName="DoctorSignature" class="input" >חתימת הרופא/ה</mat-checkbox> -->
+              <p>חתימת הרופאה _______________ </p>
+              <mat-form-field  class="input">
+                    <mat-label>מספר רשיון</mat-label>
+                    <input matInput formControlName="licenseNumber">
+                  </mat-form-field>
+              </mat-expansion-panel>
+            
+              <div class="cen" >
+                  <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="saveInsemination()" > שמירה</button>
+                <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="printBeforeClose('open')" >צפה בטופס</button>
+                <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="printBeforeClose('download')" >הורד טופס</button>
+                <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="printBeforeClose('print')" >הדפס טופס</button>
+                </div>
+              <!-- <mat-expansion-panel> -->
+                <!-- <mat-expansion-panel-header>
+                        <mat-panel-title>
+                           האישה
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          
+                     
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <mat-form-field class="input" >
+                            <mat-label>שם משפחה</mat-label>
+                            <input matInput  formControlName="FamilyName">
+                          </mat-form-field>
+                    <mat-form-field  class="input">
+                        <mat-label>שם האשה</mat-label>
+                        <input matInput formControlName="WomanName">
+                      </mat-form-field>
+                      <mat-form-field class="input" >
+                        <mat-label>שם האב</mat-label>
+                        <input matInput  formControlName="WomanFathersName">
+                      </mat-form-field>
+                   
+                      <mat-form-field  class="input">
+                        <mat-label>תעודת זהות אשה</mat-label>
+                        <input matInput formControlName="WomanId">
+                      </mat-form-field>
+                  
+                  
+                    </mat-expansion-panel>
+                 
+                    <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                       הבעל
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                      
+                                 
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+                                  <mat-form-field class="input" >
+                                        <mat-label>שם משפחה</mat-label>
+                                        <input matInput  formControlName="FamilyName">
+                                      </mat-form-field>
+                                <mat-form-field  class="input">
+                                    <mat-label>שם הבעל</mat-label>
+                                    <input matInput formControlName="ManName">
+                                  </mat-form-field>
+                                  <mat-form-field class="input" >
+                                    <mat-label>שם האב</mat-label>
+                                    <input matInput  formControlName="ManFathersName">
+                                  </mat-form-field>
+                               
+                                  <mat-form-field  class="input">
+                                    <mat-label>תעודת זהות הבעל</mat-label>
+                                    <input matInput formControlName="ManId">
+                                  </mat-form-field>
+                              
+                              
+                                </mat-expansion-panel>
+                                <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                   הצהרה
+                                                </mat-panel-title>
+                                                <mat-panel-description>
+                                                  
+                                             
+                                                </mat-panel-description>
+                                              </mat-expansion-panel-header>
+                                              <p>אנו מצהירים ומאשרים בזאת כי אנו נשואים וחיים כבני זוג נשואים:</p>
+                                              <mat-checkbox class="example-margin" color="primary" formControlName="Signature1" class="input" >חתימת הבעל והאישה</mat-checkbox>
+                                         
+                                      
+                                          
+                                            </mat-expansion-panel>
+                                            <mat-expansion-panel>
+                                                    <mat-expansion-panel-header>
+                                                            <mat-panel-title>
+                                                               הצהרה
+                                                            </mat-panel-title>
+                                                            <mat-panel-description>
+                                                              
+                                                         
+                                                            </mat-panel-description>
+                                                          </mat-expansion-panel-header>
+                                                          <p>אנו מצהירים כי מספר הזקיקים של האישה עומד על: __ זקיקים למחזור הנוכחי</p>
+                                                          <mat-form-field  class="input">
+                                                                <mat-label>מספר זקיקים</mat-label>
+                                                                <input matInput formControlName="folliclesNumber">
+                                                              </mat-form-field>
+                                                          <mat-checkbox class="example-margin" color="primary" formControlName="Signature2" class="input" >חתימת הבעל והאישה</mat-checkbox>
+                                                     
+                                                  
+                                                      
+                                                        </mat-expansion-panel>
+  
+     
+       
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                        חתימת הזוג
+                  </mat-panel-title>
+                  <mat-panel-description>
+                   
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>
+                        אנו מצהירים ומאשרים בזאת שקיבלתי הסבר מפורט בעל פה מד"ר אורית ברנהולץ או מד"ר ברוך ברוקס על הזרעה מזרע בן הזוג הבדיקות והטיפולים הכרוכים בכך ואופן ביצועו וסיכויי הצלחתו (להלן "הטיפול)
+                        הוסברו לנו תופעות הלוואי האפשריות, לרבות: כאבי בטן קלים ודימום קל שהולכים ופוחתים בדרך כלל תוך מספר שעות לאחר ההזרעה. כמו כן הוסבר לנו הסיבוך האפשרי של זיהום באברי המין הפנימיים שלעיתים ילווה בכאב ו/או חום גבוה ויצריך אשפוז ומקרים נדירים יגרום לסתימת החצוצרות.
+                        הוסבר לנו כי אין כל ביטחון שכתוצאה מההזרעה האשה תהרה , או שכתוצאה מההזרעה היא תלד, כמו כן קיימת אפשרות של סיבוכים בעת ההריון והלידה וכן תיתכן לידה של ילד/ה במצב בריאות פיזי או נפשי לא תקין, או בעל/י מום, או בלתי נורמלי/ים וכן בעלי/י נטיות תורשתיות או כל סטייה אחרת מהרגיל כפי שהדבר עלול לקרות בהריון טבעי,
+                        אנו נותנים בזאת את הסכמנו לביצוע הטיפול אנו יודעים ומסכימים לכך שהטיפול יעשה בידי מי שהדבר יוטל עליו, בהתאם לנהלים והוראות וכי לא הובטח לנו שיעשו, כולם או חלקם, בידי אדם מסוים, ובלבד שיעשו באחריות המקובלת בכפוף לחוק
+                        
+                </p>
+                <p> תאריך : {{date}}</p>
+                
+                <mat-checkbox class="example-margin" color="primary" formControlName="Signature3" class="input" >חתימת הבעל והאישה</mat-checkbox>
+            
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              חתימת הרופא/ה
+                            </mat-panel-title>
+                            <mat-panel-description>
+                              
+                         
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                          <p>אני מאשר/ת כי הסברתי בעל פה לפני הזוג את כל האמור לעיל בפירוט הדרוש וכי 
+                              הם חתמו על הסכמה בפני לאחר ששוכנעתי כי הבינו את הסברי המלאים,</p>
+                        
+                          <mat-form-field  class="input">
+                                <mat-label>שם הרופא/ה</mat-label>
+                                <input matInput formControlName="employeeName">
+                              </mat-form-field>
+                              <mat-checkbox class="example-margin" color="primary" formControlName="DoctorSignature" class="input" >חתימת הרופא/ה</mat-checkbox>
+                              <mat-form-field  class="input">
+                                    <mat-label>מספר רשיון</mat-label>
+                                    <input matInput formControlName="licenseNumber">
+                                  </mat-form-field>
+                        </mat-expansion-panel>-->
+                        <mat-expansion-panel> 
+                          <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    סיכום הרופא/ה
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                    
+                               
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <!-- <p>{{}} הטיפול התבצע ביום  {} בשעה</p> -->
+                                <mat-form-field class="input" >
+                                  <mat-label>הטיפול התבצע בשעה</mat-label>
+                                <input matInput placeholder="00:00"  formControlName="TreatmentsTime">
+                                <!-- <mat-hint align="end">00:00</mat-hint> -->
+                              </mat-form-field>
+                                
+                                    <mat-form-field  class="input">
+                                      <mat-label>שם הרופא/ה</mat-label>
+                                      <input matInput formControlName="employeeName">
+                                    </mat-form-field>
+                                    <mat-checkbox class="example-margin" color="primary" formControlName="DoctorSignatureAfter" class="input" >חתימת הרופא/ה</mat-checkbox>
+                                    <mat-form-field  class="input">
+                                          <mat-label>מספר רשיון</mat-label>
+                                          <input matInput formControlName="licenseNumber">
+                                        </mat-form-field>
+                                        <br>
+                                        <mat-form-field  class="input" style="width: 800px">
+                                          <mat-label>מהלך הטיפול</mat-label>
+                                          <input matInput formControlName="TreatmentDescription">
+                                        </mat-form-field>
+                              </mat-expansion-panel>
+
+      </mat-accordion>
+      
+</form>
+
+<!-- <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="saveInsemination()" > שמירה</button> -->
+<button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="closeInsemination('open')" > הנפק טופס - סיום</button>
+</div>
+
+</div>
+<div class="cen" *ngIf='closed'>
+    <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="generatePDF('open')" >צפה בטופס</button>
+    <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="generatePDF('download')" >הורד טופס</button>
+    <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="generatePDF('print')" >הדפס טופס</button>
+    </div>
+       </div>

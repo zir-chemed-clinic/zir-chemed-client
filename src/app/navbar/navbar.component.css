@@ -1,0 +1,36 @@
+.navbar{
+    padding: 20px; 
+    background: rgb(2, 82, 19);
+}
+.center{
+    align-content: center;
+  }
+  .nav{
+   direction: rtl;
+   height: 70px;
+   background: rgb(2, 82, 19);
+   position: fixed;
+   top: 0;
+   /* overflow:visible; */
+   width: 100%;
+   padding: 50px;
+ 
+  }
+  .text{
+    color: white;
+   
+   }
+   .sign_out{
+    position: absolute;
+    top: 30px; 
+    left: 40px;
+   }
+   /* .navbar {
+    overflow: hidden;
+    background: rgb(2, 82, 19);
+    height: 80px;
+    direction: rtl;
+    position: fixed; /* Set the navbar to fixed position */
+    /* top: 0;
+    width: 100%; 
+  }  */
