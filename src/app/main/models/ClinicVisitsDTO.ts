@@ -25,6 +25,7 @@ export class ClinicVisitsDTO{
     visitsDate:Date;
     apartmentHr:Boolean;
     apartmentVy:Boolean;
+    apartmentYy:Boolean;
     doctorNavigation:EmployeesDTO;
     persons:PersonsDTO;
     preformedNavigation:EmployeesDTO;

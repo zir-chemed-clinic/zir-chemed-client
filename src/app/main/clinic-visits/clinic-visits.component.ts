@@ -77,6 +77,7 @@ export class ClinicVisitsComponent implements OnInit {
     time:new FormControl(""),
     apartmentHr:new FormControl(false),
     apartmentVy:new FormControl(false),
+    apartmentYy:new FormControl(false),
     visitTime:new FormControl("")
   })
 
@@ -167,6 +168,8 @@ export class ClinicVisitsComponent implements OnInit {
  
    this.clinicVisitToSave.apartmentHr=this.clinicVisitsform.controls["apartmentHr"].value; 
    this.clinicVisitToSave.apartmentVy=this.clinicVisitsform.controls["apartmentVy"].value; 
+   this.clinicVisitToSave.apartmentYy=this.clinicVisitsform.controls["apartmentYy"].value; 
+
    this.clinicVisitToSave.didNotArrive=this.clinicVisitsform.controls["didNotArrive"].value; 
    if(this.clinicVisitToSave.didNotArrive)
    {
@@ -403,6 +406,9 @@ export class ClinicVisitsComponent implements OnInit {
  }
  if(clinicVisits.apartmentVy){
   this.clinicVisitsform.controls["apartmentVy"].setValue(clinicVisits.apartmentVy);
+}
+if(clinicVisits.apartmentYy){
+  this.clinicVisitsform.controls["apartmentYy"].setValue(clinicVisits.apartmentYy);
 }
     this.clinicVisitsform.controls["Amount"].setValue(clinicVisits.amount);
     this.clinicVisitsform.controls["Subsidization"].setValue(clinicVisits.subsidization);

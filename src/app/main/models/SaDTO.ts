@@ -14,6 +14,9 @@ export class SaDTO
         appearance :string;
          conc105cc :string;
          motility :string;
+   //      motility_rank_2 :string;
+    //     motility_rank_3 :string;
+    //     motility_rank_4 :string;
          grade :string;
          ph :string;
          comments :string;

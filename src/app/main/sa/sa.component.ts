@@ -118,6 +118,7 @@ export class SaComponent implements OnInit {
     this.saform.controls["Appearance"].setValue(sa.appearance);
     this.saform.controls["Conc105cc"].setValue(sa.conc105cc);
     this.saform.controls["Motility"].setValue(sa.motility);
+   
     this.saform.controls["Grade"].setValue(sa.grade);
     this.saform.controls["Ph"].setValue(sa.ph);
     this.saform.controls["Comments"].setValue(sa.comments);
@@ -165,6 +166,7 @@ export class SaComponent implements OnInit {
     this.saToSave.appearance= this.saform.controls["Appearance"].value.toString();
     this.saToSave.conc105cc= this.saform.controls["Conc105cc"].value.toString();
     this.saToSave.motility= this.saform.controls["Motility"].value.toString();
+   
     this.saToSave.grade= this.saform.controls["Grade"].value.toString();
     this.saToSave.ph= this.saform.controls["Ph"].value.toString();
     this.saToSave.comments=this.saform.controls["Comments"].value.toString();
@@ -803,6 +805,8 @@ export class SaComponent implements OnInit {
                   }
                 ]
               },
+        
+           
               {
                 columns: [
                   {
