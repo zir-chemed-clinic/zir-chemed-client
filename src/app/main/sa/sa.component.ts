@@ -62,6 +62,10 @@ export class SaComponent implements OnInit {
     Appearance : new FormControl(""),
     Conc105cc : new FormControl(""),
     Motility : new FormControl(""),
+    Motility_rank_1 : new FormControl(""),
+    Motility_rank_2 : new FormControl(""),
+    Motility_rank_3 : new FormControl(""),
+    Motility_rank_4 : new FormControl(""),
     Grade : new FormControl(""),
     Ph : new FormControl(""),
     Comments: new FormControl(""),
@@ -118,6 +122,10 @@ export class SaComponent implements OnInit {
     this.saform.controls["Appearance"].setValue(sa.appearance);
     this.saform.controls["Conc105cc"].setValue(sa.conc105cc);
     this.saform.controls["Motility"].setValue(sa.motility);
+    this.saform.controls["Motility_rank_1"].setValue(sa.motility_rank_1);
+    this.saform.controls["Motility_rank_2"].setValue(sa.motility_rank_2);
+    this.saform.controls["Motility_rank_3"].setValue(sa.motility_rank_3);
+    this.saform.controls["Motility_rank_4"].setValue(sa.motility_rank_4);
    
     this.saform.controls["Grade"].setValue(sa.grade);
     this.saform.controls["Ph"].setValue(sa.ph);
@@ -166,7 +174,10 @@ export class SaComponent implements OnInit {
     this.saToSave.appearance= this.saform.controls["Appearance"].value.toString();
     this.saToSave.conc105cc= this.saform.controls["Conc105cc"].value.toString();
     this.saToSave.motility= this.saform.controls["Motility"].value.toString();
-   
+    this.saToSave.motility_rank_1= this.saform.controls["Motility_rank_1"].value.toString();
+    this.saToSave.motility_rank_2= this.saform.controls["Motility_rank_2"].value.toString();
+    this.saToSave.motility_rank_3= this.saform.controls["Motility_rank_3"].value.toString();
+    this.saToSave.motility_rank_4= this.saform.controls["Motility_rank_4"].value.toString();   
     this.saToSave.grade= this.saform.controls["Grade"].value.toString();
     this.saToSave.ph= this.saform.controls["Ph"].value.toString();
     this.saToSave.comments=this.saform.controls["Comments"].value.toString();
@@ -379,7 +390,7 @@ export class SaComponent implements OnInit {
                          
                     }, 
                     {  
-                      text: "Dr. Baruch Brooks, Ph.D" , 
+                      text: "Dr. Baruch Brooks, PhD" , 
                       font: 'ARIELF' ,
                       color: '#03746e',
                       fontSize: 10   
@@ -424,7 +435,7 @@ export class SaComponent implements OnInit {
                       fontSize: 10  
                     }, 
                     {  
-                      text: this.revers("  דר ברוך ברוקס ph.D") , 
+                      text: this.revers("  דר ברוך ברוקס PhD") , 
                       font: 'ARIELF' ,
                       alignment: 'right' ,
                       color: '#03746e',
@@ -776,65 +787,20 @@ export class SaComponent implements OnInit {
                   style: 'sectionText'
                   },
                   {
-                    text: `)תנועה(`, 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: ` ${this.sa.motility}`, 
-                    style: 'sectionText',
-                    alignment: 'center'
-                  }
-                  ,
-                  {
-                    text: `motility %`, 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                ]
-              },
-        
-           
-              {
-                columns: [
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                  style: 'sectionText'
-                  },
-                  {
                     text: `)דרגה(`, 
                     style: 'sectionText'
                   }
                   ,
                   {
-                    text: ` ${this.sa.grade}`, 
+                    text: `${this.sa.grade}`, 
                     style: 'sectionText',
                     alignment: 'center'
                   }
                   ,
                   {
                     text: `grade`, 
-                    style: 'sectionText'
+                    style: 'sectionText',
+                    fontSize: 9
                   },
                   {
                     text: "", 
@@ -851,6 +817,136 @@ export class SaComponent implements OnInit {
                   }
                 ]
               },
+              ,{
+                text: ` motility % ${this.sa.motility}  תנועה   `,
+                style: 'sectionText',
+                alignment: 'center'
+              },
+              {
+                columns:[
+                 [ {
+                    text:  `grade 1   ${this.sa.motility_rank_1}    (1 )דרגה `,
+                    style: 'sectionText'
+                  }
+                ],
+                [
+                  {
+                    text: `grade 2   ${this.sa.motility_rank_2}    (2 )דרגה `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                [
+                  {
+                    text: `grade 3   ${this.sa.motility_rank_3}    (3 )דרגה `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                [
+                  {
+                    text: `grade 4   ${this.sa.motility_rank_4}    (4 )דרגה `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                
+                ]
+      
+      
+              },
+              // {
+              //   columns: [
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //     style: 'sectionText'
+              //     },
+              //     {
+              //       text: `)תנועה(`, 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: ` ${this.sa.motility}`, 
+              //       style: 'sectionText',
+              //       alignment: 'center'
+              //     }
+              //     ,
+              //     {
+              //       text: `motility % דרגה 1`, 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //   ]
+                
+              // },
+              // {
+              //   columns: [
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //     style: 'sectionText'
+              //     },
+              //     {
+              //       text: `)תנועה(`, 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: ` ${this.sa.motility_rank_2}`, 
+              //       style: 'sectionText',
+              //       alignment: 'center'
+              //     }
+              //     ,
+              //     {
+              //       text: `motility % דרגה 2`, 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //   ]
+                
+              // },
+            
+             
               {
                 columns: [
                   {

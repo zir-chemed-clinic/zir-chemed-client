@@ -70,6 +70,10 @@ messege:boolean=true;
   Appearance : new FormControl(""),
   Conc105cc : new FormControl(""),
   Motility : new FormControl(""),
+  Motility_rank_1 : new FormControl(""),
+  Motility_rank_2 : new FormControl(""),
+  Motility_rank_3 : new FormControl(""),
+  Motility_rank_4 : new FormControl(""),
   Grade : new FormControl(""),
   Ph : new FormControl(""),
   Comments : new FormControl(""),
@@ -81,6 +85,10 @@ messege:boolean=true;
   VolumeCcAfterTreatment : new FormControl(""),
   Conc105ccAfterTreatment : new FormControl(""),
   MotilityAfterTreatment : new FormControl(""),
+  MotilityAfterTreatment_1 : new FormControl(""),
+  MotilityAfterTreatment_2 : new FormControl(""),
+  MotilityAfterTreatment_3 : new FormControl(""),
+  MotilityAfterTreatment_4 : new FormControl(""),
   GradeAfterTreatment : new FormControl(""),
   pHAfterTreatment: new FormControl(""),
   TotalMotileCount : new FormControl(""),
@@ -123,6 +131,10 @@ messege:boolean=true;
     this.iuiToSave.appearance=this.iuiform.controls["Appearance"].value.toString();
     this.iuiToSave.conc105cc=this.iuiform.controls["Conc105cc"].value.toString();
     this.iuiToSave.motility=this.iuiform.controls["Motility"].value.toString();
+    this.iuiToSave.motility_rank_1=this.iuiform.controls["Motility_rank_1"].value.toString();
+    this.iuiToSave.motility_rank_2=this.iuiform.controls["Motility_rank_2"].value.toString();
+    this.iuiToSave.motility_rank_3=this.iuiform.controls["Motility_rank_3"].value.toString();
+    this.iuiToSave.motility_rank_4=this.iuiform.controls["Motility_rank_4"].value.toString();
     this.iuiToSave.grade=this.iuiform.controls["Grade"].value.toString();
     this.iuiToSave.comments=this.iuiform.controls["Comments"].value.toString();
     this.iuiToSave.wimUp=this.iuiform.controls["WimUp"].value;
@@ -136,6 +148,10 @@ messege:boolean=true;
     this.iuiToSave.volumeCcAfterTreatment=this.iuiform.controls["VolumeCcAfterTreatment"].value.toString();
     this.iuiToSave.conc105ccAfterTreatment=this.iuiform.controls["Conc105ccAfterTreatment"].value.toString();
     this.iuiToSave.motilityAfterTreatment=this.iuiform.controls["MotilityAfterTreatment"].value.toString();
+    this.iuiToSave.motilityAfterTreatment_1=this.iuiform.controls["MotilityAfterTreatment_1"].value.toString();
+    this.iuiToSave.motilityAfterTreatment_2=this.iuiform.controls["MotilityAfterTreatment_2"].value.toString();
+    this.iuiToSave.motilityAfterTreatment_3=this.iuiform.controls["MotilityAfterTreatment_3"].value.toString();
+    this.iuiToSave.motilityAfterTreatment_4=this.iuiform.controls["MotilityAfterTreatment_4"].value.toString();
     this.iuiToSave.gradeAfterTreatment=this.iuiform.controls["GradeAfterTreatment"].value.toString();
     // this.iuiToSave.phAfterTreatment=this.iuiform.controls["pHAfterTreatment"].value.toString();
     
@@ -184,6 +200,10 @@ messege:boolean=true;
     this.iuiform.controls["Appearance"].setValue(iui.appearance);
     this.iuiform.controls["Conc105cc"].setValue(iui.conc105cc);
     this.iuiform.controls["Motility"].setValue(iui.motility);
+    this.iuiform.controls["Motility_rank_1"].setValue(iui.motility_rank_1);
+    this.iuiform.controls["Motility_rank_2"].setValue(iui.motility_rank_2);
+    this.iuiform.controls["Motility_rank_3"].setValue(iui.motility_rank_3);
+    this.iuiform.controls["Motility_rank_4"].setValue(iui.motility_rank_4);
     this.iuiform.controls["Grade"].setValue(iui.grade);
     this.iuiform.controls["Comments"].setValue(iui.comments);
     this.iuiform.controls["WimUp"].setValue(iui.wimUp);
@@ -195,6 +215,10 @@ messege:boolean=true;
     this.iuiform.controls["VolumeCcAfterTreatment"].setValue(iui.volumeCcAfterTreatment);
     this.iuiform.controls["Conc105ccAfterTreatment"].setValue(iui.conc105ccAfterTreatment);
     this.iuiform.controls["MotilityAfterTreatment"].setValue(iui.motilityAfterTreatment);
+    this.iuiform.controls["MotilityAfterTreatment_1"].setValue(iui.motilityAfterTreatment_1);
+    this.iuiform.controls["MotilityAfterTreatment_2"].setValue(iui.motilityAfterTreatment_2);
+    this.iuiform.controls["MotilityAfterTreatment_3"].setValue(iui.motilityAfterTreatment_3);
+    this.iuiform.controls["MotilityAfterTreatment_4"].setValue(iui.motilityAfterTreatment_4);
     this.iuiform.controls["GradeAfterTreatment"].setValue(iui.gradeAfterTreatment);
     this.iuiform.controls["pHAfterTreatment"].setValue(iui.phAfterTreatment);
     this.iuiform.controls["TotalMotileCount"].setValue(iui.totalMotileCount);
@@ -385,7 +409,7 @@ this.saveIUI()
                          
                     }, 
                     {  
-                      text: "Dr. Baruch Brooks, Ph.D" , 
+                      text: "Dr. Baruch Brooks, PhD" , 
                       font: 'ARIELF' ,
                       color: '#03746e',
                       fontSize: 10   
@@ -429,7 +453,7 @@ this.saveIUI()
                       fontSize: 10  
                     }, 
                     {  
-                      text: this.revers("  דר ברוך ברוקס ph.D") , 
+                      text: this.revers("  דר ברוך ברוקס PhD") , 
                       font: 'ARIELF' ,
                       alignment: 'right' ,
                       color: '#03746e',
@@ -800,63 +824,20 @@ this.saveIUI()
                   style: 'sectionText'
                   },
                   {
-                    text: `)תנועה(`, 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: ` ${this.iui.motility}`, 
-                    style: 'sectionText',
-                    alignment: 'center'
-                  }
-                  ,
-                  {
-                    text: `motility %`, 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                ]
-              },
-              {
-                columns: [
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                  style: 'sectionText'
-                  },
-                  {
                     text: `)דרגה(`, 
                     style: 'sectionText'
                   }
                   ,
                   {
-                    text: ` ${this.iui.grade}`, 
+                    text: `${this.iui.grade}`, 
                     style: 'sectionText',
                     alignment: 'center'
                   }
                   ,
                   {
                     text: `grade`, 
-                    style: 'sectionText'
+                    style: 'sectionText',
+                    fontSize: 9
                   },
                   {
                     text: "", 
@@ -872,52 +853,222 @@ this.saveIUI()
                     style: 'sectionText'
                   }
                 ]
+              },
+              // {
+              //   columns: [
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //     style: 'sectionText'
+              //     },
+              //     {
+              //       text: `)תנועה(`, 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: ` ${this.iui.motility}`, 
+              //       style: 'sectionText',
+              //       alignment: 'center'
+              //     }
+              //     ,
+              //     {
+              //       text: `motility %`, 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //   ]
+              // },
+              // {
+              //   columns: [
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //     style: 'sectionText'
+              //     },
+              //     {
+              //       text: `)תנועה(`, 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: ` ${this.iui.motility_rank_2}`, 
+              //       style: 'sectionText',
+              //       alignment: 'center'
+              //     }
+              //     ,
+              //     {
+              //       text: `motility % דרגה 2`, 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //   ]
+              // },
+              // {
+              //   columns: [
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //     style: 'sectionText'
+              //     },
+              //     {
+              //       text: `)תנועה(`, 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: ` ${this.iui.motility_rank_3}`, 
+              //       style: 'sectionText',
+              //       alignment: 'center'
+              //     }
+              //     ,
+              //     {
+              //       text: `motility % דרגה 3`, 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //   ]
+              // },
+              // {
+              //   columns: [
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //     style: 'sectionText'
+              //     },
+              //     {
+              //       text: `)תנועה(`, 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: ` ${this.iui.motility_rank_4}`, 
+              //       style: 'sectionText',
+              //       alignment: 'center'
+              //     }
+              //     ,
+              //     {
+              //       text: `motility %דרגה  4`, 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //   ]
+              // },
+              ,{
+                text: ` motility % ${this.iui.motility}   תנועה  `,
+                style: 'sectionText',
+                alignment: 'center'
               },
               {
-                columns: [
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                   {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                  style: 'sectionText'
-                  },
-                  {
-                    text: "    ", 
+                columns:[
+                 [ {
+                    text:  `grade 1   ${this.iui.motility_rank_1}    (1 )דרגה `,
                     style: 'sectionText'
                   }
-                  ,
+                ],
+                [
                   {
-                    
-                    text: `${this.revers(" "+this.iui.ph+" ")}`, 
-                    style: 'sectionText',
-                    alignment: 'center'
-                  }
-                  ,
-                  {
-                    text: `pH`, 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
+                    text: `grade 2   ${this.iui.motility_rank_2}    (2 )דרגה `,
                     style: 'sectionText'
                   }
                 ]
+                ,
+                [
+                  {
+                    text: `grade 3   ${this.iui.motility_rank_3}    (3 )דרגה `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                [
+                  {
+                    text: `grade 4   ${this.iui.motility_rank_4}    (4 )דרגה `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                
+                ]
+      
+      
               },
+              
               {
                 text: `${this.revers(this.iui.comments)} הערות: `,
                style:'sectionTextCenter',
@@ -971,96 +1122,329 @@ this.saveIUI()
               {
                 columns: [
                   {
-                    columns: [{
-                      text: ` )נפח(`, 
-                      style: 'sectionText'
-
-                    },{
-                      text: `${this.reversVolumeCc(" "+this.iui.volumeCcAfterTreatment+" ")}`, 
-                      style: 'sectionText',
-                      alignment: 'center'
-
-                    },{
-                      text: `volume cc`, 
-                      style: 'sectionText'
-
-                    }]
-                   
+                    text: "", 
+                    style: 'sectionText'
+                  },   
+                  {
+                    text: "", 
+                    style: 'sectionText'
+                  },
+                  
+                  {
+                    text: "", 
+                  style: 'sectionText'
                   },
                   {
-                    text:`   `,
+                    text: `)נפח(`, 
+                    style: 'sectionText'
+                  }
+                  ,
+                  {
+                    text: `${this.reversVolumeCc(" "+this.iui.volumeCcAfterTreatment+" ")}   `, 
+                    style: 'sectionText',
+                    alignment: 'center'
+                  }
+                  ,
+                  {
+                    text: `volume cc`, 
                     style: 'sectionText'
                   },
                   {
-                    columns:[
-                    {
-                      text: `)תנועה(`,
-                      style: 'sectionText' 
-
-                    },
-                    {
-                      text: `${this.iui.motilityAfterTreatment}`,
-                      style: 'sectionText' ,
-                      alignment: 'center'
-
-                    },
-                    {
-                      text: `motility %`,
-                      style: 'sectionText' 
-
-                    }]
+                    text: "", 
+                    style: 'sectionText'
+                  }
+                  ,
+                  {
+                    text: "", 
+                    style: 'sectionText'
+                  },
+                  {
+                    text: "", 
+                    style: 'sectionText'
+                  }
+                ]
+              },
+             
+              {
+                columns: [
+                  {
+                    text: "", 
+                    style: 'sectionText'
+                  },
+                  {
+                    text: "", 
+                    style: 'sectionText'
+                  },
+                  {
+                    text: "", 
+                  style: 'sectionText'
+                  },
+                  {
+                    text: `)ריכוז(`, 
+                    style: 'sectionText'
+                  }
+                  ,
+                  {
+                    text: `${this.iui.conc105ccAfterTreatment}`, 
+                    style: 'sectionText',
+                    alignment: 'center'
+                  }
+                  ,
+                  {
+                    text: `conc.10^6/cc`, 
+                    style: 'sectionText',
+                    fontSize: 9
+                  },
+                  {
+                    text: "", 
+                    style: 'sectionText'
+                  }
+                  ,
+                  {
+                    text: "", 
+                    style: 'sectionText'
+                  },
+                  {
+                    text: "", 
+                    style: 'sectionText'
                   }
                 ]
               },
               {
                 columns: [
                   {
-                    columns:[
-                      {
-                        text: `)ריכוז(`,
-                        style: 'sectionText'
-
-                      },
-                      {
-                        text: `${this.iui.conc105ccAfterTreatment}`,
-                        style: 'sectionText',
-                        alignment: 'center'
-
-                      },
-                      {
-                        text: `conc.10^6/cc`,
-                        style: 'sectionText',
-                        fontSize: 9
-
-                      }]
-                    
-                  },
-                  {
-                    text:`   `,
+                    text: "", 
                     style: 'sectionText'
                   },
                   {
-                    columns:[
-                      {
-                        text: `)דרגה(`,
-                        style: 'sectionText' 
-
-                      },
-                      {
-                        text: `${this.iui.gradeAfterTreatment}`,
-                        style: 'sectionText' ,
-                        alignment: 'center'
-
-                      },
-                      {
-                        text: `grade`,
-                        style: 'sectionText' 
-                      }
-                    ]
-                    
+                    text: "", 
+                    style: 'sectionText'
+                  },
+                  {
+                    text: "", 
+                  style: 'sectionText'
+                  },
+                  {
+                    text: `)דרגה(`, 
+                    style: 'sectionText'
+                  }
+                  ,
+                  {
+                    text: `${this.iui.grade}`, 
+                    style: 'sectionText',
+                    alignment: 'center'
+                  }
+                  ,
+                  {
+                    text: `grade`, 
+                    style: 'sectionText',
+                    fontSize: 9
+                  },
+                  {
+                    text: "", 
+                    style: 'sectionText'
+                  }
+                  ,
+                  {
+                    text: "", 
+                    style: 'sectionText'
+                  },
+                  {
+                    text: "", 
+                    style: 'sectionText'
                   }
                 ]
               },
+             
+              ,{
+                text: ` motility % ${this.iui.motilityAfterTreatment}    תנועה  `,
+                style: 'sectionText',
+                alignment: 'center'
+              },
+              {
+                columns:[
+                 [ {
+                    text:  `grade 1   ${this.iui.motilityAfterTreatment_1}    (1 )דרגה `,
+                    style: 'sectionText'
+                  }
+                ],
+                [
+                  {
+                    text: `grade 2   ${this.iui.motilityAfterTreatment_2}    (2 )דרגה `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                [
+                  {
+                    text: `grade 3   ${this.iui.motilityAfterTreatment_3}    (3 )דרגה `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                [
+                  {
+                    text: `grade 4   ${this.iui.motilityAfterTreatment_4}    (4 )דרגה `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                
+                ]
+      
+      
+              },
+              // {
+              //   columns: [
+              //     {
+              //       columns: [{
+              //         text: ` )נפח(`, 
+              //         style: 'sectionText'
+
+              //       },{
+              //         text: `${this.reversVolumeCc(" "+this.iui.volumeCcAfterTreatment+" ")}`, 
+              //         style: 'sectionText',
+              //         alignment: 'center'
+
+              //       },{
+              //         text: `volume cc`, 
+              //         style: 'sectionText'
+
+              //       }]
+                   
+              //     },
+              //     {
+              //       text:`   `,
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       columns:[
+              //       {
+              //         text: `)תנועה(`,
+              //         style: 'sectionText' 
+
+              //       },
+              //       {
+              //         text: `${this.iui.motilityAfterTreatment}`,
+              //         style: 'sectionText' ,
+              //         alignment: 'center'
+
+              //       },
+              //       {
+              //         text: `motility % דרגה 1`,
+              //         style: 'sectionText' 
+
+              //       }]
+              //     },
+              //     {
+              //       columns:[
+              //       {
+              //         text: `)תנועה(`,
+              //         style: 'sectionText' 
+
+              //       },
+              //       {
+              //         text: `${this.iui.motilityAfterTreatment_2}`,
+              //         style: 'sectionText' ,
+              //         alignment: 'center'
+
+              //       },
+              //       {
+              //         text: `motility % דרגה 2`,
+              //         style: 'sectionText' 
+
+              //       }]
+              //     },
+              //     {
+              //       columns:[
+              //       {
+              //         text: `)תנועה(`,
+              //         style: 'sectionText' 
+
+              //       },
+              //       {
+              //         text: `${this.iui.motilityAfterTreatment_3}`,
+              //         style: 'sectionText' ,
+              //         alignment: 'center'
+
+              //       },
+              //       {
+              //         text: `motility % דרגה 3`,
+              //         style: 'sectionText' 
+
+              //       }]
+              //     },
+              //     {
+              //       columns:[
+              //       {
+              //         text: `)תנועה(`,
+              //         style: 'sectionText' 
+
+              //       },
+              //       {
+              //         text: `${this.iui.motilityAfterTreatment_4}`,
+              //         style: 'sectionText' ,
+              //         alignment: 'center'
+
+              //       },
+              //       {
+              //         text: `motility % דרגה 4`,
+              //         style: 'sectionText' 
+
+              //       }]
+              //     }
+              //   ]
+              // },
+              // {
+              //   columns: [
+              //     {
+              //       columns:[
+              //         {
+              //           text: `)ריכוז(`,
+              //           style: 'sectionText'
+
+              //         },
+              //         {
+              //           text: `${this.iui.conc105ccAfterTreatment}`,
+              //           style: 'sectionText',
+              //           alignment: 'center'
+
+              //         },
+              //         {
+              //           text: `conc.10^6/cc`,
+              //           style: 'sectionText',
+              //           fontSize: 9
+
+              //         }]
+                    
+              //     },
+                  
+              //     {
+              //       text:`   `,
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       columns:[
+              //         {
+              //           text: `)דרגה(`,
+              //           style: 'sectionText' 
+
+              //         },
+              //         {
+              //           text: `${this.iui.gradeAfterTreatment}`,
+              //           style: 'sectionText' ,
+              //           alignment: 'center'
+
+              //         },
+              //         {
+              //           text: `grade`,
+              //           style: 'sectionText' 
+              //         }
+              //       ]
+                    
+              //     }
+              //   ]
+              // },
               {
                 columns: [
                   // {

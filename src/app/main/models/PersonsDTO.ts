@@ -3,8 +3,8 @@ export class PersonsDTO{
           manName : string;
          womanName :string;
           familyName :string
-          manId :number;
-          womanId :number;
+          manId :string;
+          womanId :string;
         manDateBirth? :Date;
          womanDateBirth? :Date;
           manPhone :string;

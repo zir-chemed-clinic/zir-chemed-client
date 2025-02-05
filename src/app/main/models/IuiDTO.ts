@@ -13,6 +13,10 @@ export class IuiDTO
         appearance:string;
         conc105cc:string;
         motility :string;
+        motility_rank_1 :string;
+        motility_rank_2 :string;
+        motility_rank_3 :string;
+        motility_rank_4 :string;
         grade :string;
         ph:string;
         comments :string;
@@ -24,6 +28,10 @@ export class IuiDTO
         volumeCcAfterTreatment :string;
         conc105ccAfterTreatment:string;
         motilityAfterTreatment :string;
+        motilityAfterTreatment_1 :string;
+        motilityAfterTreatment_2 :string;
+        motilityAfterTreatment_3 :string;
+        motilityAfterTreatment_4 :string;
         gradeAfterTreatment :string;
         phAfterTreatment:string;
         totalMotileCount :string;

@@ -128,16 +128,36 @@
                 <mat-label>Conc.10^6/cc (ריכוז)</mat-label>
                 <input matInput #input formControlName="Conc105cc">
         </mat-form-field>
-        
+ 
         <mat-form-field class="input">
-                <mat-label>Motility % (תנועה)</mat-label>
+                <mat-label>Motility % (תנועה) </mat-label>
                 <input matInput #input formControlName="Motility">
         </mat-form-field>
-     
-        <mat-form-field  class="input">
+        
+        <mat-form-field class="input">
+                <mat-label>Motility % (תנועה)דרגה 1</mat-label>
+                <input matInput #input formControlName="Motility_rank_1">
+        </mat-form-field>
+
+        <mat-form-field class="input">
+                <mat-label>Motility % (תנועה)דרגה 2</mat-label>
+                <input matInput #input formControlName="Motility_rank_2">
+        </mat-form-field>  
+
+        <mat-form-field class="input">
+                <mat-label>Motility % (תנועה)דרגה 3</mat-label>
+                <input matInput #input formControlName="Motility_rank_3">
+        </mat-form-field>  
+
+        <mat-form-field class="input">
+                <mat-label>Motility % (תנועה)דרגה 4</mat-label>
+                <input matInput #input formControlName="Motility_rank_4">
+        </mat-form-field>
+
+        <!-- <mat-form-field  class="input">
                 <mat-label>Grade (דרגה)</mat-label>
                 <input matInput #input formControlName="Grade">
-        </mat-form-field>
+        </mat-form-field> -->
         <mat-form-field  class="input">
                 <mat-label>PH</mat-label>
                 <input matInput #input formControlName="Ph">
@@ -186,19 +206,38 @@
             <input matInput #input formControlName="VolumeCcAfterTreatment">
         </mat-form-field>
         <mat-form-field class="input" >
-                        <mat-label>Motility (תנועה)</mat-label>
+                        <mat-label>Motility % (תנועה) </mat-label>
                         <input matInput #input  formControlName="MotilityAfterTreatment">
                 </mat-form-field>
-               
+
+                <mat-form-field class="input" >
+                        <mat-label>Motility (תנועה)דרגה 1</mat-label>
+                        <input matInput #input  formControlName="MotilityAfterTreatment_1">
+                </mat-form-field>
+ 
+                <mat-form-field class="input" >
+                        <mat-label>Motility (תנועה)דרגה 2</mat-label>
+                        <input matInput #input  formControlName="MotilityAfterTreatment_2">
+                </mat-form-field>
+                
+                <mat-form-field class="input" >
+                        <mat-label>Motility (תנועה)דרגה 3</mat-label>
+                        <input matInput #input  formControlName="MotilityAfterTreatment_3">
+                </mat-form-field>
+
+                <mat-form-field class="input" >
+                        <mat-label>Motility (תנועה)דרגה 4</mat-label>
+                        <input matInput #input  formControlName="MotilityAfterTreatment_4">
+                </mat-form-field>
         <mat-form-field class="input">
                 <mat-label>Conc.10^6/cc (ריכוז)</mat-label>
                 <input matInput #input formControlName="Conc105ccAfterTreatment">
         </mat-form-field>
        
-        <mat-form-field class="input">
+        <!-- <mat-form-field class="input">
                 <mat-label>Grade (דרגה)</mat-label>
                 <input matInput #input  formControlName="GradeAfterTreatment">
-        </mat-form-field>
+        </mat-form-field> -->
         <!-- <mat-form-field class="input">
                 <mat-label>pH</mat-label>
                 <input matInput #input  formControlName="pHAfterTreatment">

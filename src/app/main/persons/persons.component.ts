@@ -86,8 +86,8 @@ export class PersonsComponent implements OnInit {
     this.personsToSave.manName=  this.personsform.controls["manName"].value;
     this.personsToSave.womanName=  this.personsform.controls["womanName"].value;
     this.personsToSave.familyName   =this.personsform.controls["familyName"].value;
-    this.personsToSave.manId = +this.personsform.controls["manId"].value;
-    this.personsToSave.womanId = +this.personsform.controls["womanId"].value;
+    this.personsToSave.manId = String(this.personsform.controls["manId"].value);
+    this.personsToSave.womanId = String(this.personsform.controls["womanId"].value);
     if(this.personsform.controls["manDateBirth"].value=="")
     this.personsToSave.manDateBirth=  tmpDate;
     else

@@ -203,7 +203,7 @@ export class EmployeeSalaryComponent implements OnInit {
 
           },
           {
-            text: "Dr. Baruch Brooks, Ph.D",
+            text: "Dr. Baruch Brooks, PhD",
             font: 'ARIELF',
             color: '#03746e',
             fontSize: 10
@@ -249,7 +249,7 @@ export class EmployeeSalaryComponent implements OnInit {
             fontSize: 10
           },
           {
-            text: this.revers("  דר ברוך ברוקס ph.D"),
+            text: this.revers("  דר ברוך ברוקס PhD"),
             font: 'ARIELF',
             alignment: 'right',
             color: '#03746e',
