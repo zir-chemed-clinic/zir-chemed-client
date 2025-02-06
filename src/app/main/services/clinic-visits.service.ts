@@ -27,7 +27,7 @@ export class ClinicVisitsService {
     // return this._http.get<ClinicVisitsDTO[]>('/api/ClinicVisits');
   }
   deleteById(id:number):Observable<ClinicVisitsDTO> {
-    return this._http.delete<ClinicVisitsDTO>('api/ClinicVisits/'+id);
+    return this._http.put<ClinicVisitsDTO>('api/ClinicVisits/',id);
   }
   constructor(private _http:HttpClient) { }
 }

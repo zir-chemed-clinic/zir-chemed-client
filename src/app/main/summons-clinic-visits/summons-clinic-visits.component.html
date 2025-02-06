@@ -93,6 +93,7 @@
 <table id="sailorTable" class="table table-striped table-bordered" >
   <thead>
     <tr >
+      <th  >דירה  </th>
       <th  >תאריך </th>
       <th  >עובד מעבדה </th>
       <th  >רופא </th> 
@@ -175,6 +176,9 @@
 
 
   <tr  style="cursor: pointer;"  *ngFor="let element of clinicVisitsListToDisplay" >
+    <th class="td">
+      {{ (element.apartmentHr || element.apartmentVy || element.apartmentYy) ? '✔' : '✘' }}
+    </th>
     <th class="td" >
         <!-- 'dd/MM/yyyy' -->
      {{element.visitsDate | date:  'dd/MM/yyyy'}}

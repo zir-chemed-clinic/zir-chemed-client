@@ -40,6 +40,9 @@ export class SummonsClinicVisitsComponent implements OnInit {
   womanId:string="";
   fromDate:Date;
   untilDate:Date;
+  apartmentHr:boolean=false;
+  apartmentVy:boolean=false;
+  apartmentYy:boolean=false;
 displayedColumns: string[] = ['TreatmentsId', 'PersonsId', 'Preformed', 'Doctor','PaymentMethod','Receipt','Amount','VisitsDate'];
 clinicVisitsList:ClinicVisitsDTO[]=[];
 allEmployees:EmployeesDTO[]=[];
@@ -56,6 +59,9 @@ summonsClinicVisitsform=new FormGroup({
   womanId : new FormControl(""),
   fromDate : new FormControl(""),
   untilDate : new FormControl(""),
+  apartmentVy : new FormControl(""),
+  apartmentYy : new FormControl(""),
+  apartmentHr : new FormControl(""),
   manPhone : new FormControl(""),
   womanPhone:new FormControl("")
 })
