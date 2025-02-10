@@ -623,7 +623,8 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
                    
   //                 },
                 {
-                  text:`${this.revers(" אנו מצהירים ומאשרים בזאת שקיבלנו הסבר מפורט מדק' אורית ברנהולץ או מדר' ברוך ברוקס")}`,
+                
+                  text:`${this.revers(" אנו מצהירים ומאשרים בזאת שקיבלנו הסבר מפורט מדר' "+this.doctor.employeeName)}`,
                   style: 'sectionText'
                 },
                 {
