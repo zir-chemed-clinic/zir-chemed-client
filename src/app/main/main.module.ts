@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ViewChild   } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PersonsComponent } from './persons/persons.component';
 import { RouterModule } from '@angular/router';
@@ -56,13 +56,16 @@ import { EmailService } from './services/email.service';
 import {DialogModule} from 'primeng/dialog';
 import {MatIconModule} from '@angular/material';
 import { SummaryComponent } from './summary/summary.component';
+import { DigitalSignatureFormComponent } from './digital-signature-form/digital-signature-form.component';
+//import { SignaturePadModule } from 'angular2-signaturepad';
+
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
 // import {CalendarModule} from 'primeng/calendar';
 // import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
-  declarations: [PersonsComponent,HomeComponent, ClinicVisitsComponent, EmployeesComponent, PctComponent, SaComponent, InseminationComponent, IuiComponent, TreatmentsComponent, SubsidizationComponent, SummonsClinicVisitsComponent, HomeComponent, EditClinicVisitComponent, AllPersonsComponent, AllEmployeesComponent, AllTreatmentsComponent, PctPdfComponent, SaPdfComponent, EmployeeSalaryComponent, HistoryClinicVisitsComponent, SummaryComponent],
+  declarations: [PersonsComponent,HomeComponent, ClinicVisitsComponent, EmployeesComponent, PctComponent, SaComponent, InseminationComponent, IuiComponent, TreatmentsComponent, SubsidizationComponent, SummonsClinicVisitsComponent, HomeComponent, EditClinicVisitComponent, AllPersonsComponent, AllEmployeesComponent, AllTreatmentsComponent, PctPdfComponent, SaPdfComponent, EmployeeSalaryComponent, HistoryClinicVisitsComponent, SummaryComponent, DigitalSignatureFormComponent],
   imports: [
     // CalendarModule,
     // CheckboxModule,
@@ -114,7 +117,9 @@ import { SummaryComponent } from './summary/summary.component';
       {path:"Treatments/:TreatmentId",component:TreatmentsComponent},
       {path:"pctPdf",component:PctPdfComponent},
       {path:"saPdf",component:SaPdfComponent},
-      {path:"summary",component:SummaryComponent}
+      {path:"summary",component:SummaryComponent},
+      {path:"digitalForm",component:DigitalSignatureFormComponent},
+
     ])
   ], providers:[TreatmentService,PersonsService,ClinicVisitsService,EmployeesService,
     InseminationService,IuiService,PctService,PersonsService,SaService,SubsidizationService,TreatmentsService,EmailService,

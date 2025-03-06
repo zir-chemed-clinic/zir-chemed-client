@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { EmployeesService } from '../services/employees.service';
 import { EmployeesDTO } from '../models/EmployeesDTO';
 import { PermissionService } from 'src/app/permission.service';
+import * as Excel from "exceljs/dist/exceljs.min.js";
+import * as fs from 'file-saver';
+
 @Component({
   selector: 'app-summons-clinic-visits',
   templateUrl: './summons-clinic-visits.component.html',
@@ -178,6 +181,49 @@ searchByAll(){
 //  &&(this.flagdoctor==false || c.doctorNavigation&& c.doctorNavigation.employeeName.includes(doctor))
 //  && (this.flagpreformed==false || c.preformedNavigation.employeeName.includes(preformed))
  }
+ createExelFile(){
+     let workbook = new Excel.Workbook();
+     let worksheet = workbook.addWorksheet("appointments");
+     let header=["שם משפחה","שם הבעל","שם האשה","טלפון הבעל","טלפון האשה","סוג טיפול","רופא","עובד מעבדה","הזמינו דירה"
+   ]
+    
+   let headerRow = worksheet.addRow(header);
+   headerRow.font = { bold: true };
+   for (let turn of this.clinicVisitsListToDisplay)
+ {
+   // let x2=Object.keys(x1);
+   let row = [
+    turn.persons.familyName,
+    turn.persons.manName,
+    turn.persons.womanName,
+    turn.persons.manPhone,
+    turn.persons.womanPhone,
+    turn.treatments.treatmentName,
+    turn.doctorNavigation && turn.doctorNavigation.employeeName ? turn.doctorNavigation.employeeName : '',
+    turn.preformedNavigation && turn.preformedNavigation.employeeName ? turn.preformedNavigation.employeeName : '', 
+    turn.apartmentHr || turn.apartmentVy || turn.apartmentYy ? '✔' : '✘'
+  ];
+  
+  
+   // for(let y of x2)
+   // {
+   //   temp.push(x1[y])
+   // }
+   worksheet.addRow(row)
+ }
+ let fname="תורים פתוחים"
+ let dtae = new Date();
+ let dd = String(dtae.getDate()).padStart(2, '0');
+ let mm = String(dtae.getMonth() + 1).padStart(2, '0'); //January is 0!
+ let yyyy = dtae.getFullYear();
+ 
+ let today = dd + '.' + mm + '.' + yyyy;
+ // add data and file name and download
+ workbook.xlsx.writeBuffer().then((data) => {
+   let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+   fs.saveAs(blob, fname+'-'+today+'.xlsx');
+ });}
+
 constructor(private _personsService:PersonsService,private _cinicVisitsService:ClinicVisitsService
   ,private _EmployeesService: EmployeesService,private _router:Router,private _PermissionService:PermissionService){}
   ngOnInit() {

@@ -18,6 +18,9 @@ import {strGnuMICR} from '../../fonts/GnuMICRttfBase64Encoded'
 import {strAriel} from '../../fonts/ariel'
 import { Observable } from 'rxjs';
 import {strLogo} from '../stringLogo'
+//import { SignaturePad } from 'ngx-signaturepad'; // 🚀 חדש - שימוש ב-signature pad
+
+
 // import {strLogo} from '../app/stringFile';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
@@ -642,186 +645,55 @@ export class SaComponent implements OnInit {
                 style: 'sectionHeader'
               },
               {
-                columns: [{text: "", style: 'sectionText'},   
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  
-                  {
-                    text: "", 
-                  style: 'sectionText'
-                  },
-                  {
-                    text: `)נפח(`, 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: ` ${this.reversVolumeCc(" "+this.sa.volumeCc+" ")}  `, 
-                    style: 'sectionText',
-                    alignment: 'center'
-                  }
-                  ,
-                  {
-                    text: `volume cc`, 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                ]
-              },
-              {
-                columns: [
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                    {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  
-                  {
-                    text: "", 
-                  style: 'sectionText'
-                  },
-                  {
-                    text: `)מראה(`, 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: ` ${this.revers(" "+this.sa.appearance+" ")}   `, 
-                    style: 'sectionText',
-                    alignment: 'center'
-                  }
-                  ,
-                  {
-                    text: `Appearance`, 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                ]
-              },
-              {
-                columns: [
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                  style: 'sectionText'
-                  },
-                  {
-                    text: `)ריכוז(`, 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: `${this.sa.conc105cc}`, 
-                    style: 'sectionText',
-                    alignment: 'center'
-                  }
-                  ,
-                  {
-                    text: `conc.10^6/cc`, 
-                    style: 'sectionText',
-                    fontSize: 9
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                ]
-              },
-              {
-                columns: [
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                  style: 'sectionText'
-                  },
-                  {
-                    text: `)דרגה(`, 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: `${this.sa.grade}`, 
-                    style: 'sectionText',
-                    alignment: 'center'
-                  }
-                  ,
-                  {
-                    text: `grade`, 
-                    style: 'sectionText',
-                    fontSize: 9
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                ]
-              },
-              ,{
-                text: ` motility % ${this.sa.motility}  תנועה   `,
-                style: 'sectionText',
-                alignment: 'center'
-              },
+                defaultStyle: {
+                  font: "Roboto"
+                },
+                table: {
+                  widths: ["30%", "30%", "40%"], // שינוי רוחב העמודות בהתאמה
+                  alignment: "right", // מיקום הטבלה לצד השני
+                  body: [
+                    [
+                      { text: "תקינים  ערכים", style: "sectionText", alignment: "right" },
+                      { text: "תוצאה", style: "sectionText", alignment: "right" },
+                      { text: "ערך", style: "sectionText", alignment: "right" }
+                    ],
+                    [
+                      { text: `מ"ל 1.5 מעל`, style: "sectionText", alignment: "right" },
+                      { text: `${this.reversVolumeCc(" "+this.sa.volumeCc+" ")}`, style: "sectionText", alignment: "right" },
+                      { text: "volume cc )נפח(", style: "sectionText", alignment: "right" }
+                    ],
+                    [
+                      { text: "", style: "sectionText", alignment: "right" },
+                      { text: `${this.revers(" "+this.sa.appearance+" ")}`, style: "sectionText", alignment: "right" },
+                      { text: "Appearance )מראה(", style: "sectionText", alignment: "right" }
+                    ],
+                    [
+                      { text: ` זרימה למ"ל זרע תאי מליון 15 לפחות`, style: "sectionText", alignment: "right" },
+                      { text: `${this.sa.conc105cc}`, style: "sectionText", alignment: "right" },
+                      { text: "conc.10^6/cc )ריכוז(", style: "sectionText", alignment: "right" }
+                    ],
+                    [
+                      { text: "7.2 מעל", style: "sectionText", alignment: "right" },
+                      { text: `${this.sa.ph}`, style: "sectionText", alignment: "right" },
+                      { text: "ph", style: "sectionText", alignment: "right" }
+                    ],
+                    [
+                      { text: "בתנועה זרע 40% מעל", style: "sectionText", alignment: "right" },
+                      { text: `${this.sa.motility}`, style: "sectionText", alignment: "right" },
+                      { text: "motility % )תנועה(", style: "sectionText", alignment: "right" }
+                    ],
+                
+                    [
+                      { text: "", style: "sectionText", alignment: "right" },
+                      { text: `${this.sa.grade}`, style: "sectionText", alignment: "right" },
+                      { text: "grade )דרגה(", style: "sectionText", alignment: "right" }
+                    ],
+                  ]
+                },
+                layout: "lightHorizontalLines" // מסגרת קלה לטבלה
+                
+              }
+,              
               {
                 columns:[
                  [ {
@@ -947,50 +819,50 @@ export class SaComponent implements OnInit {
               // },
             
              
-              {
-                columns: [
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                   {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                  style: 'sectionText'
-                  },
-                  {
-                    text: "    ", 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: `${this.revers(" "+this.sa.ph +" ")}`, 
-                    style: 'sectionText',
-                    alignment: 'center'
-                  }
-                  ,
-                  {
-                    text: `pH`, 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                  ,
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  },
-                  {
-                    text: "", 
-                    style: 'sectionText'
-                  }
-                ]
-              },
+              // {
+              //   columns: [
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //      {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //     style: 'sectionText'
+              //     },
+              //     {
+              //       text: "    ", 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: `${this.revers(" "+this.sa.ph +" ")}`, 
+              //       style: 'sectionText',
+              //       alignment: 'center'
+              //     }
+              //     ,
+              //     {
+              //       text: `pH`, 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //     ,
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     },
+              //     {
+              //       text: "", 
+              //       style: 'sectionText'
+              //     }
+              //   ]
+              // },
               // {
               //   text: `)נפח(          ${this.sa.volumeCc}     volume cc`,
               //   style:'sectionTextCenter'
@@ -1025,51 +897,48 @@ export class SaComponent implements OnInit {
               {
                 text: "מורפולגיה ", 
                 style: 'sectionHeader' 
-              },
+              },{
+              columns:[ 
+               {
+                  text: ` תקינים. וצורה מבנה הזרע, מתאי ומעלה  4% תקינים: ערכים `,
+                  style:'sectionText'
+                },
+                {
+                  text: `Normal forms       ${this.sa.normalForms }        % (who strict) `,
+                  style:'sectionText'
+                },
+            
+              ]},
+             
               {
-                text: `Normal forms         ${this.sa.normalForms }          % (who strict) `,
-                style:'sectionTextCenter'
+                table: {
+                  widths: ["33%", "33%", "33%"], // שלוש עמודות שוות ברוחב
+                  body: [
+                    [
+                      { text: [{ text: "Large heads: ", bold: true }, this.sa.largeHeads], style: "sectionTextCenter", border: [true, true, true, true] },
+                      { text: [{ text: "Small heads: ", bold: true }, this.sa.smallHeads], style: "sectionTextCenter", border: [true, true, true, true] },
+                      { text: [{ text: "Round heads: ", bold: true }, this.sa.roundHeads], style: "sectionTextCenter", border: [true, true, true, true] }
+                    ],
+                    [
+                      { text: [{ text: "Tapered heads: ", bold: true }, this.sa.taperedHeads], style: "sectionTextCenter", border: [true, true, true, true] },
+                      { text: [{ text: "Pyramidal heads: ", bold: true }, this.sa.pyramidalHeads], style: "sectionTextCenter", border: [true, true, true, true] },
+                      { text: [{ text: "Amorphous heads: ", bold: true }, this.sa.amorphousHeads], style: "sectionTextCenter", border: [true, true, true, true] }
+                    ],
+                    [
+                      { text: [{ text: "Pin heads: ", bold: true }, this.sa.pinHeads], style: "sectionTextCenter", border: [true, true, true, true] },
+                      { text: [{ text: "Neck defects: ", bold: true }, this.sa.neckDefects], style: "sectionTextCenter", border: [true, true, true, true] },
+                      { text: [{ text: "Cytoplasmic droplets: ", bold: true }, this.sa.cytoplasmicDroplets], style: "sectionTextCenter", border: [true, true, true, true] }
+                    ],
+                    [
+                      { text: [{ text: "Tail defects: ", bold: true }, this.sa.tailDefects], style: "sectionTextCenter", border: [true, true, true, true]},
+                      { text: [{ text: "", bold: true }, ], style: "sectionTextCenter", border: [false, false, false, false] },
+                      { text: [{ text: "", bold: true }, ], style: "sectionTextCenter", border: [false, false, false,  false]}
+                    ]
+                  ]
+                },
+            //    layout: "lightHorizontalLines" // מסגרת קלה לטבלה
               },
-              {
-                text: `Large heads:      ${this.sa.largeHeads } `,
-                style:'sectionTextCenter'
-              },
-              {
-                text: `Small heads:      ${this.sa.smallHeads }`,
-                style:'sectionTextCenter'
-              },
-              {
-                text: `round heads :      ${this.sa.roundHeads }`,
-                style:'sectionTextCenter'
-              },
-              {
-                text: `tapered  heads:      ${this.sa.taperedHeads }`,
-                style:'sectionTextCenter'
-              },
-              {
-                text: `pyramidal  heads :     ${this.sa.pyramidalHeads }`,
-                style:'sectionTextCenter'
-              },
-              {
-                text: `amorphous  heads:     ${this.sa.amorphousHeads }`,
-                style:'sectionTextCenter'
-              },
-              {
-                text: `pin heads:     ${this.sa.pinHeads }`,
-                style:'sectionTextCenter'
-              },
-              {
-                text: `neck defects:     ${this.sa.neckDefects }`,
-                style:'sectionTextCenter'
-              },
-              {
-                text: `cytoplasmic droplets:     ${this.sa.cytoplasmicDroplets }`,
-                style:'sectionTextCenter'
-              },
-              {
-                text: `tail defects:      ${this.sa.tailDefects }`,
-                style:'sectionTextCenter'
-              },
+              
               // {
               //   columns: [
               //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},

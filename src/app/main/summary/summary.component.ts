@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClinicVisitsService } from '../services/clinic-visits.service';
 import { ClinicVisitsDTO } from '../models/ClinicVisitsDTO';
+import { log } from 'console';
 
 @Component({
   selector: 'app-summary',
@@ -10,9 +11,14 @@ import { ClinicVisitsDTO } from '../models/ClinicVisitsDTO';
 export class SummaryComponent implements OnInit {
 
   clinicVisitsList:ClinicVisitsDTO[]=[];
+  ay=[];
+  av=[];
+  ah=[];
+  indexYeary=[];
+
   arr=[];
   indexYear=[];
-  createList() {
+  createList() {    
     this.arr[0]=[[[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[]],
     [[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[]]
     ,[[],[],[],[],[],[],[],[]]
@@ -134,11 +140,47 @@ export class SummaryComponent implements OnInit {
     });
 
     this.createList1()
-    
+    this.creatListApartment()
     }
        ,
      (error)=>{ alert("try later");})
   }
+
+  creatListApartment(){
+  this.indexYeary = []; // מערך שמכיל את השנים הייחודיות
+  this.ay = []; // מערך שמכיל את כמות ה-APARTMENTVY בכל שנה
+  this.av = [];
+  this.ah = [];
+  let index = 0;
+  let firstYear = new Date(this.clinicVisitsList[0].visitsDate).getFullYear();
+  this.indexYeary.push(firstYear);
+  this.av[index] = 0; // אתחול כמות הביקורים ל-0
+  this.ah[index] = 0;
+  this.ay[index] = 0;
+  for (let i = 0; i < this.clinicVisitsList.length; i++) {
+    let currentYear = new Date(this.clinicVisitsList[i].visitsDate).getFullYear();
+
+    // אם השנה הנוכחית לא קיימת במערך השנים, נוסיף אותה
+    if (!this.indexYeary.includes(currentYear)) {
+      index++;
+      this.indexYeary.push(currentYear);
+      this.av[index] = 0; // אתחול מספר הביקורים לשנה החדשה
+      this.ah[index] = 0; // אתחול מספר הביקורים לשנה החדשה
+      this.ay[index] = 0; // אתחול מספר הביקורים לשנה החדשה
+    }
+
+    // בדיקה האם הביקור היה ב-APARTMENTVY
+    if (this.clinicVisitsList[i].apartmentVy === true) 
+      this.av[index]++;
+    if (this.clinicVisitsList[i].apartmentYy === true) 
+      this.ay[index]++;
+    if (this.clinicVisitsList[i].apartmentHr === true) 
+      this.ah[index]++;
+  }
+  
+
+
+}
   createList1() {
     this.arr[0]=[[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]

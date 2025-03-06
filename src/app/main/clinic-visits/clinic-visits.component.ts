@@ -450,7 +450,7 @@ if(clinicVisits.apartmentYy){
 
   }
   toPayment(){
-    debugger
+    
     this.flagPayment=true;
     this.flagClinicVisits=false;
     this.flagDidNotArrive=false;
@@ -535,6 +535,12 @@ return;
    } 
    
    
+  }
+  toSignature(){
+    
+      this.flagClinicVisits=false;
+      this.flagPayment=false;
+      this.flagDidNotArrive=false;
   }
   toForm(){
 
@@ -640,7 +646,7 @@ return;
           map(value => this._filterPersons(value.toString())));
           this._EmployeesService.getAll().subscribe(
             (data)=>{   
-              this.allEmployees=data;
+              this.allEmployees=data.filter(emp => [12, 13, 14, 19].includes(emp.employeeId));
               this.allDoctor=this.allEmployees.filter(em=>em.role==1);
               this.allPreformed=this.allEmployees.filter(emp=>emp.role==2);
               this._TreatmentService.getAll().subscribe(

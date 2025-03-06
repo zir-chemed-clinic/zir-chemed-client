@@ -51,14 +51,30 @@
                
               </mat-select>
             </mat-form-field></div>
+            <!-- מציג רק את העובדים שמבצעים מורפולוגיה -->
             <div class="col-3"><mat-form-field class="input">
               <mat-label>בחר מבצע מורפולוגיה </mat-label>
               <mat-select formControlName="Morphology">
+                <!-- <mat-option  [value]=allEmployees[1]>
+                  {{allEmployees[0].employeeName }}
+
+                </mat-option>
+                <mat-option  [value]=allEmployees[1]>
+                  {{allEmployees[1].employeeName }}
+
+                </mat-option> 
+                <mat-option  [value]=allEmployees[1]>
+                  {{allEmployees[2].employeeName }}
+
+                </mat-option>
+                <mat-option  [value]=allEmployees[1]>
+                  {{allEmployees[7].employeeName }}
+
+                </mat-option> -->
                 <mat-option *ngFor="let morphology of allEmployees" [value]="morphology">
                   {{morphology.employeeName}}
 
                 </mat-option>
-               
               </mat-select>
             </mat-form-field></div>
         </div>
