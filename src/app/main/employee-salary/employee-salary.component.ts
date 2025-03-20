@@ -318,6 +318,11 @@ export class EmployeeSalaryComponent implements OnInit {
         text: ` ${this.SA} * ${this.employee.paymentForSA} = ${this.SA * this.employee.paymentForSA}`,
         style: 'sectionText',
         direction: 'rtl'
+      })
+      datesClinicVisits.push({
+        text: ` ${this.SA} * 15 = ${this.SA * 15}`,
+        style: 'sectionText',
+        direction: 'rtl'
       });
     }
 
@@ -342,6 +347,11 @@ export class EmployeeSalaryComponent implements OnInit {
       }
       datesClinicVisits.push({
         text: ` ${this.SAMorphology} * ${this.employee.paymentForMorphology} = ${this.SAMorphology * this.employee.paymentForMorphology}`,
+        style: 'sectionText',
+        direction: 'rtl'
+      })
+      datesClinicVisits.push({
+        text: ` ${this.SAMorphology} * 20 = ${this.SAMorphology * 20}`,
         style: 'sectionText',
         direction: 'rtl'
       });
@@ -370,6 +380,11 @@ export class EmployeeSalaryComponent implements OnInit {
         text: `${this.IUI} * ${this.employee.paymentForIUI} = ${this.IUI * this.employee.paymentForIUI}`,
         style: 'sectionText',
         direction: 'rtl'
+      })
+      datesClinicVisits.push({
+        text: `${this.IUI} * 45 = ${this.IUI * 45}`,
+        style: 'sectionText',
+        direction: 'rtl'
       });
     }
     if (this.PCT > 0) {
@@ -395,7 +410,13 @@ export class EmployeeSalaryComponent implements OnInit {
         text: `${this.PCT} * ${this.employee.paymentForPCT} = ${this.PCT * this.employee.paymentForPCT}`,
         style: 'sectionText',
         direction: 'rtl'
-      });
+      })
+      datesClinicVisits.push({
+        text: `${this.PCT} * 15 = ${this.PCT * 15}`,
+        style: 'sectionText',
+        direction: 'rtl'
+      })
+      ;
 
     }
     if (this.Insemination > 0) {
@@ -421,6 +442,11 @@ export class EmployeeSalaryComponent implements OnInit {
         text: `${this.Insemination} * ${this.employee.paymentForInsemination} = ${this.Insemination * this.employee.paymentForInsemination}`,
         style: 'sectionText',
         direction: 'rtl'
+      })
+      datesClinicVisits.push({
+        text: `${this.Insemination} * 10 = ${this.Insemination * 10}`,
+        style: 'sectionText',
+        direction: 'rtl'
       });
     }
     if (this.IUISA > 0) {
@@ -443,6 +469,16 @@ export class EmployeeSalaryComponent implements OnInit {
         })
       }
     }
+    datesClinicVisits.push({
+      text: ` ${this.IUISA} * ${this.employee.paymentForIUISA} = ${this.IUISA * this.employee.paymentForIUISA}`,
+      style: 'sectionText',
+      direction: 'rtl'
+    })
+    datesClinicVisits.push({
+      text: ` ${this.IUISA} * 45 = ${this.IUISA * 45}`,
+      style: 'sectionText',
+      direction: 'rtl'
+    });
     if (this.IUISAMorphology > 0) {
       datesClinicVisits.push({
         text: ' והשבחה בבדיקה מורפולוגיה ',
@@ -464,6 +500,11 @@ export class EmployeeSalaryComponent implements OnInit {
       }
       datesClinicVisits.push({
         text: ` ${this.IUISAMorphology} * ${this.employee.paymentForMorphology} = ${this.IUISAMorphology * this.employee.paymentForMorphology}`,
+        style: 'sectionText',
+        direction: 'rtl'
+      })
+      datesClinicVisits.push({
+        text: ` ${this.IUISAMorphology} * 20 = ${this.IUISAMorphology * 20}`,
         style: 'sectionText',
         direction: 'rtl'
       });
@@ -491,6 +532,11 @@ export class EmployeeSalaryComponent implements OnInit {
         text: `${this.Consulting} * ${this.employee.paymentForConsulting} = ${this.Consulting * this.employee.paymentForConsulting}`,
         style: 'sectionText',
         direction: 'rtl'
+      })
+      datesClinicVisits.push({
+        text: `${this.Consulting} * 60 = ${this.Consulting * 60}`,
+        style: 'sectionText',
+        direction: 'rtl'
       });
     }
     if (this.Wash > 0) {
@@ -514,6 +560,11 @@ export class EmployeeSalaryComponent implements OnInit {
       }
       datesClinicVisits.push({
         text: ` ${this.Wash} * ${this.employee.paymentForWash} = ${this.Wash * this.employee.paymentForWash}`,
+        style: 'sectionText',
+        direction: 'rtl'
+      })
+      datesClinicVisits.push({
+        text: ` ${this.Wash} * 45 = ${this.Wash * 45}`,
         style: 'sectionText',
         direction: 'rtl'
       });
@@ -541,6 +592,11 @@ export class EmployeeSalaryComponent implements OnInit {
         text: `${this.CanNotBeMadeIUI} * ${this.employee.paymentForcanNotBeMadeIUI} = ${this.CanNotBeMadeIUI * this.employee.paymentForcanNotBeMadeIUI}`,
         style: 'sectionText',
         direction: 'rtl'
+      })
+      datesClinicVisits.push({
+        text: `${this.CanNotBeMadeIUI} * 15 = ${this.CanNotBeMadeIUI * 15}`,
+        style: 'sectionText',
+        direction: 'rtl'
       });
     }
     if (this.CanNotBeMadeSA > 0) {
@@ -566,6 +622,11 @@ export class EmployeeSalaryComponent implements OnInit {
         text: `${this.CanNotBeMadeSA} * ${this.employee.paymentForCanNotBeMadeSA} = ${this.CanNotBeMadeSA * this.employee.paymentForCanNotBeMadeSA}`,
         style: 'sectionText',
         direction: 'rtl'
+      })
+      datesClinicVisits.push({
+        text: `${this.CanNotBeMadeSA} * 15 = ${this.CanNotBeMadeSA * 15}`,
+        style: 'sectionText',
+        direction: 'rtl'
       });
     }
 
@@ -575,6 +636,15 @@ export class EmployeeSalaryComponent implements OnInit {
         this.Consulting * this.employee.paymentForConsulting + this.Wash * this.employee.paymentForWash +
         this.CanNotBeMadeIUI * this.employee.paymentForcanNotBeMadeIUI + this.CanNotBeMadeSA * this.employee.paymentForCanNotBeMadeSA +
         this.SAMorphology * this.employee.paymentForMorphology + this.IUISAMorphology * this.employee.paymentForMorphology}`,
+      style: 'sectionHeader',
+      direction: 'rtl'
+    })
+    datesClinicVisits.push({
+      text: ` שעות   ${(this.SA * 15 + this.IUI * 45 + this.PCT * 15
+        + this.Insemination * 10 + this.IUISA * 45 +
+        this.Consulting * 60 + this.Wash * 45 +
+        this.CanNotBeMadeIUI * 15 + this.CanNotBeMadeSA * 15 +
+        this.SAMorphology * 20 + this.IUISAMorphology * 20)/60} סה"כ`,
       style: 'sectionHeader',
       direction: 'rtl'
     })

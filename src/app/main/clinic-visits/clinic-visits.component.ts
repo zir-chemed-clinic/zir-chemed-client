@@ -646,9 +646,10 @@ return;
           map(value => this._filterPersons(value.toString())));
           this._EmployeesService.getAll().subscribe(
             (data)=>{   
+              let all=data;
               this.allEmployees=data.filter(emp => [12, 13, 14, 19].includes(emp.employeeId));
-              this.allDoctor=this.allEmployees.filter(em=>em.role==1);
-              this.allPreformed=this.allEmployees.filter(emp=>emp.role==2);
+              this.allDoctor=all.filter(em=>em.role==1);
+              this.allPreformed=all.filter(emp=>emp.role==2);
               this._TreatmentService.getAll().subscribe(
                 (data)=>{
                   this.allTreatments=data;

@@ -80,10 +80,16 @@
             </mat-form-field>
             <mat-form-field class="input" >
             <mat-label>שעת קבלה</mat-label>
-          <input matInput placeholder="00:00"  formControlName="GivingTimeString">
+          <input matInput placeholder="00:00"  formControlName="GivingTimeString"> </mat-form-field>
+          <mat-form-field class="input" >
+                <mat-label>שעת נתינת הדוגמית</mat-label>
+          <input matInput placeholder="00:00"  formControlName="GivingSample">
           <!-- <mat-hint align="end">00:00</mat-hint> -->
         </mat-form-field>
-
+        <mat-form-field class="input" >
+                <mat-label>ימי המנעות</mat-label>
+                <input matInput  formControlName="DaysAvoided">
+              </mat-form-field>
            
            
             <!-- <mat-form-field >
@@ -249,8 +255,10 @@
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
-  
-              
+                <!-- <canvas #signatureCanvas></canvas>
+                <button (click)="saveSignature()" formControlName="Signature">שמור חתימה</button>
+                <button (click)="clearSignature()">נקה</button>
+                 -->
                 
             
               </mat-expansion-panel>

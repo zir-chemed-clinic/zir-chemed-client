@@ -19,7 +19,9 @@ import {strAriel} from '../../fonts/ariel'
 import { Observable } from 'rxjs';
 import {strLogo} from '../stringLogo'
 //import { SignaturePad } from 'ngx-signaturepad'; // 🚀 חדש - שימוש ב-signature pad
-
+// import {  ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+// import SignaturePad from 'signature_pad';
+// import { log } from 'console';
 
 // import {strLogo} from '../app/stringFile';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -28,10 +30,17 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   templateUrl: './sa.component.html',
   styleUrls: ['./sa.component.css']
 })
-export class SaComponent implements OnInit {
+export class SaComponent implements OnInit 
+//AfterViewInit  
+{
+  // @ViewChild('signatureCanvas', { static: false }) signatureCanvas: ElementRef;
+  // signaturePad: SignaturePad;  // הצהרת signaturePad כאן
+
+
 
   @Input() ClinicVisitsId: number;
   @Input() flag: Boolean=false;
+  signature:String="";
   myFile: File;
   toggleLayer:boolean=false;
   saToSave:SaDTO;
@@ -61,6 +70,8 @@ export class SaComponent implements OnInit {
     Other : new FormControl(""),
     GivingTime : new FormControl(""),
     GivingTimeString : new FormControl(null),
+    GivingSample : new FormControl(null),
+    DaysAvoided : new FormControl(""),
     VolumeCc : new FormControl(""),
     Appearance : new FormControl(""),
     Conc105cc : new FormControl(""),
@@ -82,7 +93,9 @@ export class SaComponent implements OnInit {
     PinHeads : new FormControl(""),
     NeckDefects : new FormControl(""),
     CytoplasmicDroplets : new FormControl(""),
-    TailDefects : new FormControl("")
+    TailDefects : new FormControl(""),
+    Signature : new FormControl("")
+
   })
   sendSuccessfully:boolean=false;
   sendFailed:boolean=false;
@@ -121,6 +134,8 @@ export class SaComponent implements OnInit {
     // this.saform.controls["GivingTimeString"].setValue(new Date('2017-03-08T00:00:00+05:44'));
     // this.givingTime=sa.givingTime;
     this.saform.controls["GivingTimeString"].setValue(sa.givingTimeString)
+    this.saform.controls["GivingSample"].setValue(sa.givingSample)
+    this.saform.controls["DaysAvoided"].setValue(sa.daysAvoided)
     this.saform.controls["VolumeCc"].setValue(sa.volumeCc);
     this.saform.controls["Appearance"].setValue(sa.appearance);
     this.saform.controls["Conc105cc"].setValue(sa.conc105cc);
@@ -144,9 +159,16 @@ export class SaComponent implements OnInit {
     this.saform.controls["NeckDefects"].setValue(sa.neckDefects);
     this.saform.controls["CytoplasmicDroplets"].setValue(sa.cytoplasmicDroplets);
     this.saform.controls["TailDefects"].setValue(sa.tailDefects);
+    this.saform.controls['Signature'].setValue(this.signature);
+
   }
     saveSaObservable():Observable<SaDTO>{
+  
+      
     this.saToSave= new SaDTO();
+    // this.saToSave.signature = this.saform.controls["Signature"].value.toString();  // תיקון כאן
+    // console.log(this.saToSave.signature);  // בדוק אם החתימה נשמרה
+
     this.saToSave.said=this.saId;
     this.saToSave.clinicVisitsId=this.ClinicVisitsId;
     // let t=  this.saform.controls["GivingTime"].value;
@@ -166,6 +188,18 @@ export class SaComponent implements OnInit {
   else{
     this.saToSave.givingTimeString=" "
   }
+  if(this.saform.controls["GivingSample"].value){
+    this.saToSave.givingSample= this.saform.controls["GivingSample"].value.toString();
+  }
+  else{
+    this.saToSave.givingSample=" "
+  }
+  // if(this.saform.controls["DoctorTreatment"].value){
+  //   this.saToSave.doctorTreatment= this.saform.controls["DoctorTreatment"].value.toString();
+  // }
+  // else{
+  //   this.saToSave.doctorTreatment=" ";
+  // }
     this.saToSave.doctorTreatment= this.saform.controls["DoctorTreatment"].value.toString();
     this.saToSave.fresh= this.saform.controls["Fresh"].value;
     this.saToSave.condom= this.saform.controls["Condom"].value;
@@ -195,6 +229,8 @@ export class SaComponent implements OnInit {
     this.saToSave.neckDefects= this.saform.controls["NeckDefects"].value.toString();
     this.saToSave.cytoplasmicDroplets= this.saform.controls["CytoplasmicDroplets"].value.toString();
     this.saToSave.tailDefects= this.saform.controls["TailDefects"].value.toString();
+    this.saToSave.daysAvoided= this.saform.controls["DaysAvoided"].value.toString();
+   // this.saToSave.signature= this.saform.controls["Signature"].value.toString();
 
   return  this._SaService.saveSa(this.saToSave);
   }
@@ -311,10 +347,32 @@ export class SaComponent implements OnInit {
       this.saveSa()
           },180000)
   }
+  // ngAfterViewInit() {
+  //   // אתחול של SignaturePad אחרי שהקנבס נטען
+  //   this.signaturePad = new SignaturePad(this.signatureCanvas.nativeElement);
+  // }
   ngOnDestroy() {
     clearInterval(this.interval);
 
 }
+
+// clearSignature() {
+//   this.signaturePad.clear();
+// }
+// saveSignature() {
+//   if (this.signaturePad.isEmpty()) {
+//     console.log('החתימה ריקה');
+//   } else {
+//     this.signature = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
+//     this.saform.controls['Signature'].setValue(this.signature);
+//     console.log('חתימה בטופס לאחר השמירה: ', this.saform.controls['Signature'].value); // בדוק אם החתימה נשמרה בטופס
+
+//     console.log(this.signature);  // תוכל לשלוח את זה לשרת
+
+//     // שמירת החתימה בטופס
+//     this.saform.controls['Signature'].setValue(this.signature);
+//   }
+// }
   closeSA(action = 'open') { 
    
     this.saveSaObservable()
@@ -487,16 +545,25 @@ export class SaComponent implements OnInit {
              
               {
                 columns: [
+                  // {
+                  //   text: `${this.persons.womanName}  האשה: שם `, 
+                  //   // text: `${this.persons.womanName}  :שם האשה  `, 
+                  //   style: 'sectionText',
+                  //   direction: 'rtl'
+                  // },
+                  // {
+                  //   text: `${this.persons.manName} הבעל: שם `, 
+                  // style: 'sectionText',
+                  // direction: 'rtl'
+                  // },
                   {
-                    text: `${this.persons.womanName}  האשה: שם `, 
-                    // text: `${this.persons.womanName}  :שם האשה  `, 
-                    style: 'sectionText',
-                    direction: 'rtl'
+                    text: `${date} תאריך:  `,
+                    style: 'sectionText' 
                   },
                   {
-                    text: `${this.persons.manName} הבעל: שם `, 
-                  style: 'sectionText',
-                  direction: 'rtl'
+                    // text: `${this.persons.addres} ${this.persons.city} :כתובת `, 
+                    text: `${this.revers(this.persons.addres+"   "+this.persons.city)}   כתובת:  `, 
+                    style: 'sectionText'
                   },
                   {
                     text: `${this.persons.familyName} משפחה: שם `, 
@@ -510,20 +577,35 @@ export class SaComponent implements OnInit {
                   {
                     columns: [
                       {
-                        // text: `${this.persons.manId} :תעודת זהות הבעל  `, 
-                        text: `${this.persons.womanId} האשה: זהות  תעודת `, 
-                       
-                        style: 'sectionText'
+                        text: `${this.persons.manPhone} הבעל: טלפון  מספר  `, 
+                     
+                      style: 'sectionText'
                       },
-                      
-                      {
-                        text: `  `, 
-                        style: 'sectionText'
-                      },
-                      {
+                           {
                         text: `${this.persons.manId} הבעל: זהות תעודת `, 
                       style: 'sectionText'
                       }
+                    ,  
+                        {
+                    text: `${this.persons.manName} הבעל: שם `, 
+                  style: 'sectionText',
+                  direction: 'rtl'
+                  }
+                      // {
+                      //   // text: `${this.persons.manId} :תעודת זהות הבעל  `, 
+                      //   text: `${this.persons.womanId} האשה: זהות  תעודת `, 
+                       
+                      //   style: 'sectionText'
+                      // },
+                      
+                      // {
+                      //   text: `  `, 
+                      //   style: 'sectionText'
+                      // },
+                      // {
+                      //   text: `${this.persons.manId} הבעל: זהות תעודת `, 
+                      // style: 'sectionText'
+                      // }
                     ]
                   },
                  
@@ -535,26 +617,29 @@ export class SaComponent implements OnInit {
                         style: 'sectionText'
                       },
                       {
-                        text: `  `, 
+                        // text: `${this.persons.manId} :תעודת זהות הבעל  `, 
+                        text: `${this.persons.womanId} האשה: זהות  תעודת `, 
+                       
                         style: 'sectionText'
                       },
-                      {
-                        text: `${this.persons.manPhone} הבעל: טלפון  מספר  `, 
-                     
-                      style: 'sectionText'
-                      }
+                   {
+                    text: `${this.persons.womanName}  האשה: שם `, 
+                    // text: `${this.persons.womanName}  :שם האשה  `, 
+                    style: 'sectionText',
+                    direction: 'rtl'
+                  },
                     ]
                   },
                   {
                     columns: [
                       {
                         // text: `${this.persons.addres} ${this.persons.city} :כתובת `, 
-                        text: `${this.revers(this.persons.addres+"   "+this.persons.city)}   כתובת:  `, 
+                        text: "", 
                         style: 'sectionText'
                       },
                      
                       {
-                        text:'', 
+                        text:`${this.revers(this.sa.daysAvoided)}  המנעות: ימי `, 
                         style: 'sectionText'
                       },
                       {
@@ -565,20 +650,21 @@ export class SaComponent implements OnInit {
                     ]
                   },{
                     columns: [
-                    
+                      
+                      {
+                        text: ``, 
+                        style: 'sectionText'
+                      },
                       {
                         text: `${this.sa.givingTimeString} קבלה: שעת `,
                         style: 'sectionText' 
                       }
                       ,
                       {
-                        text: ``, 
-                        style: 'sectionText'
-                      },
-                      {
-                        text: `${date} תאריך:  `,
+                        text: `${this.sa.givingSample} הדוגמית: נתינת שעת `,
                         style: 'sectionText' 
                       }
+                   
                     ]
                   }
                 ,
@@ -675,7 +761,7 @@ export class SaComponent implements OnInit {
                     [
                       { text: "7.2 מעל", style: "sectionText", alignment: "right" },
                       { text: `${this.sa.ph}`, style: "sectionText", alignment: "right" },
-                      { text: "ph", style: "sectionText", alignment: "right" }
+                      { text: "pH", style: "sectionText", alignment: "right" }
                     ],
                     [
                       { text: "בתנועה זרע 40% מעל", style: "sectionText", alignment: "right" },

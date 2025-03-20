@@ -9,7 +9,7 @@
   }
   tbody {
     display:block;
-    height:200px;
+    height: 300px;;
     overflow:auto;
   }
   thead, tbody tr {
@@ -38,8 +38,22 @@
     width: 50%;
     padding: 10px;
   }
-  .plus{
-    padding: 1px;  
+  .plus {
+    display: flex;
+    align-items: center; /* מיישר את האלמנטים אנכית */
+    justify-content: space-between; /* ריווח בין הכותרת לכפתור */
+    direction: rtl; /* שומר על כיוון ימין לשמאל */
+  }
+  h1 {
+    margin: 0; /* מונע רווחים מיותרים */
+    flex-grow: 1; /* נותן ל-h1 לקחת את רוב המקום */
+    text-align: center;
+  }
+  
+  button {
+    background-color: black;
+    color: white;
+    margin-right: 10px; /* ריווח קטן בין ה-h1 לכפתור */
   }
   
   

@@ -74,34 +74,49 @@
           <!-- <div class="col-3">  -->
           <b> SA  </b>
           <p> {{SA}} * {{employee.paymentForSA }} = {{SA*employee.paymentForSA}} </p>
+          <p> {{SA}} * 15 = {{SA*15}} </p>
 
           <b>   IUI  </b>
           <p>   {{IUI}} * {{employee.paymentForIUI }} = {{IUI*employee.paymentForIUI}} </p>
+          <p>   {{IUI}} * 45 = {{IUI*45}} </p>
           <b> PCT </b>
           <p> {{PCT}} * {{employee.paymentForPCT }} = {{PCT*employee.paymentForPCT}} </p>
+          <p> {{PCT}} * 15 = {{PCT*15}} </p>
           <b> Insemination </b>
           <p> {{Insemination}} * {{employee.paymentForInsemination }} = {{Insemination*employee.paymentForInsemination}} </p>
+          <p> {{Insemination}} * 10 = {{Insemination*10}} </p>
         <!-- </div>  -->
         <!-- <div class="col-3">  -->
             <b> IUI + SA </b>
-          <p>  {{IUISA}} * {{employee.paymentForIUISA }} = {{IUISA*employee.paymentForIUISA}} </p>
+            <p>  {{IUISA}} * {{employee.paymentForIUISA }} = {{IUISA*employee.paymentForIUISA}} </p>
+            <p>  {{IUISA}} * 45 = {{IUISA*45}} </p>
 
           <b> ייעוץ </b>
           <p>{{Consulting}} * {{employee.paymentForConsulting }} = {{Consulting*employee.paymentForConsulting }} </p>
+          <p>{{Consulting}} * 60 = {{Consulting*60 }} </p>
           <b> Wash </b>
           <p> {{Wash}} * {{employee.paymentForWash }} = {{Wash*employee.paymentForWash }} </p>
+          <p> {{Wash}} * 45 = {{Wash*15 }} </p>
           <b> לא ניתן לבצע השבחה  </b>
           <p>  {{CanNotBeMadeIUI}} * {{employee.paymentForcanNotBeMadeIUI }} = {{CanNotBeMadeIUI*employee.paymentForcanNotBeMadeIUI }} </p>
+          <p>  {{CanNotBeMadeIUI}} * 15 = {{CanNotBeMadeIUI*15}} </p>
           <b> לא ניתן לבצע בדיקת זרע </b>
           <p> {{CanNotBeMadeSA}} * {{employee.paymentForCanNotBeMadeSA }} = {{CanNotBeMadeSA*employee.paymentForCanNotBeMadeSA }} </p>
+          <p> {{CanNotBeMadeSA}} * 15 = {{CanNotBeMadeSA*15 }} </p>
           <b>  ביצוע מורפולוגיה בבדיקה</b>
           <p>   {{SAMorphology}} * {{employee.paymentForMorphology }} = {{SAMorphology*employee.paymentForMorphology }} </p>
+          <p>   {{SAMorphology}} * 20 = {{SAMorphology*20 }} </p>
           <b>  ביצוע מורפולוגיה בבדיקה + השבחה </b>
           <p>  {{IUISAMorphology}} * {{employee.paymentForMorphology }} = {{IUISAMorphology*employee.paymentForMorphology }} </p>
+          <p>  {{IUISAMorphology}} * 20 = {{IUISAMorphology*20 }} </p>
           <b>{{SA*employee.paymentForSA + IUI*employee.paymentForIUI + PCT*employee.paymentForPCT
              + Insemination*employee.paymentForInsemination+ Consulting*employee.paymentForConsulting+Wash*employee.paymentForWash 
              +CanNotBeMadeIUI*employee.paymentForcanNotBeMadeIUI+CanNotBeMadeSA*employee.paymentForCanNotBeMadeSA+SAMorphology*employee.paymentForMorphology+
-             IUISAMorphology*employee.paymentForMorphology +IUISA*employee.paymentForIUISA}}    סה"כ</b>
+             IUISAMorphology*employee.paymentForMorphology +IUISA*employee.paymentForIUISA}}    סה"כ</b><br>
+             <b>{{(SA*15 + IUI*45 + PCT*15
+              + Insemination*10+ Consulting*60+Wash*45 
+              +CanNotBeMadeIUI*15+CanNotBeMadeSA*15+SAMorphology*20+
+              IUISAMorphology*20 +IUISA*45)/60}}    סה"כ </b> <b> שעות  </b>
             </div>
             </div>
       <!-- </div> -->

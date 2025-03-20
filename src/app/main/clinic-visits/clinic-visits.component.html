@@ -38,7 +38,9 @@
                   {{emplyees.employeeName}}
 
                 </mat-option>
-               
+                <mat-option  [value]="emplyees">
+
+                </mat-option>
               </mat-select>
             </mat-form-field></div>
           <div class="col-3"><mat-form-field class="input">
@@ -48,7 +50,9 @@
                   {{doctor.employeeName}}
 
                 </mat-option>
-               
+                <mat-option  [value]="doctor">
+                
+                </mat-option>
               </mat-select>
             </mat-form-field></div>
             <!-- מציג רק את העובדים שמבצעים מורפולוגיה -->
@@ -74,6 +78,9 @@
                 <mat-option *ngFor="let morphology of allEmployees" [value]="morphology">
                   {{morphology.employeeName}}
 
+                </mat-option>
+                  <mat-option  [value]="morphology">
+                
                 </mat-option>
               </mat-select>
             </mat-form-field></div>

@@ -32,5 +32,9 @@ export class SaDTO
          neckDefects :string;
          cytoplasmicDroplets :string;
          tailDefects :string;
+         givingSample: string;
+         daysAvoided: string;
+      //   signature :string;
+
 
     }
