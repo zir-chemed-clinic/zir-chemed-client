@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { SaService } from '../services/sa.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SaDTO } from '../models/SaDTO';
@@ -21,6 +21,7 @@ import {strLogo} from '../stringLogo'
 //import { SignaturePad } from 'ngx-signaturepad'; // 🚀 חדש - שימוש ב-signature pad
 // import {  ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 // import SignaturePad from 'signature_pad';
+import SignaturePad from 'signature_pad';
 // import { log } from 'console';
 
 // import {strLogo} from '../app/stringFile';
@@ -30,17 +31,17 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   templateUrl: './sa.component.html',
   styleUrls: ['./sa.component.css']
 })
-export class SaComponent implements OnInit 
-//AfterViewInit  
+export class SaComponent implements OnInit ,AfterViewInit  
 {
   // @ViewChild('signatureCanvas', { static: false }) signatureCanvas: ElementRef;
   // signaturePad: SignaturePad;  // הצהרת signaturePad כאן
-
+  @ViewChild('signatureCanvas', { static: false }) signatureCanvas: ElementRef;
+  signaturePad: SignaturePad;
 
 
   @Input() ClinicVisitsId: number;
   @Input() flag: Boolean=false;
-  signature:String="";
+  signature:string="";
   myFile: File;
   toggleLayer:boolean=false;
   saToSave:SaDTO;
@@ -230,7 +231,7 @@ export class SaComponent implements OnInit
     this.saToSave.cytoplasmicDroplets= this.saform.controls["CytoplasmicDroplets"].value.toString();
     this.saToSave.tailDefects= this.saform.controls["TailDefects"].value.toString();
     this.saToSave.daysAvoided= this.saform.controls["DaysAvoided"].value.toString();
-   // this.saToSave.signature= this.saform.controls["Signature"].value.toString();
+    this.saToSave.signature= this.saform.controls["Signature"].value.toString();
 
   return  this._SaService.saveSa(this.saToSave);
   }
@@ -308,7 +309,13 @@ export class SaComponent implements OnInit
         if(data){
         this.sa=data;
         this.saId=this.sa.said;
-        this.setSa(this.sa)}},
+        this.setSa(this.sa);
+        if (this.sa.signature) {
+          this.signature = this.sa.signature;  // אם יש חתימה, נסה להציג אותה
+          this.drawSignatureOnCanvas();
+        }
+      }},
+
       (err)=>{}
     )
     this._clinicVisitsService.getById(this.ClinicVisitsId).subscribe(
@@ -347,6 +354,15 @@ export class SaComponent implements OnInit
       this.saveSa()
           },180000)
   }
+  ngAfterViewInit() {
+    // אתחול של SignaturePad
+    this.signaturePad = new SignaturePad(this.signatureCanvas.nativeElement, {
+      minWidth: 1,    // הגדרת רוחב הקו המינימלי
+      maxWidth: 3,    // הגדרת רוחב הקו המקסימלי
+      penColor: 'black',  // צבע העט
+      backgroundColor: 'white'  // צבע הרקע
+    });
+  }
   // ngAfterViewInit() {
   //   // אתחול של SignaturePad אחרי שהקנבס נטען
   //   this.signaturePad = new SignaturePad(this.signatureCanvas.nativeElement);
@@ -356,23 +372,36 @@ export class SaComponent implements OnInit
 
 }
 
-// clearSignature() {
-//   this.signaturePad.clear();
-// }
-// saveSignature() {
-//   if (this.signaturePad.isEmpty()) {
-//     console.log('החתימה ריקה');
-//   } else {
-//     this.signature = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
-//     this.saform.controls['Signature'].setValue(this.signature);
-//     console.log('חתימה בטופס לאחר השמירה: ', this.saform.controls['Signature'].value); // בדוק אם החתימה נשמרה בטופס
+ clearSignature() {
+  this.signaturePad.clear();
+}
+showSignature(){
+}
+drawSignatureOnCanvas() {
+  if (this.signature) {
+    const canvas = this.signatureCanvas.nativeElement;
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = this.signature; // משתמשים ב-base64
+    img.onload = () => {
+      ctx!.drawImage(img, 0, 0, canvas.width, canvas.height); // מציירים את החתימה על ה-canvas
+    };
+  }
+}
+saveSignature() {
+  if (this.signaturePad.isEmpty()) {
+    console.log('החתימה ריקה');
+  } else {
+    this.signature = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
+    this.saform.controls['Signature'].setValue(this.signature);
+    console.log('חתימה בטופס לאחר השמירה: ', this.saform.controls['Signature'].value); // בדוק אם החתימה נשמרה בטופס
 
-//     console.log(this.signature);  // תוכל לשלוח את זה לשרת
+    console.log(this.signature);  // תוכל לשלוח את זה לשרת
 
-//     // שמירת החתימה בטופס
-//     this.saform.controls['Signature'].setValue(this.signature);
-//   }
-// }
+    // שמירת החתימה בטופס
+    this.saform.controls['Signature'].setValue(this.signature);
+  }
+}
   closeSA(action = 'open') { 
    
     this.saveSaObservable()
@@ -813,167 +842,8 @@ export class SaComponent implements OnInit
       
       
               },
-              // {
-              //   columns: [
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //     style: 'sectionText'
-              //     },
-              //     {
-              //       text: `)תנועה(`, 
-              //       style: 'sectionText'
-              //     }
-              //     ,
-              //     {
-              //       text: ` ${this.sa.motility}`, 
-              //       style: 'sectionText',
-              //       alignment: 'center'
-              //     }
-              //     ,
-              //     {
-              //       text: `motility % דרגה 1`, 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     }
-              //     ,
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     }
-              //   ]
-                
-              // },
-              // {
-              //   columns: [
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //     style: 'sectionText'
-              //     },
-              //     {
-              //       text: `)תנועה(`, 
-              //       style: 'sectionText'
-              //     }
-              //     ,
-              //     {
-              //       text: ` ${this.sa.motility_rank_2}`, 
-              //       style: 'sectionText',
-              //       alignment: 'center'
-              //     }
-              //     ,
-              //     {
-              //       text: `motility % דרגה 2`, 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     }
-              //     ,
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     }
-              //   ]
-                
-              // },
-            
-             
-              // {
-              //   columns: [
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     },
-              //      {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //     style: 'sectionText'
-              //     },
-              //     {
-              //       text: "    ", 
-              //       style: 'sectionText'
-              //     }
-              //     ,
-              //     {
-              //       text: `${this.revers(" "+this.sa.ph +" ")}`, 
-              //       style: 'sectionText',
-              //       alignment: 'center'
-              //     }
-              //     ,
-              //     {
-              //       text: `pH`, 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     }
-              //     ,
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     },
-              //     {
-              //       text: "", 
-              //       style: 'sectionText'
-              //     }
-              //   ]
-              // },
-              // {
-              //   text: `)נפח(          ${this.sa.volumeCc}     volume cc`,
-              //   style:'sectionTextCenter'
-              // },
-              // {
-              //   text: `)מראה(     ${this.sa.appearance}     Appearance`,
-              //   style:'sectionTextCenter'
-              // },
-              // {
-              //   text: `)ריכוז(        ${this.sa.conc105cc}         conc.10/5 /cc`,
-              //   style:'sectionTextCenter'
-              // },
-             
-              // {
-              //   text: `)תנועה(        ${this.sa.motility}         motility %`,
-              //   style:'sectionTextCenter'
-              // },
-              // {
-              //   text: `)דרגה(       ${this.sa.grade}       grade`,
-              //   style:'sectionTextCenter'
-              // },
-              // {
-              //   text: `PH     ${this.sa.ph}`,
-              //   style:'sectionTextCenter'
-              // },
+        
+     
               {
                 text: `${this.revers(this.sa.comments)}     הערות: `,
                 style:'sectionTextCenter',
@@ -1025,136 +895,7 @@ export class SaComponent implements OnInit
             //    layout: "lightHorizontalLines" // מסגרת קלה לטבלה
               },
               
-              // {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     { text: "", style: 'sectionText'},
-              //     {text: `Normal forms`, style: 'sectionText'},
-              //     { text: ` ${this.sa.normalForms }`, style: 'sectionText'},
-              //     {text: `  % (who strict)`, style: 'sectionText'},
-              //     { text: "", style: 'sectionText'},
-              //     { text: "", style: 'sectionText'},
-              //     // { text: "", style: 'sectionText'},
-              //   ]
-              // },
-              // {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     // {text: "", style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},
-              //     { text: `Large heads:`, style: 'sectionText'},
-              //     {text: `${this.sa.largeHeads }`, style: 'sectionText'},
-                
-              //      {text: "", style: 'sectionText'}
-              //      ,{text: "", style: 'sectionText'},
-              //     //  {text: "", style: 'sectionText'}
-              //   ]
-              // },
-              // {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: `${this.sa.smallHeads }`, style: 'sectionText'},
-              //     { text: `Small heads:`, style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     // {text: "", style: 'sectionText'}
-              //   ]
-              // },
-              // {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: `${this.sa.roundHeads }`, style: 'sectionText'},
-              //     { text: `round heads:`, style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     // {text: "", style: 'sectionText'}
-              //   ]
-              // },
-              // {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: `${this.sa.taperedHeads }`, style: 'sectionText'},
-              //     {text: `tapered heads:`, style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     // {text: "", style: 'sectionText'}
-              //   ]
-              // },
-              // {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: `${this.sa.pyramidalHeads }`, style: 'sectionText'},
-              //     {text: `pyramidal heads:`, style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     // {text: "", style: 'sectionText'}
-              //   ]
-              // },
-              // {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: `${this.sa.amorphousHeads }`, style: 'sectionText'},
-              //     {text: `amorphous heads:`, style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     // {text: "", style: 'sectionText'}
-              //   ]
-              // },
-              // {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},,
-              //     {text: `${this.sa.pinHeads }`, style: 'sectionText'},
-              //     {text: `pin heads:`,  style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     // {text: "", style: 'sectionText'}
-              //   ]
-              // },
-              // {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},,
-              //     {text: `${this.sa.neckDefects }`, style: 'sectionText'},
-              //     {text: `neck defects:`,  style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     // {text: "", style: 'sectionText'}
-              //   ]
-              // }, {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},,
-              //     {text: `${this.sa.cytoplasmicDroplets }`, style: 'sectionText'},
-              //     {text: `cytoplasmic droplets:`,  style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     // {text: "", style: 'sectionText'}
-              //   ]
-              // },
-              // {
-              //   columns: [
-              //     // {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},,
-              //     {text: `${this.sa.tailDefects}`, style: 'sectionText'},
-              //     {text: `tail defects:`,  style: 'sectionText'},
-              //     {text: "", style: 'sectionText'},{text: "", style: 'sectionText'},
-              //     // {text: "", style: 'sectionText'}
-              //   ]
-              // },
-              // {
-              //   text: ` מעבדה עובדת  ${this.preformed?this.preformed.employeeName:""}  ידי: על בוצעה בדיקה `,
-              //   style:'sectionText',
-              //   alignment: 'left'
-              // },
-              // {
-              //   text:  `${this.morphology.employeeIdNumber==15553639?`אמבריולוג   ${this.morphology?this.morphology.employeeName:""}  ידי: על בוצעה מורפולוגיה `:`מעבדה עובדת  ${this.morphology?this.morphology.employeeName:""}  ידי: על בוצעה מורפולוגיה`}`,
-              //   style:'sectionText',
-              //   alignment: 'left'
-              // },
-              // {
-              //   text: ` מעבדה עובדת  ${this.preformed?this.preformed.employeeName:""}  ידי: על בוצעה בדיקה `+
-              //   `${this.morphology.employeeIdNumber==15553639?`אמבריולוג    ${this.morphology?this.morphology.employeeName:""}  ידי: על בוצעה מורפולוגיה `:`מעבדה עובדת  ${this.morphology?this.morphology.employeeName:""}  ידי: על בוצעה מורפולוגיה`}`,
-              //   style:'sectionText',
-              //   alignment: 'left'
-              // },
+       
               {
                 columns:[
                   {

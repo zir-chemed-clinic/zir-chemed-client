@@ -18,6 +18,7 @@ import { IuiService } from '../services/iui.service';
 import { IuiDTO } from '../models/IuiDTO';
 import { InseminationDTO } from '../models/InseminationDTO';
 import { InseminationService } from '../services/insemination.service';
+import { lookup } from 'dns';
 
 @Component({
   selector: 'app-clinic-visits',
@@ -33,6 +34,7 @@ export class ClinicVisitsComponent implements OnInit {
   flagInDialog:boolean=false;
   flagEdit:boolean=false;
   flagForm:boolean=false;
+  flagKindTreatment:boolean=false;
   flagPayment:boolean=false;
   flagClinicVisits:boolean=true;
   flagInsemination:boolean=false;
@@ -41,6 +43,7 @@ export class ClinicVisitsComponent implements OnInit {
   flagPct:boolean=false;
   flagSa:boolean=false;
   flagIUISA:boolean=false;
+  flagSign:boolean=false;
   allPersons:PersonsDTO[]=[];
   allEmployees:EmployeesDTO[]=[];
   allTreatments:TreatmentsDTO[]=[];
@@ -50,6 +53,7 @@ export class ClinicVisitsComponent implements OnInit {
   clinicVisitToSave:ClinicVisitsDTO=new ClinicVisitsDTO();
   theClinicVisit:ClinicVisitsDTO;
   clinicVisitsId:number=0;
+  signature:string="";
   clinicVisitsIdEdit:number;
   clinicVisitsToEdit:ClinicVisitsDTO;
   allPreformed:EmployeesDTO[]=[];
@@ -98,6 +102,8 @@ export class ClinicVisitsComponent implements OnInit {
   saveClinicVisits(){
     debugger
     this.toggleLayer=true;
+    this.signature=this.theClinicVisit.signature
+    
     // this.t=this.clinicVisitsform.controls["time"].value;
     // let h=this.t.hours;
     // let m=this.t.minutes;
@@ -248,14 +254,19 @@ export class ClinicVisitsComponent implements OnInit {
  
   //  }
   
- 
+ this.clinicVisitToSave.signature=this.signature;
   //  this.clinicVisitToSave.visitsDate.setHours(h,m)
    this._ClinicVisitsService.saveClinicVisit(this.clinicVisitToSave).subscribe(
      (data)=>{
        this.theClinicVisit=data;
+
+       
        this.clinicVisitsId= this.theClinicVisit.clinicVisitsId;
        this.flagForm=true;
-       // אם צריך לשמור את השדה מספר זקיקים
+       if(this.theClinicVisit.treatmentsId==1||this.theClinicVisit.treatmentsId==2||this.theClinicVisit.treatmentsId==4||this.theClinicVisit.treatmentsId==7)
+     this.flagKindTreatment=true;
+    else this.flagKindTreatment=false;
+        // אם צריך לשמור את השדה מספר זקיקים
        if(this.flagNeedSaveFolliclesNumber==true){
          debugger
          // שמירת השדה בהזרעה וב Insermination
@@ -369,6 +380,8 @@ export class ClinicVisitsComponent implements OnInit {
         this.theClinicVisit=data;
         this.clinicVisitsId= this.theClinicVisit.clinicVisitsId;
         this.flagForm=true;
+        if(this.theClinicVisit.treatmentsId==1||this.theClinicVisit.treatmentsId==2||this.theClinicVisit.treatmentsId==4||this.theClinicVisit.treatmentsId==7)
+            this.flagKindTreatment=true;
         this.toggleLayer=false;
       },
       (error)=>{
@@ -433,7 +446,11 @@ if(clinicVisits.apartmentYy){
         this.clinicVisitsId= this.theClinicVisit.clinicVisitsId;
         this.setclinicVisits( this.theClinicVisit);
         this.flagForm=true;
+        if(this.theClinicVisit.treatmentsId==1||this.theClinicVisit.treatmentsId==2||this.theClinicVisit.treatmentsId==4||this.theClinicVisit.treatmentsId==7)
+this.flagKindTreatment=true;
+        this.flagKindTreatment=true;
         this.flagPayment=false;
+        this.flagSign=false;
         this.flagClinicVisits=true;
         this.flagSa=false;
         this.flagIui=false;
@@ -459,6 +476,8 @@ if(clinicVisits.apartmentYy){
     this.flagPct=false;
     this.flagInsemination=false;
     this.flagIUISA=false;
+    this.flagSign=false;
+
     this.paymentform.controls["PaymentMethod"].setValue(this.theClinicVisit.paymentMethod);
     this.paymentform.controls["Receipt"].setValue(this.theClinicVisit.receipt);
     this.paymentform.controls["Amount"].setValue(this.theClinicVisit.amount);
@@ -472,6 +491,8 @@ if(clinicVisits.apartmentYy){
    if(this.theClinicVisit.didNotArrive==true &&  this.theClinicVisit.closed==true){
     this.flagClinicVisits=false;
     this.flagPayment=false;
+    this.flagSign=false;
+
     this.flagDidNotArrive=true;
 return;
    }
@@ -481,42 +502,55 @@ return;
         this.flagSa=true;
         this.flagClinicVisits=false;
         this.flagPayment=false;
+        this.flagSign=false;
+
          break; 
       } 
       case "לא ניתן לבצע בדיקת זרע": { 
         this.flagSa=true;
         this.flagClinicVisits=false;
         this.flagPayment=false;
+        this.flagSign=false;
+
          break; 
       } 
       case "IUI": { 
         this.flagIui=true;
         this.flagClinicVisits=false;
         this.flagPayment=false;
+        this.flagSign=false;
+
          break; 
       } 
       case "לא ניתן לבצע השבחה": { 
         this.flagIui=true;
         this.flagClinicVisits=false;
         this.flagPayment=false;
+        this.flagSign=false;
+
          break; 
       } 
       case "Wash": { 
         this.flagIui=true;
         this.flagClinicVisits=false;
         this.flagPayment=false;
+        this.flagSign=false;
+
          break; 
       } 
       case "PCT": { 
         this.flagPct=true;
         this.flagClinicVisits=false;
         this.flagPayment=false;
+        this.flagSign=false;
+
         break; 
      } 
      case "Insemination": { 
       this.flagInsemination=true;
       this.flagClinicVisits=false;
       this.flagPayment=false;
+      this.flagSign=false;
       // this.flagClinicVisits=false;
       break; 
    } 
@@ -524,23 +558,30 @@ return;
     this.flagIUISA=true;
     this.flagClinicVisits=false;
     this.flagPayment=false;
+    this.flagSign=false;
     break; 
  } 
  case "בדיקת זרע ולא ניתן לבצע השבחה": { 
   this.flagIUISA=true;
     this.flagClinicVisits=false;
     this.flagPayment=false;
+    this.flagSign=false;
     break; 
 } 
    } 
    
    
   }
-  toSignature(){
-    
-      this.flagClinicVisits=false;
-      this.flagPayment=false;
-      this.flagDidNotArrive=false;
+  toSign(){
+    this.flagSign=true;
+    this.flagPayment=false;
+    this.flagClinicVisits=false;
+    this.flagDidNotArrive=false;
+    this.flagSa=false;
+    this.flagIui=false;
+    this.flagPct=false;
+    this.flagInsemination=false;
+    this.flagIUISA=false;
   }
   toForm(){
 
@@ -665,6 +706,8 @@ return;
                         this.clinicVisitsId= this.theClinicVisit.clinicVisitsId;
                         this.setclinicVisits( this.theClinicVisit);
                         this.flagForm=true;
+                        if(this.theClinicVisit.treatmentsId==1||this.theClinicVisit.treatmentsId==2||this.theClinicVisit.treatmentsId==4||this.theClinicVisit.treatmentsId==7)
+                        this.flagKindTreatment=true;
                       },
                       (error)=>{
                         alert("try later")

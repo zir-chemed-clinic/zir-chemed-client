@@ -1,1 +1,13 @@
-<p>digital-signature-form works!</p>
+<div dir="rtl" style="text-align: right;">
+<h3>הצהרת המטופל</h3>
+<span>הנני מאשר בזאת כי דגימת הזרע היא שלי ומגופי, והיא נמסרת למעבדת &#39;ציר חמד&#39;  עבור:  </span>
+<span *ngIf="sa">בדיקה.</span>
+<span *ngIf="iui">השבחה.</span>
+<span *ngIf="saIui">בדיקה+השבחה.</span>
+<span *ngIf="insemination">Insemination.</span>
+<br>
+<canvas #signatureCanvas width="400" height="200" style="border:1px solid black;"></canvas>
+<br>
+<button mat-raised-button (click)="saveSignature()">שמור חתימה</button>
+<button mat-raised-button (click)="clearSignature()">נקה חתימה</button>
+</div>

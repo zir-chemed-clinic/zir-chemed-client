@@ -34,7 +34,7 @@ export class SaDTO
          tailDefects :string;
          givingSample: string;
          daysAvoided: string;
-      //   signature :string;
+         signature :string;
 
 
     }

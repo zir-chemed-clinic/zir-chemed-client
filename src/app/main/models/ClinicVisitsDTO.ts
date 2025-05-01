@@ -35,6 +35,7 @@ export class ClinicVisitsDTO{
       subsidizationApprove:Boolean;
      subsidizationAmount:string;
      checkNumber:string;
+     signature:string;
 }
 
 

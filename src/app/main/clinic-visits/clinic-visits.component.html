@@ -8,6 +8,8 @@
     <button class="but" mat-raised-button color="primary" (click)="toClinicVisits()" >פרטי ביקור</button>
     <button class="but" mat-raised-button color="primary" (click)="toPayment()" *ngIf="flagForm">תשלום</button>
     <button class="but" mat-raised-button color="primary" (click)="toEdit()" *ngIf="flagForm">טיפול</button>
+    <button class="but" mat-raised-button color="primary" (click)="toSign()" *ngIf="flagForm && flagKindTreatment">טופס חתימה</button>
+    
     <!-- <button class="but" mat-raised-button color="primary" (click)="toForm()" *ngIf="flagForm">הצגת טופס ושליחתו במייל</button> -->
 
 </mat-toolbar>
@@ -232,7 +234,8 @@
   <div *ngIf="flagDidNotArrive"> 
       <h1 style=" text-align: center;">בני הזוג לא הגיעו</h1>
   </div>
-<app-insemination *ngIf="flagInsemination" [ClinicVisitsId]="clinicVisitsId"></app-insemination>
+  <app-insemination *ngIf="flagInsemination" [ClinicVisitsId]="clinicVisitsId"></app-insemination>
+  <app-digital-signature-form *ngIf="flagSign" [ClinicVisitsId]="clinicVisitsId" ></app-digital-signature-form>
 <!-- <app-iui *ngIf="flagIui" [ClinicVisitsId]="clinicVisitsId"></app-iui> -->
 <app-pct *ngIf="flagPct" [ClinicVisitsId]="clinicVisitsId"></app-pct>
 <app-sa *ngIf="flagSa" [ClinicVisitsId]="clinicVisitsId"></app-sa>
