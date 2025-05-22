@@ -22,7 +22,9 @@ export class AllEmployeesComponent implements OnInit {
       let id=employees["employeeId"];
       this._router.navigate(["main/employeeSalary/"+id]);
     }
-
+    salaryToExcel(){
+      this._router.navigate(["main/employeeSalary/"])
+    }
 
   constructor(private _employeesService:EmployeesService,private _router: Router) { }
 

@@ -102,8 +102,11 @@ export class ClinicVisitsComponent implements OnInit {
   saveClinicVisits(){
     debugger
     this.toggleLayer=true;
-    this.signature=this.theClinicVisit.signature
-    
+   // console.log(this.theClinicVisit.signature);
+   console.log("save");
+   
+console.log(this.signature);
+    this.signature=this.clinicVisitToSave.signature;
     // this.t=this.clinicVisitsform.controls["time"].value;
     // let h=this.t.hours;
     // let m=this.t.minutes;
@@ -446,6 +449,10 @@ if(clinicVisits.apartmentYy){
         this.clinicVisitsId= this.theClinicVisit.clinicVisitsId;
         this.setclinicVisits( this.theClinicVisit);
         this.flagForm=true;
+        console.log("toclinic");
+        this.clinicVisitToSave.signature=this.theClinicVisit.signature;
+       console.log(this.theClinicVisit.signature);
+       
         if(this.theClinicVisit.treatmentsId==1||this.theClinicVisit.treatmentsId==2||this.theClinicVisit.treatmentsId==4||this.theClinicVisit.treatmentsId==7)
 this.flagKindTreatment=true;
         this.flagKindTreatment=true;
@@ -708,6 +715,8 @@ return;
                         this.flagForm=true;
                         if(this.theClinicVisit.treatmentsId==1||this.theClinicVisit.treatmentsId==2||this.theClinicVisit.treatmentsId==4||this.theClinicVisit.treatmentsId==7)
                         this.flagKindTreatment=true;
+                        this.clinicVisitToSave.signature=this.theClinicVisit.signature;
+
                       },
                       (error)=>{
                         alert("try later")

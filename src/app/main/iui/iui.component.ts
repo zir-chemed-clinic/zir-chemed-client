@@ -17,6 +17,8 @@ import { Observable } from 'rxjs';
 import {strLogo} from '../stringLogo'
 import { EmailService } from '../services/email.service';
 import { Form } from '../models/Form';
+import { InseminationDTO } from '../models/InseminationDTO';
+import { InseminationService } from '../services/insemination.service';
 @Component({
   selector: 'app-iui',
   templateUrl: './iui.component.html',
@@ -27,6 +29,7 @@ export class IuiComponent implements OnInit {
   @Input() flag: Boolean=false;
   iui:IuiDTO;
   clinicVisits:ClinicVisitsDTO;
+  insemination:InseminationDTO;
   toggleLayer:boolean=false;
   persons:PersonsDTO;
   doctor:EmployeesDTO;
@@ -158,11 +161,33 @@ messege:boolean=true;
     this.iuiToSave.totalMotileCount=this.iuiform.controls["TotalMotileCount"].value.toString();
     this.iuiToSave.emailForSendingResults=this.iuiform.controls["EmailForSendingResults"].value.toString();
     this.iuiToSave.folliclesNumber=this.iuiform.controls["folliclesNumber"].value.toString();
-    
-
+this.insemination.folliclesNumber=this.iuiform.controls["folliclesNumber"].value.toString();  
+this.saveInsemination();
+this._InseminationService.saveInsemination(this.insemination);
     
   return  this._IuiService.saveIui(this.iuiToSave);
   }
+  saveInseminationObservable():Observable<InseminationDTO>{
+   
+    this.insemination.folliclesNumber=parseInt(this.iuiform.controls["folliclesNumber"].value);  
+console.log(this.insemination.folliclesNumber+"insemination");
+
+return this._InseminationService.saveInsemination(this.insemination);
+    }
+  saveInsemination(){
+  
+      this.toggleLayer=true;
+      this.saveInseminationObservable().subscribe(
+        (data)=>{
+          this.insemination=data;
+          },
+       (error)=>{
+        this.toggleLayer=false;
+          alert("try later");}
+  
+      )
+    }
+  
   saveIUI(){
     this.toggleLayer=true;
     this.saveIuiObservable().subscribe(
@@ -230,7 +255,7 @@ messege:boolean=true;
   
   constructor(private _IuiService:IuiService,private _clinicVisitsService:ClinicVisitsService
     ,private _personsService:PersonsService,private _EmployeesService:EmployeesService,public dialog: MatDialog
-    ,private _EmailService:EmailService) { }
+    ,private _EmailService:EmailService, private _InseminationService:InseminationService) { }
   ngOnInit() {
     this._IuiService.getByClinicVisitId(this.ClinicVisitsId).subscribe(
       (data)=>{
@@ -254,6 +279,16 @@ messege:boolean=true;
             this.setPersons(this.persons)},
           (error)=>{alert("try later")}
           
+        )
+        this._InseminationService.getByClinicVisitId(this.ClinicVisitsId).subscribe(
+          (data)=>{
+            if(data){
+              debugger
+              this.insemination=data;
+            }
+     
+            },
+         (error)=>{alert("try later")}
         )
         this._EmployeesService.getById(this.clinicVisits.doctor).subscribe(
           (data)=>{

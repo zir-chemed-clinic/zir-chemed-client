@@ -19,5 +19,6 @@ export class PersonsDTO{
          brothersToTfila:Boolean;
           manFathersName: string;
           womanFathersName: string;
+          comment:string;
 }
 

@@ -44,7 +44,8 @@ export class PersonsComponent implements OnInit {
     register  : new FormControl(false),
     brothersToTfila:new FormControl(false),
     manFathersName : new FormControl(""),
-    womanFathersName : new FormControl("")
+    womanFathersName : new FormControl(""),
+    comment: new FormControl("")
   })
   
   addNewItem() {
@@ -76,6 +77,7 @@ export class PersonsComponent implements OnInit {
     this.personsform.controls["brothersToTfila"].setValue(persons.brothersToTfila);
     this.personsform.controls["manFathersName"].setValue(persons.manFathersName);
     this.personsform.controls["womanFathersName"].setValue(persons.womanFathersName);
+    this.personsform.controls["comment"].setValue(persons.comment);
 
   }
 
@@ -113,6 +115,7 @@ export class PersonsComponent implements OnInit {
     this.personsToSave.brothersToTfila = this.personsform.controls["brothersToTfila"].value;
     this.personsToSave.manFathersName =this.personsform.controls["manFathersName"].value;
     this.personsToSave.womanFathersName= this.personsform.controls["womanFathersName"].value;
+    this.personsToSave.comment= this.personsform.controls["comment"].value;
     if(this.personsId){
       this.personsToSave.personsId=this.personsId;
 

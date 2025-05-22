@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {inject, ChangeDetectionStrategy, Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, TemplateRef,   } from '@angular/core';
 import { InseminationService } from '../services/insemination.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { InseminationDTO } from '../models/InseminationDTO';
@@ -14,19 +14,35 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 import {strGnuMICR} from '../../fonts/GnuMICRttfBase64Encoded'
 import {strAriel} from '../../fonts/ariel'
 import { strLogo } from '../stringLogo';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import SignaturePad from 'signature_pad';
 
 @Component({
   selector: 'app-insemination',
   templateUrl: './insemination.component.html',
-  styleUrls: ['./insemination.component.css']
+  styleUrls: ['./insemination.component.css'],
 })
-export class InseminationComponent implements OnInit {
+export class InseminationComponent implements OnInit , AfterViewInit{
+  @ViewChild('signatureCanvas', { static: false }) signatureCanvas: ElementRef; 
+  signaturePad: SignaturePad;
+  @ViewChild('signatureDialog', { static: false }) signatureDialog: TemplateRef<any>;
+
+  signatureMan: string = '';
+  signatureWoman: string = '';
+  signatureDoctor: string = '';
+  flagSignatureMan:boolean=false;
+  flagSignatureWoman:boolean=false;
+  flagSignatureDoctor:boolean=false;
+
   inseminationToSave:InseminationDTO;
   toggleLayer:boolean=false;
   @Input() ClinicVisitsId: number;
+  dialogRef: MatDialogRef<any>;
   insemination:InseminationDTO;
   clinicVisits:ClinicVisitsDTO;
   doctor:EmployeesDTO;
+
   date:string= "";
   reversData:string= "";
   closed:Boolean;
@@ -70,6 +86,7 @@ this.inseminationToSave.doctorLicenseNumber=+this.inseminationform.controls["Doc
 this.inseminationToSave.doctorSignatureAfter=this.inseminationform.controls["DoctorSignatureAfter"].value;
 this.inseminationToSave.treatmentDescription=this.inseminationform.controls["TreatmentDescription"].value;
 this.inseminationToSave.folliclesNumber=+this.inseminationform.controls["folliclesNumber"].value;
+console.log('שולחת לא insemination:', this.inseminationToSave);
 return this._InseminationService.saveInsemination(this.inseminationToSave);
 }
   
@@ -77,10 +94,13 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
     this.toggleLayer=true;
     this.saveInseminationObservable().subscribe(
       (data)=>{
+        console.log('תגובה מהשרת:', data); // ⬅️ כאן תראי את מה שהשרת מחזיר
+
         this.toggleLayer=false;
         this.insemination=data;
         },
      (error)=>{
+      console.error('שגיאה בשמירה:', error); // ⬅️ כאן תראי אם השרת מחזיר שגיאה
       this.toggleLayer=false;
         alert("try later");}
 
@@ -111,9 +131,64 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
     this.inseminationform.controls["employeeName"].setValue(doctor.employeeName);
     this.inseminationform.controls["licenseNumber"].setValue(doctor.licenseNumber);
   }
-  constructor(private _InseminationService:InseminationService
+  constructor(private dialog: MatDialog, private _InseminationService:InseminationService
     ,private _clinicVisitsService:ClinicVisitsService
     ,private _personsService:PersonsService,private _EmployeesService:EmployeesService) { }
+    ngAfterViewInit(){
+   this.signaturePad = new SignaturePad(this.signatureCanvas.nativeElement, {
+        minWidth: 1,    // הגדרת רוחב הקו המינימלי
+        maxWidth: 3,    // הגדרת רוחב הקו המקסימלי
+        penColor: 'black',  // צבע העט
+        backgroundColor: 'white'  // צבע הרקע
+      });
+    }
+    openSignatureDialog(whoSigned:number) {
+      if(whoSigned==0)
+        this.flagSignatureMan=true;
+      else if(whoSigned==1)
+        this.flagSignatureWoman=true;
+      else 
+      this.flagSignatureDoctor=true;
+  this.dialogRef = this.dialog.open(this.signatureDialog);
+      this.dialogRef.afterOpened().subscribe(() => {
+        setTimeout(() => {
+          if (this.signatureCanvas) {
+            this.signaturePad = new SignaturePad(this.signatureCanvas.nativeElement, {
+              minWidth: 1,
+              maxWidth: 3,
+              penColor: 'black',
+              backgroundColor: 'white',
+            });
+          }
+        }, 200); // השהיית אתחול כדי לוודא שהדיאלוג פתוח
+      });
+    }
+    clearSignature() {
+      this.signaturePad.clear();
+    }
+    saveSignature() {
+      if (this.signaturePad.isEmpty()) {
+        console.log('החתימה ריקה');
+      } else {
+        if(this.flagSignatureMan)
+        this.signatureMan = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
+       // console.log('חתימה בטופס לאחר השמירה: ', this.saform.controls['Signature'].value); // בדוק אם החתימה נשמרה בטופס
+    else if(this.flagSignatureWoman)
+      this.signatureWoman = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
+else
+this.signatureDoctor = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
+
+    this.flagSignatureMan=false;
+    this.flagSignatureWoman=false;
+    this.flagSignatureDoctor=false;
+        this.dialogRef.close();
+      
+        console.log(this.signatureMan);  // תוכל לשלוח את זה לשרת
+    
+    
+        // שמירת החתימה בטופס
+        // return  this._clinicVisitsService.saveSa(this.saToSave);
+      }}
   ngOnInit() {
   
    

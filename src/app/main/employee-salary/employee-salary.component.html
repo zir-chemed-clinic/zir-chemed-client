@@ -31,7 +31,9 @@
       <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('download')" >הורד טופס</button>
       <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white " (click)="generatePDF('print')" >הדפס טופס</button>
 </div>
-    <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "(click)="getEmployeeClinicVisits()">חפש</button>
+    <button *ngIf='!flagAllEmployees' mat-raised-button style="background-color:rgb(75, 3, 6);color: white "(click)="getEmployeeClinicVisits()">חפש</button>
+    <button *ngIf='flagAllEmployees' mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="salaryToExcel()">הורדה לאקסל</button>
+
 </form>
 </div>
 <div class="row">
@@ -40,7 +42,7 @@
         <div className="table-responsive" id="sailorTableArea">
         <table id="sailorTable" class="m-table" >
           <thead>
-            <tr >
+            <tr *ngIf='!flagAllEmployees'>
               <th class="td" > תאריך </th>
               <th class="td" >סוג הטיפול </th>
               <th class="td" ></th>
@@ -67,7 +69,7 @@
       </div>
     </div>
     <div class="col-6"> 
-      <button mat-raised-button [disabled]="!flagSalary"  (click)="salary()" >חשב</button>
+      <button mat-raised-button *ngIf='!flagAllEmployees' [disabled]="!flagSalary"  (click)="salary()" >חשב</button>
       <!-- <div class="row"> -->
       <div *ngIf="flag" style="direction: ltr">
         <br/>

@@ -11,6 +11,11 @@ import { strGnuMICR } from '../../fonts/GnuMICRttfBase64Encoded'
 import { strAriel } from '../../fonts/ariel'
 import { Observable } from 'rxjs';
 import { strLogo } from '../stringLogo'
+import * as Excel from "exceljs/dist/exceljs.min.js";
+import * as fs from 'file-saver';
+import { SaDTO } from '../models/SaDTO';
+import { log } from 'util';
+import { element } from 'protractor';
 class Column {
   text: string; font?: string; color?: string; bold?: boolean; fontSize?: number; style?: {}; direction?: string
 }
@@ -26,8 +31,11 @@ export class EmployeeSalaryComponent implements OnInit {
   clinicVisitIdToDisplay:number;
   employeeName: string = "";
   employee: EmployeesDTO;
+  allEmployee: EmployeesDTO[] = [];
   flagSalary: boolean = false;
+  flagAllEmployees: boolean = false;
   employeeClinicVisits: ClinicVisitsDTO[] = [];
+  employeeClinicVisitsForExcel:ClinicVisitsDTO[]=[];
   SA: number;
   SAMorphology: number;
   IUISAMorphology: number;
@@ -52,6 +60,10 @@ export class EmployeeSalaryComponent implements OnInit {
   WashList: ClinicVisitsDTO[];
   CanNotBeMadeIUIList: ClinicVisitsDTO[];
   CanNotBeMadeSAList: ClinicVisitsDTO[];
+  totalPrice:number;
+  totalHours:number;
+  fromDate:string="";
+  untilDate:string="";
 
   employeeSalaryform = new FormGroup({
     fromDate: new FormControl(""),
@@ -166,12 +178,155 @@ export class EmployeeSalaryComponent implements OnInit {
 
         }
       )
-
+     
     }
+    else
+    this._EmployeesService.getAll().subscribe(
+      (data) => {
+        this.allEmployee = data;
+        this.flagAllEmployees=true;
+        // this.date1=
+        // this._ClinicVisitsService.getByemployeesIdAndDate(this.employeesId,)
+
+      },
+      (error) => {
+        alert("try later")
+
+      }
+    )
   }
+  
   revers(data) {
     return data.split(' ').reverse().join(' ');
 
+  }
+  salaryRange(employeeId: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+     
+      let date1 = this.employeeSalaryform.controls["fromDate"].value;
+      this.fromDate = `${date1.getFullYear()}-${date1.getMonth() + 1}-${date1.getDate()}`;
+  
+      let date2 = this.employeeSalaryform.controls["untilDate"].value;
+      this.untilDate = `${date2.getFullYear()}-${date2.getMonth() + 1}-${date2.getDate()}`;
+  
+      this._ClinicVisitsService.getClinicVisits(employeeId, this.fromDate, this.untilDate).subscribe({
+        next: (data) => {
+          this.employeeClinicVisitsForExcel = data;
+          this.flagSalary = true;
+          resolve(); // כאן ממשיכים הלאה
+        },
+        error: (error) => {
+          alert("try later");
+          reject(error);
+        }
+      });
+    });
+  }
+ 
+  async  salaryToExcel(){
+   
+    let workbook = new Excel.Workbook();
+     
+    let worksheet = workbook.addWorksheet("משכורות");
+    let header=["עובד מעבדה","SA","SAMorphology","IUI","IUISA","IUISAMorphology","PCT","Insemination","ייעוץ","Wash","לא ניתן לבצע השבחה	","לא ניתן לבצע בדיקת זרע	","שעות","סך הכל"
+  ]
+   
+  let headerRow = worksheet.addRow(header);
+  headerRow.font = { bold: true };
+
+    for(let employeeIndex of this.allEmployee){
+  await this.salaryRange(employeeIndex.employeeId);
+      
+
+    if (employeeIndex.role == 2) {
+      this.SAList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "SA" && c.done == true && c.preformed==employeeIndex.employeeId);       
+      this.SAMorphologyList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "SA" && c.doneMorphology == true && c.morphology==employeeIndex.employeeId);
+      this.IUISAMorphologyList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "IUI + SA" && c.doneMorphology == true && c.morphology==employeeIndex.employeeId);
+      this.IUIList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "IUI" && c.done == true && c.preformed==employeeIndex.employeeId);
+      this.PCTList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "PCT" && c.done == true && c.preformed==employeeIndex.employeeId);
+      this.InseminationList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "Insemination" && c.done == true && c.preformed==employeeIndex.employeeId);
+      this.IUISAList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "IUI + SA" && c.done == true && c.preformed==employeeIndex.employeeId);
+      this.ConsultingList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "ייעוץ" && c.done == true && c.preformed==employeeIndex.employeeId);
+      this.WashList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "Wash" && c.done == true && c.preformed==employeeIndex.employeeId);
+      this.CanNotBeMadeIUIList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "לא ניתן לבצע השבחה" && c.done == true && c.preformed==employeeIndex.employeeId);
+      this.CanNotBeMadeSAList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "לא ניתן לבצע בדיקת זרע" && c.done == true && c.preformed==employeeIndex.employeeId);
+      this.totalHours = (this.SAList.length * 15 + this.IUIList.length * 45 + this.PCTList.length * 15
+        + this.InseminationList.length * 10 + this.IUISAList.length * 45 +
+        this.ConsultingList.length * 60 + this.WashList.length * 45 +
+        this.CanNotBeMadeIUIList.length * 15 + this.CanNotBeMadeSAList.length * 15 +
+        this.SAMorphologyList.length * 20 + this.IUISAMorphologyList.length * 20)/60
+      this.totalPrice =this.SAList.length * employeeIndex.paymentForSA + this.IUIList.length * employeeIndex.paymentForIUI + this.PCTList.length * employeeIndex.paymentForPCT
+      + this.InseminationList.length * employeeIndex.paymentForInsemination + this.IUISAList.length * employeeIndex.paymentForIUISA +
+      this.ConsultingList.length * employeeIndex.paymentForConsulting + this.WashList.length * employeeIndex.paymentForWash +
+      this.CanNotBeMadeIUIList.length * employeeIndex.paymentForcanNotBeMadeIUI + this.CanNotBeMadeSAList.length * employeeIndex.paymentForCanNotBeMadeSA +
+      this.SAMorphologyList.length * employeeIndex.paymentForMorphology + this.IUISAMorphologyList.length * employeeIndex.paymentForMorphology ;
+    }
+    if (employeeIndex.role == 1) {
+      this.SAList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "SA" && c.doneDoctor == true && c.doctor==employeeIndex.employeeId);
+      this.SAMorphologyList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "SA" && c.doneMorphology == true && c.morphology==employeeIndex.employeeId);
+      this.IUISAMorphologyList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "IUI + SA" && c.doneMorphology == true && c.morphology==employeeIndex.employeeId);
+      this.IUIList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "IUI" && c.doneDoctor == true && c.doctor==employeeIndex.employeeId);
+      this.PCTList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "PCT" && c.doneDoctor == true && c.doctor==employeeIndex.employeeId);
+      this.InseminationList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "Insemination" && c.doneDoctor == true && c.doctor==employeeIndex.employeeId);
+      this.IUISAList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "IUI + SA" && c.doneDoctor == true && c.doctor==employeeIndex.employeeId);
+      this.ConsultingList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "ייעוץ" && c.doneDoctor == true && c.doctor==employeeIndex.employeeId);
+      this.WashList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "Wash" && c.doneDoctor == true && c.doctor==employeeIndex.employeeId);
+      this.CanNotBeMadeIUIList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "לא ניתן לבצע השבחה" && c.doneDoctor == true && c.doctor==employeeIndex.employeeId);
+      this.CanNotBeMadeSAList = this.employeeClinicVisitsForExcel.filter(c => c.treatments.treatmentName == "לא ניתן לבצע בדיקת זרע" && c.doneDoctor == true && c.doctor==employeeIndex.employeeId);
+      this.totalHours = (this.SAList.length * 15 + this.IUIList.length * 45 + this.PCTList.length * 15
+        + this.InseminationList.length * 10 + this.IUISAList.length * 45 +
+        this.ConsultingList.length * 60 + this.WashList.length * 45 +
+        this.CanNotBeMadeIUIList.length * 15 + this.CanNotBeMadeSAList.length * 15 +
+        this.SAMorphologyList.length * 20 + this.IUISAMorphologyList.length * 20)/60
+      this.totalPrice =this.SAList.length * employeeIndex.paymentForSA + this.IUIList.length * employeeIndex.paymentForIUI + this.PCTList.length * employeeIndex.paymentForPCT
+      + this.InseminationList.length * employeeIndex.paymentForInsemination + this.IUISAList.length * employeeIndex.paymentForIUISA +
+      this.ConsultingList.length * employeeIndex.paymentForConsulting + this.WashList.length * employeeIndex.paymentForWash +
+      this.CanNotBeMadeIUIList.length * employeeIndex.paymentForcanNotBeMadeIUI + this.CanNotBeMadeSAList.length * employeeIndex.paymentForCanNotBeMadeSA +
+      this.SAMorphologyList.length * employeeIndex.paymentForMorphology + this.IUISAMorphologyList.length * employeeIndex.paymentForMorphology ;
+    }
+  
+
+    let row = [
+      employeeIndex.employeeName,
+      this.SAList.length,
+      this.SAMorphologyList.length,
+      this.IUIList.length,
+      this.IUISAList.length,
+      this.IUISAMorphologyList.length,
+      this.PCTList.length,
+      this.InseminationList.length,
+      this.ConsultingList.length,
+      this.WashList.length,
+      this.CanNotBeMadeIUIList.length,
+      this.CanNotBeMadeSAList.length,
+      this.totalHours,
+      this.totalPrice,
+    ];
+    worksheet.addRow(row)
+
+  }
+
+    
+     
+      
+      
+       // for(let y of x2)
+       // {
+       //   temp.push(x1[y])
+       // }
+     
+     let fname="משכורות"
+     let dtae = new Date();
+    //  let dd = String(dtae.getDate()).padStart(2, '0');
+    //  let mm = String(dtae.getMonth() + 1).padStart(2, '0'); //January is 0!
+    //  let yyyy = dtae.getFullYear();
+    
+    //  let today = dd + '.' + mm + '.' + yyyy;
+     // add data and file name and download
+     workbook.xlsx.writeBuffer().then((data) => {
+       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+       fs.saveAs(blob, fname+'-'+this.fromDate+" - "+this.untilDate+'.xlsx');
+     });
   }
   generatePDF(action = 'open') {
     let date1 = this.employeeSalaryform.controls["fromDate"].value;
