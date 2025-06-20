@@ -11,7 +11,7 @@ export class ClinicVisitsDTO{
     morphology:number
     paymentMethod :string;
     receipt :number;
-    c :boolean;
+    c :number;
     co :boolean;
     done:boolean;
     doneDoctor:boolean;

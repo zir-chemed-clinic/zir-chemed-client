@@ -19,6 +19,7 @@ import { EmailService } from '../services/email.service';
 import { Form } from '../models/Form';
 import { InseminationDTO } from '../models/InseminationDTO';
 import { InseminationService } from '../services/insemination.service';
+import { log } from 'console';
 @Component({
   selector: 'app-iui',
   templateUrl: './iui.component.html',
@@ -160,10 +161,8 @@ messege:boolean=true;
     
     this.iuiToSave.totalMotileCount=this.iuiform.controls["TotalMotileCount"].value.toString();
     this.iuiToSave.emailForSendingResults=this.iuiform.controls["EmailForSendingResults"].value.toString();
-    this.iuiToSave.folliclesNumber=this.iuiform.controls["folliclesNumber"].value.toString();
-this.insemination.folliclesNumber=this.iuiform.controls["folliclesNumber"].value.toString();  
-this.saveInsemination();
-this._InseminationService.saveInsemination(this.insemination);
+    this.iuiToSave.folliclesNumber=this.iuiform.controls["folliclesNumber"].value.toString();    
+
     
   return  this._IuiService.saveIui(this.iuiToSave);
   }
@@ -180,9 +179,13 @@ return this._InseminationService.saveInsemination(this.insemination);
       this.saveInseminationObservable().subscribe(
         (data)=>{
           this.insemination=data;
+          console.log("ins"+this.insemination.folliclesNumber);
+          
           },
        (error)=>{
         this.toggleLayer=false;
+        console.log("insemination");
+        
           alert("try later");}
   
       )
@@ -190,6 +193,10 @@ return this._InseminationService.saveInsemination(this.insemination);
   
   saveIUI(){
     this.toggleLayer=true;
+    this.insemination.folliclesNumber=this.iuiform.controls["folliclesNumber"].value.toString();  
+    console.log(this.insemination.folliclesNumber); 
+this.saveInsemination();
+this._InseminationService.saveInsemination(this.insemination);
     this.saveIuiObservable().subscribe(
       (data)=>{
         this.toggleLayer=false;
@@ -197,6 +204,8 @@ return this._InseminationService.saveInsemination(this.insemination);
         },
      (error)=>{ 
       this.toggleLayer=false;
+      console.log("iui");
+      
        alert("try later");}
 
     )

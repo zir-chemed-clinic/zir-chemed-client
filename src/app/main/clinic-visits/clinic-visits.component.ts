@@ -39,6 +39,8 @@ export class ClinicVisitsComponent implements OnInit {
   flagClinicVisits:boolean=true;
   flagInsemination:boolean=false;
   flagDidNotArrive:boolean=false;
+  showPayment = false;
+  selectedPaymentType: number;
   flagIui:boolean=false;
   flagPct:boolean=false;
   flagSa:boolean=false;
@@ -68,7 +70,7 @@ export class ClinicVisitsComponent implements OnInit {
     Morphology:new FormControl(""),
     PaymentMethod : new FormControl(""),
     Receipt : new FormControl(""),
-    C : new FormControl(false),
+    C : new FormControl(0),
     Co : new FormControl(false),
     done: new FormControl(false),
     doneDoctor:new FormControl(false),
@@ -189,14 +191,15 @@ console.log(this.signature);
    let treatmentPayment=this.clinicVisitsform.controls["TreatmentsId"].value;
    let treatmentCost=treatmentPayment.treatmentCost;
    let amount = 0;
-   if(this.clinicVisitsform.controls["C"].value==true){
+   let quantityC = this.clinicVisitsform.controls["C"].value;
+   if(quantityC>0){
      
      let cTreatments=this.allTreatments.filter(t=>t.treatmentName=="C")[0].treatmentCost;
-     amount+=cTreatments
+     amount=quantityC*cTreatments;
 
    } 
   //  this.clinicVisitToSave.amount=+this.clinicVisitsform.controls["Amount"].value;
-  this.clinicVisitToSave.amount= treatmentCost+amount
+  this.clinicVisitToSave.amount= treatmentCost+amount;
  
    this.clinicVisitToSave.subsidization=this.clinicVisitsform.controls["Subsidization"].value;
    this.clinicVisitToSave.visitsDate=this.clinicVisitsform.controls["VisitsDate"].value; 
@@ -689,6 +692,7 @@ return;
     this._PersonsService.getAll().subscribe(
       (data)=>{
         this.allPersons=data;
+        
         this.filteredPersons = this.clinicVisitsform.controls["manId"].valueChanges.pipe(
           startWith(''),
           map(value => this._filterPersons(value.toString())));
@@ -758,7 +762,20 @@ return;
 
   }
 
+startPayment(type: number): void {
+  // אם אותו סוג נלחץ שוב – אל תעשה כלום
+  if (this.selectedPaymentType === type && this.showPayment) {
+    return;
+  }
+
+  this.showPayment = false; // הסרה זמנית של הקומפוננטה
+  setTimeout(() => {
+    this.selectedPaymentType = type;
+    this.showPayment = true;
+  }, 0); // מאפשר לאנגולר להסיר ולהטעין מחדש
 }
+}
+
 
 
 

@@ -1,0 +1,68 @@
+<!-- כפתור להפעלת התשלום -->
+
+
+<!-- iframe רק אם יש כתובת URL -->
+
+<!-- payment.component.html -->
+<div *ngIf="PaymentType === 1">
+  <h3>תשלום באשראי</h3>
+<div *ngIf="iframeUrl">
+  <iframe [src]="iframeUrl" width="100%" height="600" frameborder="0"></iframe>
+</div>
+</div>
+
+<!-- מזומן -->
+<!-- אין צורך בתצוגה, רק ריק – תהליך מתבצע אוטומטית דרך ngOnInit -->
+
+<!-- צ'קים -->
+<div *ngIf="PaymentType === 3">
+  <div *ngFor="let check of checks; let i = index">
+    <h4>צ'ק מספר {{ i + 1 }}</h4>
+
+    <div class="check-form">
+      <mat-form-field>
+        <mat-label>מספר צ'ק</mat-label>
+        <input matInput [(ngModel)]="check.checkNumber">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>מספר בנק</mat-label>
+        <input matInput [(ngModel)]="check.bankNumber">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>מספר סניף</mat-label>
+        <input matInput [(ngModel)]="check.branchNumber">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>מספר חשבון</mat-label>
+        <input matInput [(ngModel)]="check.accountNumber">
+      </mat-form-field>
+
+<mat-form-field>
+  <mat-label>תאריך פירעון</mat-label>
+  <input matInput [matDatepicker]="picker" [(ngModel)]="check.dueDate">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+      <mat-form-field>
+        <mat-label>סכום</mat-label>
+        <input matInput type="number" [(ngModel)]="check.amount">
+      </mat-form-field>
+    </div>
+
+    <mat-divider class="my-4"></mat-divider>
+  </div>
+
+  <button mat-stroked-button style="background-color:white;color:rgb(75, 3, 6)" (click)="addCheck()" [disabled]="checks.length >= 4">
+    הוסף צ'ק נוסף
+  </button>
+
+  <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white" (click)="submitCheckPayment()">בצע תשלום בצ'קים</button>
+</div>
+
+<div *ngIf="paymentSuccess" class="success-message">
+  <h2>✅ התשלום בוצע בהצלחה!</h2>
+</div>

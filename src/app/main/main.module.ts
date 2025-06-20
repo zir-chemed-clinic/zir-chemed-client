@@ -34,6 +34,7 @@ import { InseminationService } from './services/insemination.service';
 import { IuiService } from './services/iui.service';
 import { PctService } from './services/pct.service';
 import { SaService } from './services/sa.service';
+import { PaymentService } from './services/payment.service';
 import { SubsidizationService } from './services/subsidization.service';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -53,10 +54,13 @@ import {CalendarModule} from 'primeng/calendar';
 import {TableModule} from 'primeng/table';
 import { HistoryClinicVisitsComponent } from './history-clinic-visits/history-clinic-visits.component';
 import { EmailService } from './services/email.service';
+import { SignatureService  } from './services/signature.service';
+
 import {DialogModule} from 'primeng/dialog';
 import {MatIconModule} from '@angular/material';
 import { SummaryComponent } from './summary/summary.component';
 import { DigitalSignatureFormComponent } from './digital-signature-form/digital-signature-form.component';
+import { PaymentComponent } from './payment/payment.component';
 //import { SignaturePadModule } from 'angular2-signaturepad';
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -65,7 +69,7 @@ import { DigitalSignatureFormComponent } from './digital-signature-form/digital-
 // import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
-  declarations: [PersonsComponent,HomeComponent, ClinicVisitsComponent, EmployeesComponent, PctComponent, SaComponent, InseminationComponent, IuiComponent, TreatmentsComponent, SubsidizationComponent, SummonsClinicVisitsComponent, HomeComponent, EditClinicVisitComponent, AllPersonsComponent, AllEmployeesComponent, AllTreatmentsComponent, PctPdfComponent, SaPdfComponent, EmployeeSalaryComponent, HistoryClinicVisitsComponent, SummaryComponent, DigitalSignatureFormComponent],
+  declarations: [PersonsComponent,HomeComponent, ClinicVisitsComponent, EmployeesComponent, PctComponent, SaComponent, InseminationComponent, IuiComponent, TreatmentsComponent, SubsidizationComponent, SummonsClinicVisitsComponent, HomeComponent, EditClinicVisitComponent, AllPersonsComponent, AllEmployeesComponent, AllTreatmentsComponent, PctPdfComponent, SaPdfComponent, EmployeeSalaryComponent, HistoryClinicVisitsComponent, SummaryComponent, DigitalSignatureFormComponent, PaymentComponent],
   imports: [
     // CalendarModule,
     // CheckboxModule,
@@ -119,10 +123,11 @@ import { DigitalSignatureFormComponent } from './digital-signature-form/digital-
       {path:"saPdf",component:SaPdfComponent},
       {path:"summary",component:SummaryComponent},
       {path:"digitalForm",component:DigitalSignatureFormComponent},
+      {path:"payment", component:PaymentComponent}
 
     ])
   ], providers:[TreatmentService,PersonsService,ClinicVisitsService,EmployeesService,
-    InseminationService,IuiService,PctService,PersonsService,SaService,SubsidizationService,TreatmentsService,EmailService,
+    InseminationService,IuiService,PctService,PersonsService,SaService,PaymentService,SubsidizationService,TreatmentsService,EmailService,SignatureService,
     MatDatepickerModule,NgxMatDatetimePickerModule,NgxMatTimepickerModule,MatDatepickerModule]
 })
 export class MainModule { }

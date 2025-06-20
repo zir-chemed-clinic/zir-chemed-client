@@ -118,12 +118,24 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field></div>
-              <div class="col-3" style="padding-top: 20px">  <mat-checkbox class="example-margin"   formControlName="C"  class="input">C</mat-checkbox></div>
-              <!-- <div class="col-4">                <mat-checkbox class="example-margin" style="color: rgb(75, 3, 6) "  formControlName="Co" class="input">CO</mat-checkbox></div> -->
-              <div class="col-3" style="padding-top: 20px">  <mat-checkbox class="example-margin"   formControlName="apartmentHr"  class="input">דירת משפחת הרצברג </mat-checkbox></div>
-              <div class="col-3" style="padding-top: 20px">  <mat-checkbox class="example-margin"   formControlName="apartmentVy"  class="input">דירת משפחת וייס</mat-checkbox></div>
-              <div class="col-3" style="padding-top: 20px">  <mat-checkbox class="example-margin"   formControlName="apartmentYy"  class="input">דירת משפחת יפרח</mat-checkbox></div>
-
+                
+<div class="col-3" style="padding-top: 20px; max-width: 80px;" >
+  <mat-form-field appearance="fill" class="input" style="width: 100%;">
+    <mat-label>C</mat-label>
+    <mat-select formControlName="C">
+      <mat-option [value]="0">0</mat-option>
+      <mat-option [value]="1">1</mat-option>
+      <mat-option [value]="2">2</mat-option>
+      <mat-option [value]="3">3</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>        
+      <!-- <div class="col-4">                <mat-checkbox class="example-margin" style="color: rgb(75, 3, 6) "  formControlName="Co" class="input">CO</mat-checkbox></div> -->
+       <div>
+              <span class="col-3" style="padding-top: 20px">  <mat-checkbox class="example-margin"   formControlName="apartmentHr"  class="input">דירת משפחת הרצברג </mat-checkbox></span>
+              <span class="col-3" style="padding-top: 20px">  <mat-checkbox class="example-margin"   formControlName="apartmentVy"  class="input">דירת משפחת וייס</mat-checkbox></span>
+              <span class="col-3" style="padding-top: 20px">  <mat-checkbox class="example-margin"   formControlName="apartmentYy"  class="input">דירת משפחת יפרח</mat-checkbox></span>
+</div>
             </div>
             <!-- <div style="padding: 15px"  class="row"> 
                 <div class="col-3">      <mat-form-field class="input">
@@ -180,6 +192,8 @@
 
 </form>
 <form [formGroup]="paymentform">
+
+  <!-- <app-payment  [ClinicVisitsId]="clinicVisitsId"></app-payment> -->
   <div class="div" *ngIf="flagPayment">
       <h1 style=" text-align: center;">תשלום</h1>
     <div style="padding: 15px"  class="row"> 
@@ -198,7 +212,6 @@
           <input matInput #input  formControlName="Receipt">
       
         </mat-form-field></div>
-      <!-- <div class="col-3" style="padding: 10px;direction: ltr">  <button mat-raised-button style="background-color:rgb(75, 3, 6);color: white "  (click)="costCalculationPayment()" >חשב עלות</button></div> -->
       <div class="col-4"> <mat-form-field class="input">
           <mat-label>* עלות</mat-label>
           <input matInput #input  formControlName="Amount">
@@ -221,10 +234,22 @@
         <input matInput #input  formControlName="CheckNumber">
       </mat-form-field></div>
     </div>
+
     <div>
+      
       <div >
         <button  mat-raised-button   (click) ="savePayment()" >שמירה</button>
       </div>
+      <br>
+<button mat-raised-button (click)="startPayment(1)">לתשלום באשראי</button>
+<button mat-raised-button (click)="startPayment(2)">תשלום במזומן</button>
+<button mat-raised-button (click)="startPayment(3)">לתשלום בצ'קים</button>
+
+<app-payment
+  *ngIf="showPayment"
+  [ClinicVisitsId]="clinicVisitsId"
+  [PaymentType]="selectedPaymentType">
+</app-payment>
     </div>
   </div>
 </form>

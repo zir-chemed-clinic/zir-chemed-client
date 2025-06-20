@@ -35,6 +35,10 @@ export class SaDTO
          givingSample: string;
          daysAvoided: string;
          signature :string;
+         oligospermia:boolean;
+         asthenozoospermia:boolean;
+         teratospermia:boolean;
+         normalSperm: boolean;
 
 
     }

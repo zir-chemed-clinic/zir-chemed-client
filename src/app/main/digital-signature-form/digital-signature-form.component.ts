@@ -17,6 +17,7 @@ import { EmployeesDTO } from '../models/EmployeesDTO';
 // import SignaturePad from 'signature_pad';
 import SignaturePad from 'signature_pad';
 import { error, log } from 'console';
+import { SignatureService } from '../services/signature.service';
 @Component({
   selector: 'app-digital-signature-form',
   templateUrl: './digital-signature-form.component.html',
@@ -57,7 +58,7 @@ export class DigitalSignatureFormComponent implements OnInit ,AfterViewInit
   //   this.signform.controls["ManId"].setValue(person.manId);
   //   this.signform.controls["WomanId"].setValue(person.womanId);
   // }
-  constructor(private _clinicVisitsService:ClinicVisitsService,private _personsService:PersonsService,private _treatmentService:TreatmentService) { }
+  constructor(private _signatureService:SignatureService, private _clinicVisitsService:ClinicVisitsService,private _personsService:PersonsService,private _treatmentService:TreatmentService) { }
 
   ngOnInit() {
     this._clinicVisitsService.getById(this.ClinicVisitsId).subscribe(
@@ -105,9 +106,25 @@ export class DigitalSignatureFormComponent implements OnInit ,AfterViewInit
     });
   }
   loadExistingSignature() {
-    if (this.clinicVisits.signature) {
-      this.signaturePad.fromDataURL(this.clinicVisits.signature);
-    }
+    const body = {
+      id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+      fromWhom: "clinicVisit"
+    };
+    this._signatureService.showSignature(body).subscribe(
+      (data)=>{
+        this.signature=data;
+      console.log(this.signature);
+      if (this.signature) {
+        console.log("show");
+        
+        this.signaturePad.fromDataURL(this.signature);
+      }
+      },
+      (err)=>{
+        alert("try later");
+      }
+    )
+  
   }
   saveSignature() {
     if (this.signaturePad.isEmpty()) {
@@ -118,12 +135,17 @@ export class DigitalSignatureFormComponent implements OnInit ,AfterViewInit
   
       console.log(this.signature);  // תוכל לשלוח את זה לשרת
   
-  
+      const body = {
+        id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+        signature: this.signature,
+        fromWhom: "clinicVisit"
+      };
       // שמירת החתימה בטופס
       // return  this._clinicVisitsService.saveSa(this.saToSave);
-      this.clinicVisits.signature=this.signature;
-      this._clinicVisitsService.saveClinicVisit(this.clinicVisits)  
-      .subscribe(
+   //   this.clinicVisits.signature=this.signature;
+      //this._clinicVisitsService.saveClinicVisit(this.clinicVisits)  
+
+      this._signatureService.saveSignature(body).subscribe(
         (data)=>{
         console.log("succsessfull");
         

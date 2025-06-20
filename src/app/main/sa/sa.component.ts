@@ -95,7 +95,11 @@ export class SaComponent implements OnInit ,AfterViewInit
     NeckDefects : new FormControl(""),
     CytoplasmicDroplets : new FormControl(""),
     TailDefects : new FormControl(""),
-    Signature : new FormControl("")
+    Signature : new FormControl(""),
+    NormalSperm : new FormControl(false),
+    Oligospermia : new FormControl(false),
+    Asthenozoospermia : new FormControl(false),
+    Teratospermia : new FormControl(false)
 
   })
   sendSuccessfully:boolean=false;
@@ -161,6 +165,10 @@ export class SaComponent implements OnInit ,AfterViewInit
     this.saform.controls["CytoplasmicDroplets"].setValue(sa.cytoplasmicDroplets);
     this.saform.controls["TailDefects"].setValue(sa.tailDefects);
     this.saform.controls['Signature'].setValue(this.signature);
+    this.saform.controls["NormalSperm"].setValue(sa.normalSperm);
+    this.saform.controls["Oligospermia"].setValue(sa.oligospermia);
+    this.saform.controls["Asthenozoospermia"].setValue(sa.asthenozoospermia);
+    this.saform.controls["Teratospermia"].setValue(sa.teratospermia); 
 
   }
     saveSaObservable():Observable<SaDTO>{
@@ -232,7 +240,10 @@ export class SaComponent implements OnInit ,AfterViewInit
     this.saToSave.tailDefects= this.saform.controls["TailDefects"].value.toString();
     this.saToSave.daysAvoided= this.saform.controls["DaysAvoided"].value.toString();
     this.saToSave.signature= this.saform.controls["Signature"].value.toString();
-
+    this.saToSave.normalSperm= this.saform.controls["NormalSperm"].value;
+    this.saToSave.oligospermia= this.saform.controls["Oligospermia"].value;
+    this.saToSave.asthenozoospermia= this.saform.controls["Asthenozoospermia"].value;
+    this.saToSave.teratospermia= this.saform.controls["Teratospermia"].value;
   return  this._SaService.saveSa(this.saToSave);
   }
   saveSa(){
@@ -893,6 +904,43 @@ saveSignature() {
                   ]
                 },
             //    layout: "lightHorizontalLines" // מסגרת קלה לטבלה
+              },
+                            ,{
+                text: "  אבחון  ",
+                style: 'sectionHeader'
+              },
+              {
+                columns:[
+                 [ {
+                    text: this.sa.normalSperm?`NormalSperm : √`:`NormalSperm :\uf046  `,
+                    style: 'sectionText'
+                  }
+                ],
+                [
+                  {
+                    text: this.sa.oligospermia?`Oligospermia : √ `:`Oligospermia : \uf046`,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                [
+                  {
+                    text: this.sa.asthenozoospermia?`Asthenozoospermia: √ `:`Asthenozoospermia :\uf046  `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                [
+                  {
+                    text: this.sa.teratospermia?`Teratospermia:√ `:`Teratospermia :\uf046  `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+              
+                ]
+      
+      
               },
               
        

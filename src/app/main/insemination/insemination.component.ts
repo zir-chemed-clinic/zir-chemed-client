@@ -17,6 +17,8 @@ import { strLogo } from '../stringLogo';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import SignaturePad from 'signature_pad';
+import { SignatureService } from '../services/signature.service';
+import { log } from 'util';
 
 @Component({
   selector: 'app-insemination',
@@ -133,7 +135,7 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
   }
   constructor(private dialog: MatDialog, private _InseminationService:InseminationService
     ,private _clinicVisitsService:ClinicVisitsService
-    ,private _personsService:PersonsService,private _EmployeesService:EmployeesService) { }
+    ,private _personsService:PersonsService,private _EmployeesService:EmployeesService, private _signatureService:SignatureService) { }
     ngAfterViewInit(){
    this.signaturePad = new SignaturePad(this.signatureCanvas.nativeElement, {
         minWidth: 1,    // הגדרת רוחב הקו המינימלי
@@ -143,7 +145,7 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
       });
     }
     openSignatureDialog(whoSigned:number) {
-      if(whoSigned==0)
+      if(whoSigned==0)       //  מי חתם רופא/איש/אישה
         this.flagSignatureMan=true;
       else if(whoSigned==1)
         this.flagSignatureWoman=true;
@@ -170,13 +172,47 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
       if (this.signaturePad.isEmpty()) {
         console.log('החתימה ריקה');
       } else {
-        if(this.flagSignatureMan)
+        if(this.flagSignatureMan){
         this.signatureMan = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
+        var body = {
+          id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+          signature: this.signatureMan,
+          fromWhom: "signatureMan"
+        };}
+        else if(this.flagSignatureWoman){
+          this.signatureWoman = this.signaturePad.toDataURL();  
+          var body = {
+            id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+            signature: this.signatureWoman,
+            fromWhom: "signatureWoman"
+          };}
+          else{
+        this.signatureDoctor = this.signaturePad.toDataURL();
+        var body = {
+          id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+          signature: this.signatureDoctor,
+          fromWhom: "signatureDoctor"
+        };}
+        // המרת החתימה לפורמט Base64
+        
+        // שמירת החתימה בטופס
+        // return  this._clinicVisitsService.saveSa(this.saToSave);
+     //   this.clinicVisits.signature=this.signature;
+        //this._clinicVisitsService.saveClinicVisit(this.clinicVisits)  
+  
+        this._signatureService.saveSignature(body).subscribe(
+          (data)=>{
+          console.log("succsessfull");
+          
+          },
+          (err)=>{
+            alert("try later");
+          }
+        )
+      }
        // console.log('חתימה בטופס לאחר השמירה: ', this.saform.controls['Signature'].value); // בדוק אם החתימה נשמרה בטופס
-    else if(this.flagSignatureWoman)
-      this.signatureWoman = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
-else
-this.signatureDoctor = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
+   
+
 
     this.flagSignatureMan=false;
     this.flagSignatureWoman=false;
@@ -188,10 +224,67 @@ this.signatureDoctor = this.signaturePad.toDataURL();  // המרת החתימה 
     
         // שמירת החתימה בטופס
         // return  this._clinicVisitsService.saveSa(this.saToSave);
-      }}
+      }
+      loadExistingSignature(){
+        const body = {
+          id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+          fromWhom: "signatureMan"
+        };
+        this._signatureService.showSignature(body).subscribe(
+          (data)=>{
+            this.signatureMan=data;
+          if (this.signatureMan) {
+            console.log("show");
+            this.signaturePad.fromDataURL(this.signatureMan);
+          }
+          },
+          (err)=>{
+            console.log("man");
+            alert("try later");
+          }
+        )
+        const body1 = {
+          id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+          fromWhom: "signatureWoman"
+        };
+        this._signatureService.showSignature(body1).subscribe(
+          (data)=>{
+            this.signatureWoman=data;
+          if (this.signatureWoman) {
+            console.log("show");
+            this.signaturePad.fromDataURL(this.signatureWoman);
+          }
+          },
+          (err)=>{
+            console.log("woman");
+
+            alert("try later");
+          }
+        )
+        const body2 = {
+          id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+          fromWhom: "signatureDoctor"
+        };
+        this._signatureService.showSignature(body2).subscribe(
+          (data)=>{
+            this.signatureDoctor=data;
+          if (this.signatureDoctor) {
+            console.log("show");
+            this.signaturePad.fromDataURL(this.signatureDoctor);
+          }
+          },
+          (err)=>{
+            console.log("doctor");
+
+            alert("try later");
+          }
+        )
+      }
+
   ngOnInit() {
   
-   
+//    this.loadExistingSignature();
+
     this._InseminationService.getByClinicVisitId(this.ClinicVisitsId).subscribe(
       (data)=>{
         if(data){
