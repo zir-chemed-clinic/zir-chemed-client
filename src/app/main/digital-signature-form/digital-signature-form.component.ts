@@ -43,6 +43,8 @@ export class DigitalSignatureFormComponent implements OnInit ,AfterViewInit
   iui:boolean=false;
   saIui:boolean=false;
   insemination:boolean=false;
+  exitSignature:boolean=false;
+
   // signform=new FormGroup({
   //   ManName :  new FormControl(""),
   //   WomanName : new FormControl(""),
@@ -107,21 +109,23 @@ export class DigitalSignatureFormComponent implements OnInit ,AfterViewInit
   }
   loadExistingSignature() {
     const body = {
-      id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
-      fromWhom: "clinicVisit"
+      clinicVisitId: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+      signatureType: "clinicVisit"
     };
     this._signatureService.showSignature(body).subscribe(
       (data)=>{
         this.signature=data;
       console.log(this.signature);
       if (this.signature) {
-        console.log("show");
-        
+        console.log("show");  
         this.signaturePad.fromDataURL(this.signature);
       }
+             this.exitSignature=true;
+
+      
       },
       (err)=>{
-        alert("try later");
+    this.exitSignature=false;
       }
     )
   
@@ -136,9 +140,9 @@ export class DigitalSignatureFormComponent implements OnInit ,AfterViewInit
       console.log(this.signature);  // תוכל לשלוח את זה לשרת
   
       const body = {
-        id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
-        signature: this.signature,
-        fromWhom: "clinicVisit"
+        clinicVisitId: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+        signatureType: "clinicVisit",
+        signatureDataBase64: this.signature 
       };
       // שמירת החתימה בטופס
       // return  this._clinicVisitsService.saveSa(this.saToSave);

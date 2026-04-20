@@ -46,6 +46,7 @@ export class ClinicVisitsComponent implements OnInit {
   flagSa:boolean=false;
   flagIUISA:boolean=false;
   flagSign:boolean=false;
+  flagDNA:boolean=false;
   allPersons:PersonsDTO[]=[];
   allEmployees:EmployeesDTO[]=[];
   allTreatments:TreatmentsDTO[]=[];
@@ -463,6 +464,7 @@ this.flagKindTreatment=true;
         this.flagSign=false;
         this.flagClinicVisits=true;
         this.flagSa=false;
+        this.flagDNA=false;
         this.flagIui=false;
         this.flagPct=false;
         this.flagInsemination=false;
@@ -482,6 +484,7 @@ this.flagKindTreatment=true;
     this.flagClinicVisits=false;
     this.flagDidNotArrive=false;
     this.flagSa=false;
+    this.flagDNA=false;
     this.flagIui=false;
     this.flagPct=false;
     this.flagInsemination=false;
@@ -573,6 +576,13 @@ return;
  } 
  case "בדיקת זרע ולא ניתן לבצע השבחה": { 
   this.flagIUISA=true;
+    this.flagClinicVisits=false;
+    this.flagPayment=false;
+    this.flagSign=false;
+    break; 
+} 
+ case "DNA": { 
+    this.flagDNA=true;
     this.flagClinicVisits=false;
     this.flagPayment=false;
     this.flagSign=false;
@@ -699,7 +709,7 @@ return;
           this._EmployeesService.getAll().subscribe(
             (data)=>{   
               let all=data;
-              this.allEmployees=data.filter(emp => [12, 13, 14, 19].includes(emp.employeeId));
+              this.allEmployees=data.filter(emp => [12, 13, 14, 19, 24].includes(emp.employeeId));
               this.allDoctor=all.filter(em=>em.role==1);
               this.allPreformed=all.filter(emp=>emp.role==2);
               this._TreatmentService.getAll().subscribe(

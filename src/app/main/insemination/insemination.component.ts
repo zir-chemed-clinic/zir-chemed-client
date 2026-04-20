@@ -19,6 +19,7 @@ import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog
 import SignaturePad from 'signature_pad';
 import { SignatureService } from '../services/signature.service';
 import { log } from 'util';
+import { textAlign } from 'html2canvas/dist/types/css/property-descriptors/text-align';
 
 @Component({
   selector: 'app-insemination',
@@ -151,6 +152,7 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
         this.flagSignatureWoman=true;
       else 
       this.flagSignatureDoctor=true;
+
   this.dialogRef = this.dialog.open(this.signatureDialog);
       this.dialogRef.afterOpened().subscribe(() => {
         setTimeout(() => {
@@ -175,24 +177,32 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
         if(this.flagSignatureMan){
         this.signatureMan = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
         var body = {
-          id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
-          signature: this.signatureMan,
-          fromWhom: "signatureMan"
+          clinicVisitId: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+          signatureType: "signatureMan",
+          signatureDataBase64: this.signatureMan
         };}
         else if(this.flagSignatureWoman){
           this.signatureWoman = this.signaturePad.toDataURL();  
           var body = {
-            id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
-            signature: this.signatureWoman,
-            fromWhom: "signatureWoman"
+            clinicVisitId: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+            signatureType: "signatureWoman",
+          signatureDataBase64: this.signatureWoman
           };}
-          else{
-        this.signatureDoctor = this.signaturePad.toDataURL();
+          else if(this.flagSignatureDoctor){
+        this.signatureDoctor = this.signaturePad.toDataURL();  // המרת החתימה לפורמט Base64
         var body = {
-          id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
-          signature: this.signatureDoctor,
-          fromWhom: "signatureDoctor"
+          clinicVisitId: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+          signatureType: "signatureDoctor",
+          signatureDataBase64: this.signatureDoctor
         };}
+        //   {
+
+        // this.signatureDoctor = this.signaturePad.toDataURL();
+        // var body = {
+        //     clinicVisitId: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+        //     signatureType: "signatureDoctor",
+        //   signatureDataBase64: this.signatureDoctor
+        // };}
         // המרת החתימה לפורמט Base64
         
         // שמירת החתימה בטופס
@@ -206,7 +216,7 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
           
           },
           (err)=>{
-            alert("try later");
+console.log("אין תמונה");
           }
         )
       }
@@ -227,25 +237,26 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
       }
       loadExistingSignature(){
         const body = {
-          id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
-          fromWhom: "signatureMan"
+          clinicVisitId: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+          signatureType: "signatureMan"
         };
         this._signatureService.showSignature(body).subscribe(
           (data)=>{
             this.signatureMan=data;
           if (this.signatureMan) {
             console.log("show");
+            console.log(this.signatureMan);
+            
             this.signaturePad.fromDataURL(this.signatureMan);
           }
           },
           (err)=>{
             console.log("man");
-            alert("try later");
           }
         )
         const body1 = {
-          id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
-          fromWhom: "signatureWoman"
+          clinicVisitId: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+          signatureType: "signatureWoman"
         };
         this._signatureService.showSignature(body1).subscribe(
           (data)=>{
@@ -258,12 +269,11 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
           (err)=>{
             console.log("woman");
 
-            alert("try later");
           }
         )
         const body2 = {
-          id: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
-          fromWhom: "signatureDoctor"
+          clinicVisitId: this.ClinicVisitsId, // כאן תכניסי את ה-ID של הרשומה הרלוונטית
+          signatureType: "signatureDoctor"
         };
         this._signatureService.showSignature(body2).subscribe(
           (data)=>{
@@ -276,14 +286,13 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
           (err)=>{
             console.log("doctor");
 
-            alert("try later");
           }
         )
       }
 
   ngOnInit() {
   
-//    this.loadExistingSignature();
+    this.loadExistingSignature();
 
     this._InseminationService.getByClinicVisitId(this.ClinicVisitsId).subscribe(
       (data)=>{
@@ -559,12 +568,12 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
                     style: 'sectionText',
                     direction: 'rtl'
                   },
-                  {
-                    // text: `${this.persons.womanFathersName} שם האב  `, 
-                    text: `${this.revers(this.persons.womanFathersName)} האב: שם  `, 
-                  style: 'sectionText',
-                  direction: 'rtl'
-                  }
+                  // {
+                  //   // text: `${this.persons.womanFathersName} שם האב  `, 
+                  //   text: `${this.revers(this.persons.womanFathersName)} האב: שם  `, 
+                  // style: 'sectionText',
+                  // direction: 'rtl'
+                  // }
                 ]
               },
               
@@ -597,12 +606,12 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
                     style: 'sectionText',
                     direction: 'rtl'
                   },
-                  {
-                    // text: `${this.persons.manFathersName}: שם האב  `, 
-                    text: `${this.revers(this.persons.manFathersName)}  האב: שם `, 
-                  style: 'sectionText',
-                  direction: 'rtl'
-                  }
+                  // {
+                  //   // text: `${this.persons.manFathersName}: שם האב  `, 
+                  //   text: `${this.revers(this.persons.manFathersName)}  האב: שם `, 
+                  // style: 'sectionText',
+                  // direction: 'rtl'
+                  // }
                 ]
               }
               ,
@@ -622,44 +631,109 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
                   {
                     text: "הצהרה ",
                     style: 'sectionHeader',
+                  } ,
+                   {
+                    // text: ` הנוכחי למחזור זקיקים   ${this.insemination.folliclesNumber} על עומד האישה  של  הזקיקים מספר כי מצהירים  אנו
+                    // ${this.insemination.signature2?`V`:`X`} הבעל
+                    // ${this.insemination.signature2?`V`:`X`} האישה
+                    text: ` נשואים:  זוג כבני וחיים נשואים אנו כי בזאת ומאשרים מצהירים אנו `,
+                    style: 'sectionText',
                   },{
-                    // text: ` נשואים:  זוג כבני וחיים נשואים אנו כי בזאת ומאשרים מצהירים  אנו
-                    // ${this.insemination.signature1?`V`:`X`}  הבעל
-                    // ${this.insemination.signature1?`V`:`X`}  האישה
-                    text: ` נשואים:  זוג כבני וחיים נשואים אנו כי בזאת ומאשרים מצהירים  אנו
-                    
-                    __________  הבעל
-
-                    __________  האישה  
-
-                    `,
-                    style: 'sectionText'
-                  },
+  table: {
+    widths: ['*', 'auto'],
+    body: [
+      [
+        this.signatureMan
+          ? {
+              image: this.signatureMan,
+               width: 75,
+              height: 37.5,
+              alignment: 'right',
+              margin: [0, 0, 10, 0]
+            }
+          : {
+              text: '______________',
+              alignment: 'right',
+              margin: [0, 0, 10, 0]
+            },
+        { text: 'הבעל:', alignment: 'right', style: 'sectionText', margin: [0, 0, 10, 0] }  
+        ],
+      [
+        this.signatureWoman
+          ? {
+              image: this.signatureWoman,
+              width: 75,
+              height: 37.5,
+              alignment: 'right',
+              margin: [0, 0, 10, 0]
+            }
+          : {
+              text: '______________',
+              alignment: 'right',
+              margin: [0, 0, 10, 0]
+            },
+        { text: 'האישה:', alignment: 'right', style: 'sectionText', margin: [0, 0, 10, 0] }
+      ]
+    ]
+  },
+  layout: 'noBorders'
+}
+,
                   {
                     // text: ` הנוכחי למחזור זקיקים   ${this.insemination.folliclesNumber} על עומד האישה  של  הזקיקים מספר כי מצהירים  אנו
                     // ${this.insemination.signature2?`V`:`X`} הבעל
                     // ${this.insemination.signature2?`V`:`X`} האישה
-                    text: ` הנוכחי: למחזור זקיקים   ${this.insemination.folliclesNumber} על עומד האישה  של  הזקיקים מספר כי מצהירים  אנו
-
-                    __________ הבעל
-                    
-                    __________ האישה
-                    `,
+                    text: ` הנוכחי: למחזור זקיקים   ${this.insemination.folliclesNumber} על עומד האישה  של  הזקיקים מספר כי מצהירים  אנו`,
                     style: 'sectionText',
                   },
 
-                  {
+                 {
+  table: {
+    widths: ['*', 'auto'],
+    body: [
+      [
+        this.signatureMan
+          ? {
+              image: this.signatureMan,
+               width: 75,
+              height: 37.5,
+              alignment: 'right',
+              margin: [0, 0, 10, 0]
+            }
+          : {
+              text: '______________',
+              alignment: 'right',
+              margin: [0, 0, 10, 0]
+            },
+        { text: 'הבעל:', alignment: 'right', style: 'sectionText', margin: [0, 0, 10, 0] }  
+        ],
+      [
+        this.signatureWoman
+          ? {
+              image: this.signatureWoman,
+              width: 75,
+              height: 37.5,
+              alignment: 'right',
+              margin: [0, 0, 10, 0]
+            }
+          : {
+              text: '______________',
+              alignment: 'right',
+              margin: [0, 0, 10, 0]
+            },
+        { text: 'האישה:', alignment: 'right', style: 'sectionText', margin: [0, 0, 10, 0] }
+      ]
+    ]
+  },
+  layout: 'noBorders'
+}
+,
+ {
                     text: `   `,
                     style:'sectionTextCenter'
     
                   },
              
-                  
-                  {
-                    text: `   `,
-                    style:'sectionTextCenter'
-    
-                  },
               
                   {
                     text:this.revers(` ציר חמד – רחוב פועה 4   ירושלים  ~  ת.ד.  34102 91340   ירושלים   ~ טל: 1800-240-240 ~ פקס: 02-6510504  `)
@@ -844,22 +918,67 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
                     style: 'sectionText'
 
                   },
+          {
+  table: {
+    widths: ['50%', '50%'],
+    body: [
+      [
+        {
+          columns: [
+        
+            this.signatureWoman
+              ? {
+                  image: this.signatureWoman,
+                  width: 75,
+                  height: 37.5,
+                  alignment: 'right'
+                }
+              : {
+                  text: '__________',
+                  style: 'sectionText',
+                  alignment: 'right'
+                },
+                    {
+              text: 'האישה: חתימת ',
+              style: 'sectionText',
+              margin: [0, 0, 0, 0],
+              alignment: 'right'
+            }
+          ],
+          rtl: true
+        },
+        {
+          columns: [
+          
+            this.signatureMan
+              ? {
+                  image: this.signatureMan,
+                  width: 75,
+                  height: 37.5,
+                  alignment: 'right'
+                }
+              : {
+                  text: '__________',
+                  style: 'sectionText',
+                  alignment: 'right'
+                },
                   {
-                    columns: [
-                      {
-                        // text: `${this.insemination.signature3?`V`:`X`} חתימת האישה`,
-                        text: `__________  האישה: חתימת `,   
-                        style: 'sectionText',
-                        direction: 'rtl'
-                      },
-                      {
-                        // text: ` ${this.insemination.signature3?`V`:`X`} חתימת הבעל `,
-                        text: `__________  הבעל: חתימת `, 
-                      style: 'sectionText',
-                      direction: 'rtl'
-                      }
-                    ]
-                  },
+              text: 'הבעל: חתימת ',
+              style: 'sectionText',
+              margin: [0, 0, 0, 0],
+              alignment: 'right'
+            }
+          ],
+          rtl: true
+        }
+      ]
+    ]
+  },
+  layout: 'noBorders',
+  margin: [0, 10, 0, 0]
+}
+,
+
                   // {
                   //   text: `   `,
                   //   style:'sectionTextCenter'
@@ -885,12 +1004,32 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
                         style: 'sectionText',
                         direction: 'rtl'
                       },
-                      {
-                        // text: `${this.insemination.doctorSignature?`V`:`X`} ה: הרופא/  חתימת `, 
-                        text: `__________ ה: הרופא/  חתימת `, 
-                      style: 'sectionText',
-                      direction: 'rtl'
-                      },
+                 {
+  columns: [
+  
+    this.signatureDoctor
+      ? {
+          image: this.signatureDoctor,
+          width: 75,
+          height: 37.5,
+          alignment: 'right'
+        }
+      : {
+          text: '__________',
+          style: 'sectionText',
+          alignment: 'right'
+        },
+          {
+      text: ` ה: הרופא/  חתימת `,
+      style: 'sectionText',
+      margin: [0, 0, 5, 0],
+      alignment: 'right'
+    }
+  ],
+  rtl: true,
+  margin: [0, 10, 0, 0]
+}
+,
                       {
                         text: `     ${this.doctor?this.doctor.licenseNumber:""} רשיון: מספר  `, 
                       style: 'sectionText',
@@ -898,11 +1037,7 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
                       }
                     ]
                   },
-                  {
-                    text: `   `,
-                    style:'sectionTextCenter'
-    
-                  },
+                  
                   {
                     text: " ה הרופא/  סיכום ",
                     style: 'sectionHeader'
@@ -954,25 +1089,44 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
                   style: 'sectionText',
                   direction: 'rtl'
                   },
-                  {
+                                  {
                     columns: [
                       {
-                        text: `  ${this.doctor? this.revers(this.doctor.employeeName):""} ה: הרופא/  שם `, 
+                        text: ` ${this.doctor? this.revers(this.doctor.employeeName):" "} ה: הרופא/  שם`, 
                         style: 'sectionText',
                         direction: 'rtl'
                       },
+                 {
+  columns: [
+  
+    this.signatureDoctor
+      ? {
+          image: this.signatureDoctor,
+          width: 75,
+          height: 37.5,
+          alignment: 'right'
+        }
+      : {
+          text: '__________',
+          style: 'sectionText',
+          alignment: 'right'
+        },
+          {
+      text: ` ה: הרופא/  חתימת `,
+      style: 'sectionText',
+      margin: [0, 0, 5, 0],
+      alignment: 'right'
+    }
+  ],
+  rtl: true,
+  margin: [0, 10, 0, 0]
+}
+,
                       {
-                        // text: ` ${this.insemination.doctorSignatureAfter?`V`:`X`} ה: הרופא/  חתימת `, 
-                      text: `__________ ה: הרופא/  חתימת `, 
+                        text: `     ${this.doctor?this.doctor.licenseNumber:""} רשיון: מספר  `, 
                       style: 'sectionText',
                       direction: 'rtl'
                       }
-                      ,
-                      {
-                        text: `   ${this.doctor?this.doctor.licenseNumber:" "} רשיון: מספר `, 
-                      style: 'sectionText',
-                      direction: 'rtl'
-                      },
                     ]
                   },
                    // {
@@ -1002,7 +1156,7 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
             sectionHeader: {  
                 bold: true,  
                 alignment: 'right',
-                fontSize:14, 
+                fontSize:13, 
                 font: 'ARIELF', 
                 margin: [0, 8, 0, 8]  ,
                 fillColor: '#00BFFF',
@@ -1011,7 +1165,7 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
             sectionHeaderH: {  
               bold: true,  
               alignment: 'center',
-              fontSize: 16, 
+              fontSize: 15, 
               font: 'ARIELF', 
               margin: [0, 8, 0, 8]  ,
               fillColor: '#00BFFF'
@@ -1019,15 +1173,16 @@ return this._InseminationService.saveInsemination(this.inseminationToSave);
             sectionText: {  
               bold: true, 
                
-              fontSize: 11, 
+              fontSize: 10, 
               font: 'ARIELF', 
               margin: [0, 5, 0,5]  ,
               alignment: 'right'
           },
           
+          
             sectionTextCenter: {  
               bold: true,  
-              fontSize: 11, 
+              fontSize: 10, 
               font: 'ARIELF', 
               margin: [0, 3, 0,3]  ,
               alignment: 'center'

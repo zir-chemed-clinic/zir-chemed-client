@@ -246,7 +246,7 @@ constructor(private _personsService:PersonsService,private _cinicVisitsService:C
      
       ) 
     
-this._cinicVisitsService.getByFlag(false).subscribe(
+this._cinicVisitsService.getByFlag(false,false).subscribe(
       (data)=>{
         // data.sort(function(a,b){
         //   // Turn your strings into dates, and then subtract them

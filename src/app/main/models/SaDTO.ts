@@ -38,6 +38,7 @@ export class SaDTO
          oligospermia:boolean;
          asthenozoospermia:boolean;
          teratospermia:boolean;
+         azoospermia:boolean;
          normalSperm: boolean;
 
 

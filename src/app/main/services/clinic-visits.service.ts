@@ -22,10 +22,9 @@ export class ClinicVisitsService {
   getAll():Observable<ClinicVisitsDTO[]> {
     return this._http.get<ClinicVisitsDTO[]>('/api/ClinicVisits');
   }
-  getByFlag(flag:boolean):Observable<ClinicVisitsDTO[]> {
-    return this._http.get<ClinicVisitsDTO[]>('/api/ClinicVisits/getByFlag/'+flag+','+1);
-    // return this._http.get<ClinicVisitsDTO[]>('/api/ClinicVisits');
-  }
+getByFlag(flag: boolean, takeFirstOnly: boolean): Observable<ClinicVisitsDTO[]> {
+  return this._http.get<ClinicVisitsDTO[]>(`/api/ClinicVisits/getByFlag/${flag},${takeFirstOnly}`);
+}
   // deleteById(id:number):Observable<ClinicVisitsDTO> {
   //   return this._http.put<ClinicVisitsDTO>('api/ClinicVisits/',id);
   // }

@@ -132,22 +132,20 @@ constructor(private _personsService:PersonsService,private _cinicVisitsService:C
       alert("error")
      }  ) 
     
-this._cinicVisitsService.getByFlag(true).subscribe(
-      (data)=>{
-        debugger
-        // data.sort(function(a,b){
-        //   // Turn your strings into dates, and then subtract them
-        //   // to get a value that is either negative, positive, or zero.
-        //   return new Date(b.visitsDate) - new Date(a.visitsDate);
-        // });
-        // this.clinicVisitsList=data.reverse();
-        this.clinicVisitsList=data.sort(
-          (objA, objB) => new Date(objA.visitsDate).getTime()- new Date(objB.visitsDate).getTime(),
-        );
-        this.clinicVisitsListToDisplay= this.clinicVisitsList.reverse();
-        },
-     (error)=>{ alert("try later");})
-    // this.clinicVisitsList=this.tmpdata;
-  }
+  this._cinicVisitsService.getByFlag(true, true).subscribe((first30) => {
+    this.clinicVisitsList = first30.sort((a, b) =>
+      new Date(b.visitsDate).getTime() - new Date(a.visitsDate).getTime()
+    );
+    this.clinicVisitsListToDisplay = [...this.clinicVisitsList];
 
+    // שלב שני - כל השאר
+    this._cinicVisitsService.getByFlag(true, false).subscribe((allData) => {
+      const sortedAll = allData.sort((a, b) =>
+        new Date(b.visitsDate).getTime() - new Date(a.visitsDate).getTime()
+      );
+      this.clinicVisitsList = sortedAll;
+      this.clinicVisitsListToDisplay = [...sortedAll];
+    });
+  });
+  }
 }

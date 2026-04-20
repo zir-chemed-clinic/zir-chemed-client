@@ -8,6 +8,6 @@
 <br>
 <canvas #signatureCanvas width="400" height="200" style="border:1px solid black;"></canvas>
 <br>
-<button mat-raised-button (click)="saveSignature()">שמור חתימה</button>
-<button mat-raised-button (click)="clearSignature()">נקה חתימה</button>
+<button *ngIf="!exitSignature" mat-raised-button (click)="saveSignature()">שמור חתימה</button>
+<button *ngIf="!exitSignature" mat-raised-button (click)="clearSignature()">נקה חתימה</button>
 </div>

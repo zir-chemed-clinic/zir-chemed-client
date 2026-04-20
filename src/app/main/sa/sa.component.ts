@@ -99,7 +99,8 @@ export class SaComponent implements OnInit ,AfterViewInit
     NormalSperm : new FormControl(false),
     Oligospermia : new FormControl(false),
     Asthenozoospermia : new FormControl(false),
-    Teratospermia : new FormControl(false)
+    Teratospermia : new FormControl(false),
+    Azoospermia : new FormControl(false)
 
   })
   sendSuccessfully:boolean=false;
@@ -168,7 +169,7 @@ export class SaComponent implements OnInit ,AfterViewInit
     this.saform.controls["NormalSperm"].setValue(sa.normalSperm);
     this.saform.controls["Oligospermia"].setValue(sa.oligospermia);
     this.saform.controls["Asthenozoospermia"].setValue(sa.asthenozoospermia);
-    this.saform.controls["Teratospermia"].setValue(sa.teratospermia); 
+    this.saform.controls["Azoospermia"].setValue(sa.azoospermia); 
 
   }
     saveSaObservable():Observable<SaDTO>{
@@ -244,6 +245,7 @@ export class SaComponent implements OnInit ,AfterViewInit
     this.saToSave.oligospermia= this.saform.controls["Oligospermia"].value;
     this.saToSave.asthenozoospermia= this.saform.controls["Asthenozoospermia"].value;
     this.saToSave.teratospermia= this.saform.controls["Teratospermia"].value;
+    this.saToSave.azoospermia= this.saform.controls["Azoospermia"].value;
   return  this._SaService.saveSa(this.saToSave);
   }
   saveSa(){
@@ -320,6 +322,8 @@ export class SaComponent implements OnInit ,AfterViewInit
         if(data){
         this.sa=data;
         this.saId=this.sa.said;
+         console.log(this.sa);
+        console.log(this.saId);
         this.setSa(this.sa);
         if (this.sa.signature) {
           this.signature = this.sa.signature;  // אם יש חתימה, נסה להציג אותה
@@ -804,7 +808,7 @@ saveSignature() {
                       { text: "pH", style: "sectionText", alignment: "right" }
                     ],
                     [
-                      { text: "בתנועה זרע 40% מעל", style: "sectionText", alignment: "right" },
+                      { text: "בתנועה זרע  40% מעל", style: "sectionText", alignment: "right" },
                       { text: `${this.sa.motility}`, style: "sectionText", alignment: "right" },
                       { text: "motility % )תנועה(", style: "sectionText", alignment: "right" }
                     ],
@@ -933,6 +937,13 @@ saveSignature() {
                 [
                   {
                     text: this.sa.teratospermia?`Teratospermia:√ `:`Teratospermia :\uf046  `,
+                    style: 'sectionText'
+                  }
+                ]
+                ,
+                  [
+                  {
+                    text: this.sa.azoospermia?`Azoospermia:√ `:`Azoospermia :\uf046  `,
                     style: 'sectionText'
                   }
                 ]

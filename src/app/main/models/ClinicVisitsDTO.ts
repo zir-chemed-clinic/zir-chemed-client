@@ -22,6 +22,7 @@ export class ClinicVisitsDTO{
     closed:Boolean;
     closedSA:Boolean;
     closedIUI:Boolean;
+    closedDNA:Boolean;
     visitsDate:Date;
     apartmentHr:Boolean;
     apartmentVy:Boolean;

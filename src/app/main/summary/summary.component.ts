@@ -126,7 +126,7 @@ export class SummaryComponent implements OnInit {
 
   ngOnInit() {
     debugger
-    this._cinicVisitsService.getByFlag(true).subscribe(
+    this._cinicVisitsService.getByFlag(true,false).subscribe(
       (data)=>{
         debugger
         // data.sort(function(a,b){

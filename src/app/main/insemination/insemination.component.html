@@ -38,10 +38,10 @@
                         <mat-label>שם האשה</mat-label>
                         <input matInput formControlName="WomanName">
                       </mat-form-field>
-                      <mat-form-field class="input" >
+                      <!-- <mat-form-field class="input" >
                         <mat-label>שם האב</mat-label>
                         <input matInput  formControlName="WomanFathersName">
-                      </mat-form-field>
+                      </mat-form-field> -->
                    
                       <mat-form-field  class="input">
                         <mat-label>תעודת זהות אשה</mat-label>
@@ -58,10 +58,10 @@
                     <mat-label>שם הבעל</mat-label>
                     <input matInput formControlName="ManName">
                   </mat-form-field>
-                  <mat-form-field class="input" >
+                  <!-- <mat-form-field class="input" >
                     <mat-label>שם האב</mat-label>
                     <input matInput  formControlName="ManFathersName">
-                  </mat-form-field>
+                  </mat-form-field> -->
                
                   <mat-form-field  class="input">
                     <mat-label>תעודת זהות הבעל</mat-label>
@@ -72,16 +72,46 @@
                  </mat-panel-title>
                   <p>אנו מצהירים ומאשרים בזאת כי אנו נשואים וחיים כבני זוג נשואים:</p>
                   <!-- <mat-checkbox class="example-margin" color="primary" formControlName="Signature1" class="input" >חתימת הבעל והאישה</mat-checkbox> -->
-                  <p>הבעל _______________ </p>
-                  <p>האישה _______________ </p>
+                  <!-- <p>הבעל _______________ </p>
+                  <p>האישה _______________ </p> -->
+                  <p>
+                      הבעל
+                      <ng-container *ngIf="signatureMan; else manPlaceholder">
+                        <img [src]="signatureMan" alt="חתימת הבעל" width="100" height="50" style="vertical-align: middle;" />
+                      </ng-container>
+                      <ng-template #manPlaceholder> _______________ </ng-template>
+                    </p>
+
+                    <p>
+                      האישה
+                      <ng-container *ngIf="signatureWoman; else womanPlaceholder">
+                        <img [src]="signatureWoman" alt="חתימת האישה" width="100" height="50" style="vertical-align: middle;" />
+                      </ng-container>
+                      <ng-template #womanPlaceholder> _______________ </ng-template>
+                    </p>
                   <p>אנו מצהירים כי מספר הזקיקים של האישה עומד על: __ זקיקים למחזור הנוכחי</p>
                    <mat-form-field  class="input">
                   <mat-label>מספר זקיקים</mat-label>
                     <input matInput formControlName="folliclesNumber">
                   </mat-form-field>
                   <!-- <mat-checkbox class="example-margin" color="primary" formControlName="Signature2" class="input" >חתימת הבעל והאישה</mat-checkbox> -->
-                  <p>הבעל _______________ </p>
-                  <p>האישה _______________ </p>
+                  <!-- <p>הבעל _______________ </p>
+                  <p>האישה _______________ </p> -->
+                  <p>
+                    הבעל
+                    <ng-container *ngIf="signatureMan; else manPlaceholder">
+                      <img [src]="signatureMan" alt="חתימת הבעל" width="100" height="50" style="vertical-align: middle;" />
+                    </ng-container>
+                    <ng-template #manPlaceholder> _______________ </ng-template>
+                  </p>
+
+                  <p>
+                    האישה
+                    <ng-container *ngIf="signatureWoman; else womanPlaceholder">
+                      <img [src]="signatureWoman" alt="חתימת האישה" width="100" height="50" style="vertical-align: middle;" />
+                    </ng-container>
+                    <ng-template #womanPlaceholder> _______________ </ng-template>
+                  </p>
                   <mat-panel-title>
                     חתימת הזוג
                  </mat-panel-title>
@@ -94,7 +124,7 @@
             </p>
             <p> תאריך : {{date}}</p>
             <!-- <mat-checkbox class="example-margin" color="primary" formControlName="Signature3" class="input" >חתימת הבעל והאישה</mat-checkbox> -->
-            <!-- <span style="margin-right: 5%;">חתימת הבעל : </span>
+           <span style="margin-right: 5%;">חתימת הבעל : </span>
             <button *ngIf="!signatureMan; else showSignature" style="margin-right: 5%;" mat-button (click)="openSignatureDialog(0)">לחץ לחתימה</button>
             <ng-template #showSignature>
               <img [src]="signatureMan" alt="חתימה" width="100" height="50"  />
@@ -103,9 +133,9 @@
             <button *ngIf="!signatureWoman; else showSignature1" style="margin-right: 5%;" mat-button (click)="openSignatureDialog(1)">לחץ לחתימה</button>
             <ng-template #showSignature1>
               <img [src]="signatureWoman" alt="חתימה" width="100" height="50"  />
-            </ng-template> -->
-            <p>הבעל _______________ </p>
-            <p>האישה _______________ </p>
+            </ng-template> 
+            <!-- <p>הבעל _______________ </p>
+            <p>האישה _______________ </p> -->
             <br>
             <mat-panel-title>
               חתימת הרופא/ה
@@ -118,7 +148,12 @@
                 <input matInput formControlName="employeeName">
               </mat-form-field>
               <!-- <mat-checkbox class="example-margin" color="primary" formControlName="DoctorSignature" class="input" >חתימת הרופא/ה</mat-checkbox> -->
-              <p>חתימת הרופאה _______________ </p>
+              <!-- <p>חתימת הרופאה _______________ </p> -->
+            <span style="margin-right: 5%;">חתימת הרופאה : </span>
+            <button *ngIf="!signatureDoctor; else showSignature2" style="margin-right: 5%;" mat-button (click)="openSignatureDialog(2)">לחץ לחתימה</button>
+            <ng-template #showSignature2>
+              <img [src]="signatureDoctor" alt="חתימה" width="100" height="50"  />
+            </ng-template> 
               <mat-form-field  class="input">
                     <mat-label>מספר רשיון</mat-label>
                     <input matInput formControlName="licenseNumber">
@@ -126,7 +161,7 @@
                     <!-- <button mat-button (click)="openSignatureDialog()">פתח חלון חתימה</button> -->
 
                   </mat-form-field>
-                  <!-- <ng-template #signatureDialog>
+                  <ng-template #signatureDialog>
                     <h2 mat-dialog-title>חתימה</h2>
                     <mat-dialog-content>
                       <canvas #signatureCanvas width="400" height="200" style="border:1px solid black;"></canvas>
@@ -137,7 +172,7 @@
                       <button mat-button mat-dialog-close>סגור</button>
                     </mat-dialog-actions>
                   </ng-template>
-                   -->
+                   
               </mat-expansion-panel>
             
               <div class="cen" >

@@ -33,6 +33,7 @@
               <input matInput #input placeholder="00:00"   formControlName="visitTime">
             </mat-form-field>
           </div>
+          
           <div class="col-3">  <mat-form-field class="input">
               <mat-label>בחר עובד מעבדה</mat-label>
               <mat-select formControlName="Preformed">
@@ -264,6 +265,7 @@
 <!-- <app-iui *ngIf="flagIui" [ClinicVisitsId]="clinicVisitsId"></app-iui> -->
 <app-pct *ngIf="flagPct" [ClinicVisitsId]="clinicVisitsId"></app-pct>
 <app-sa *ngIf="flagSa" [ClinicVisitsId]="clinicVisitsId"></app-sa>
+<app-dna *ngIf="flagDNA" [ClinicVisitsId]="clinicVisitsId"></app-dna>
 <div class="acc">
   <mat-accordion class="example-headers-align" multi *ngIf="flagIui">
     <mat-expansion-panel>

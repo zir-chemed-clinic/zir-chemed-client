@@ -1305,39 +1305,39 @@ this.saveIUI()
                 style: 'sectionText',
                 alignment: 'center'
               },
-              {
-                columns:[
-                 [ {
-                    text:  `grade 1   ${this.iui.motilityAfterTreatment_1}    (1 )דרגה `,
-                    style: 'sectionText'
-                  }
-                ],
-                [
-                  {
-                    text: `grade 2   ${this.iui.motilityAfterTreatment_2}    (2 )דרגה `,
-                    style: 'sectionText'
-                  }
-                ]
-                ,
-                [
-                  {
-                    text: `grade 3   ${this.iui.motilityAfterTreatment_3}    (3 )דרגה `,
-                    style: 'sectionText'
-                  }
-                ]
-                ,
-                [
-                  {
-                    text: `grade 4   ${this.iui.motilityAfterTreatment_4}    (4 )דרגה `,
-                    style: 'sectionText'
-                  }
-                ]
-                ,
-                
-                ]
-      
-      
-              },
+              // {
+              //   columns: [
+              //     [{
+              //       text: `grade 1   ${this.iui.motilityAfterTreatment_1}    (1 )דרגה `,
+              //       style: 'sectionText'
+              //     }
+              //     ],
+              //     [
+              //       {
+              //         text: `grade 2   ${this.iui.motilityAfterTreatment_2}    (2 )דרגה `,
+              //         style: 'sectionText'
+              //       }
+              //     ]
+              //     ,
+              //     [
+              //       {
+              //         text: `grade 3   ${this.iui.motilityAfterTreatment_3}    (3 )דרגה `,
+              //         style: 'sectionText'
+              //       }
+              //     ]
+              //     ,
+              //     [
+              //       {
+              //         text: `grade 4   ${this.iui.motilityAfterTreatment_4}    (4 )דרגה `,
+              //         style: 'sectionText'
+              //       }
+              //     ]
+              //     ,
+
+              //   ]
+
+
+              // },
               // {
               //   columns: [
               //     {

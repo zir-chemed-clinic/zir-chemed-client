@@ -61,6 +61,8 @@ import {MatIconModule} from '@angular/material';
 import { SummaryComponent } from './summary/summary.component';
 import { DigitalSignatureFormComponent } from './digital-signature-form/digital-signature-form.component';
 import { PaymentComponent } from './payment/payment.component';
+import { DnaComponent } from './dna/dna.component';
+import { DnaService } from './services/dna-service';
 //import { SignaturePadModule } from 'angular2-signaturepad';
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -69,7 +71,7 @@ import { PaymentComponent } from './payment/payment.component';
 // import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
-  declarations: [PersonsComponent,HomeComponent, ClinicVisitsComponent, EmployeesComponent, PctComponent, SaComponent, InseminationComponent, IuiComponent, TreatmentsComponent, SubsidizationComponent, SummonsClinicVisitsComponent, HomeComponent, EditClinicVisitComponent, AllPersonsComponent, AllEmployeesComponent, AllTreatmentsComponent, PctPdfComponent, SaPdfComponent, EmployeeSalaryComponent, HistoryClinicVisitsComponent, SummaryComponent, DigitalSignatureFormComponent, PaymentComponent],
+  declarations: [PersonsComponent,HomeComponent, ClinicVisitsComponent, EmployeesComponent, PctComponent, SaComponent, DnaComponent, InseminationComponent, IuiComponent, TreatmentsComponent, SubsidizationComponent, SummonsClinicVisitsComponent, HomeComponent, EditClinicVisitComponent, AllPersonsComponent, AllEmployeesComponent, AllTreatmentsComponent, PctPdfComponent, SaPdfComponent, EmployeeSalaryComponent, HistoryClinicVisitsComponent, SummaryComponent, DigitalSignatureFormComponent, PaymentComponent],
   imports: [
     // CalendarModule,
     // CheckboxModule,
@@ -127,7 +129,7 @@ import { PaymentComponent } from './payment/payment.component';
 
     ])
   ], providers:[TreatmentService,PersonsService,ClinicVisitsService,EmployeesService,
-    InseminationService,IuiService,PctService,PersonsService,SaService,PaymentService,SubsidizationService,TreatmentsService,EmailService,SignatureService,
+    InseminationService,IuiService,PctService,PersonsService,SaService, DnaService,PaymentService,SubsidizationService,TreatmentsService,EmailService,SignatureService,
     MatDatepickerModule,NgxMatDatetimePickerModule,NgxMatTimepickerModule,MatDatepickerModule]
 })
 export class MainModule { }

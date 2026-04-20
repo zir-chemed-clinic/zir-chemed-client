@@ -7,17 +7,20 @@ import { Form } from '../models/Form';
   providedIn: 'root'
 })
 export class SignatureService {
-    saveSignature(from: { id: number; fromWhom: string; signature: string }): Observable<boolean> {
-        return this._http.post<boolean>('/api/Picture/', from);
+    // saveSignature(from: { id: number; fromWhom: string; signature: string }): Observable<boolean> {
+    //     return this._http.post<boolean>('/api/Picture/', from);
+    //   }
+     saveSignature(from: { clinicVisitId: number; signatureType: string; signatureDataBase64: string  }): Observable<boolean> {
+        return this._http.post<boolean>('/api/Signatures/', from);
       }
      
-      showSignature(from: {id: number; fromWhom: string}): Observable<string> {
+      showSignature(from: {clinicVisitId: number; signatureType: string}): Observable<string> {
         const params = new HttpParams()
-          .set('id', from.id.toString())
-          .set('fromWhom', from.fromWhom);
+          .set('clinicVisitId', from.clinicVisitId.toString())
+          .set('signatureType', from.signatureType);
       console.log("service");
       
-        return this._http.get('/api/Picture', { params, responseType: 'text'  });
+        return this._http.get('/api/Signatures', { params, responseType: 'text'  });
       }
     
     
